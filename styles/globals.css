@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  html {
+    @apply font-Tajawal;
+  }
+  select {
+    /* all: unset; */
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+.text-initial{
+  text-align:initial;
+}
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  select.w-full {
+    /* width: -webkit-fill-available; */
+  }
+  select:focus-within,
+  input:focus-within,
+  textarea:focus-within {
+    @apply outline-1 outline-primary;
+  }
+}
+/* @layer base { */
+a {
+  cursor: pointer;
+}
+/* } */
+
+/* short project */
+.container-page {
+  @apply container px-4 mx-auto lg:px-24 md:px-12 sm:px-10;
+}
+.container-page-md {
+  @apply container px-4 mx-auto lg:px-32 md:px-12 sm:px-10;
+}
+.container-page-small {
+  @apply w-[700px] px-4 mx-auto max-w-full;
+}
+.button {
+  @apply px-4 py-2 text-center text-white transition duration-200 ease-in rounded-lg shadow-md bg-primary hover:bg-primary-400 focus:ring-primary-500 focus:ring-offset-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.button.unactive {
+  @apply text-gray-500 bg-white focus:ring-gray-500 focus:ring-offset-indigo-200;
+}
+.button.cancle {
+  @apply text-black bg-secondary focus:ring-gray-500 focus:ring-offset-indigo-200;
+}
+.button.big {
+  @apply px-4 text-xl md:text-4xl md:px-8 md:w-40 min-w-max;
+}
+.input-with-icon input{
+  @apply rtl:pr-12 ltr:pl-12;
+}
+.imgField{
+  @apply rounded-lg border-[2px] border-dashed border-primary mb-8;
+}
+/* end project */
+
+.flickity-button {
+  @apply bg-[#deeefa] rounded-full  text-primary  hover:bg-primary-100;
+}
+.flickity-viewport {
+  @apply w-[90%]  mx-auto;
+}
+
+.progress-circle {
+  transform: scaleX(-1) rotate(-90deg);
+}
+
+.progress-circle circle {
+  transition: 1.5s ease;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: nowrap;
+}
+
+.custumn-check-box:checked + label {
+  @apply text-white bg-primary
+}
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  /* font-size: 18px; */
+
+  /* Center slide text vertically */
+  /* display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center; */
+}
+
+/* .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+} */
+.swiper-button-next:after ,
+.swiper-button-prev:after {
+  content: 'prev';
+  color: #fff!important;
+  border: 1px solid;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+.swiper-pagination{
+  text-align: initial;
+  bottom: 2rem !important;
+    right: 2rem;
+}
+:root{
+  --swiper-pagination-color:#fff; 
+ --swiper-pagination-bullet-horizontal-gap:3px; 
+}
+.swiper-button-next {
+  left: 2rem !important;
+  bottom: 2rem;
+  top: initial;
+  top: initial;
+}
+.swiper-button-prev{
+  bottom: 2rem;
+  top: initial;
+  left:4.5rem !important;
+  right:initial !important;
+}
