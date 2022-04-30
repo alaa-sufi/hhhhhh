@@ -11,12 +11,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        Tajawal: ["Tajawal"],
+        primary: ["var(--primary-font)"],
       },
       colors: {
-        secondary: "#e7e7e9",
+        secondary: "var(--secondary-color)",
         primary: {
-          DEFAULT: '#754cc3',
+          DEFAULT: "var(--primary-color)",
           '50': '#B8CDFA',
           '100': '#A5C0F9',
           '200': '#7FA5F6',
@@ -28,7 +28,10 @@ module.exports = {
           '800': '#051C4D',
           '900': '#020919'
         },
-      }
+      },
+      fontSize: {
+        'h2':["var(--h2-size)"]
+      },
     }
   },
   plugins: [],

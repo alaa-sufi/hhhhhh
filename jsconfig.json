@@ -5,5 +5,12 @@
         "paths":{
             "@/*":["components/*"]
         }
-    }
+    },
+    "pages": {
+        "*": ["common"],
+        "/": ["home"],
+        "/auth/[slug]": ["auth"],
+        "/content/[slug]": ["content"],
+        "rgx:^/account": ["account"]
+      }
 }

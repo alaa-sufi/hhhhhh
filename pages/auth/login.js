@@ -1,19 +1,24 @@
 
 import {useState} from "react"
-import Login from "@/ui/short/Login";
+import Login from "@/ui/short/auth";
 // import { Input, InputIcon } from "@/form"
 // import { ShowPassword, HidePassword, User } from "public/svg"
+import useTranslation from 'next-translate/useTranslation'
+
 import { Formik } from "formik";
 import * as Yup from "yup";
 export default function LoginPage() {
   const [passwordType ,setPasswordType] = useState(true)
+  const { t, lang } = useTranslation()
+
   const onSubmit = (values) => {
     console.log(values)
   }
   return (
     <Login slider>
-      {/* <h1 className="flex justify-center gap-4 mb-16 text-xl font-bold text-center md:mb-20 md:text-4xl"><User className="w-6 md:w-8" />تسجيل الدخول </h1>
-      <Formik initialValues={{ name: "", password: "" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
+      <span>{t('auth:welcome')}</span>
+      <h1>{t('auth:register-company-title')}</h1>
+      {/* <Formik initialValues={{ name: "", password: "" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
         name: Yup.string().required("يرجى ادخال الاسم"), password: Yup.string().required('يرجى كتابة كلمة المرور.')
       })}>
         {(props) => (

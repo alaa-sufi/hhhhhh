@@ -29,10 +29,10 @@ export default function ModalPage() {
  size="32"
  color="#FF8A65"
 />
-<Lock1
+{/* <Lock1
  size="32"
  color="#FF8A65"
-/>
+/> */}
 <Eye
  size="32"
  color="#FF8A65"

@@ -1,9 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+:root{
+  --primary-color : #754cc3;
+  --secondary-color : #F5F5F5;
+  --primary-font : 'Montserrat', sans-serif;
+  --h2-size : 2rem;
+}
 @layer base {
-  html {
-    @apply font-Tajawal;
+  body {
+    /* @apply font-primary; */
   }
   select {
     /* all: unset; */
@@ -46,7 +52,13 @@ a {
   @apply w-[700px] px-4 mx-auto max-w-full;
 }
 .button {
-  @apply px-4 py-2 text-center text-white transition duration-200 ease-in rounded-lg shadow-md bg-primary hover:bg-primary-400 focus:ring-primary-500 focus:ring-offset-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  @apply px-4 py-2 text-center rounded-lg shadow-md ;
+}
+.button.primary {
+  @apply text-white bg-primary ;
+}
+.button.out-primary {
+  @apply bg-transparent text-primary outline-1 outline-primary outline;
 }
 
 .button.unactive {
