@@ -5,6 +5,7 @@
       "*": ["common"],
       "/": ["home", "example"],
       "/auth/login": ["auth"],
-      "/auth/register-all": ["auth"]
+      "/auth/register-all": ["auth"],
+      "/auth/register-company": ["auth"]
     }
   }

@@ -5,17 +5,28 @@ import Image from "next/image"
 import img1 from "public/images/DefaultImg.png"
 import { Autoplay, Navigation, Pagination } from "swiper";
 import useTranslation from 'next-translate/useTranslation'
-
+import logo from "public/images/placeholder/logo.png"
+import SelectLangs from "@/ui/SelectLangs"
+import LoginLinks from "@/ui/short/LoginLinks"
 export default function Login({ slider, ...props }) {
+    //slider props to collect two view for layouts slider & img
     const { t, lang } = useTranslation()
-
     const swipperInfo = [
         { text: t('common:test'), img: { img1 } },
         { text: t('auth:sliderText1'), img: { img1 } },
     ]
     return (
         <div className="grid h-screen grid-cols-12 gap-4 ">
-            <div className={`${slider ? "col-span-6" : "col-span-8"} p-20`}>{props.children}</div>
+            <div className={`${slider ? "col-span-6" : "col-span-8"} px-20 py-10 flex flex-col justify-between`}>
+                <div className='flex justify-between' >
+                    <Image src={logo} alt="logo" width="100" height="50" />
+                    <SelectLangs />
+                </div>
+                <div>
+                    {props.children}
+                    <LoginLinks />
+                </div>
+            </div>
             <div className={`${slider ? "col-span-6" : "col-span-4"} bg-primary relative`}>
                 <LoginBackground className="absolute w-full top-[-10%] right-1/3 transform translate-x-1/2 hidden" />
                 {slider ?
