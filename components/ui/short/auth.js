@@ -19,7 +19,7 @@ export default function Login({ slider, ...props }) {
         <div className="grid h-screen grid-cols-12 gap-4 ">
             <div className={`${slider ? "col-span-6" : "col-span-8"} px-20 py-10 flex flex-col justify-between`}>
                 <div className='flex justify-between' >
-                    <Image src={logo} alt="logo" width="100" height="50" />
+                    <img src={"/images/placeholder/logo.png"} alt="logo" width="100"  />
                     <SelectLangs />
                 </div>
                 <div>

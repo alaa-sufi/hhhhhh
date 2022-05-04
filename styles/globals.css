@@ -7,6 +7,9 @@
   --primary-font : 'Montserrat', sans-serif;
   --h2-size : 2rem;
 }
+.all-unset{
+  all: unset;
+}
 @layer base {
   body {
     /* @apply font-primary; */
@@ -166,4 +169,48 @@ a {
   top: initial;
   left:4.5rem !important;
   right:initial !important;
+}
+/* /reset phone  */
+.react-tel-input .form-control{
+  width: calc(100% - 3rem);
+  background: transparent;
+  border: none;
+  height: initial;
+  direction: ltr;
+  padding: 0 1rem;
+
+
+}
+.react-tel-input .flag-dropdown{
+  border: none;
+  border-right: 1px solid #eee;
+  padding: 0;
+  padding-right: 1rem;
+  position: initial;
+}
+.react-tel-input .selected-flag:hover, .react-tel-input .selected-flag:focus{
+  background:transparent;
+}
+.react-tel-input .country-list .search{
+  background:transparent;
+}
+.react-tel-input .country-list{
+  width: 100%;
+    right: 0;
+    background-color:var(--secondary-color)
+}
+.react-tel-input .country-list .search-box{
+  background: #fff;
+  padding: 0.5rem 1rem;
+  width: 95%;
+  border-radius: 0.5rem;
+  margin: auto;
+  display: block;
+}
+.react-tel-input .country-list .search-emoji{
+  display: none;
+}
+.react-tel-input .selected-flag{
+  display: flex;
+  justify-content: center;
 }

@@ -17,10 +17,10 @@ export default function RegisterAll() {
             {/* start individual button */}
             <DropdownButton open={openIndividual} onToggle={() => setopenIndividual(!openIndividual)} head={<> <Profile size="20" color="#333333" />
                 <span className="select-none">{t('auth:Register_as_an_individual')}</span></>} >
-                <ButtonTheme color="primary" outline as="a" href="/">
+                <ButtonTheme color="primary" outline as="link" href="/">
                     {t('auth:sign_in')}
                 </ButtonTheme>
-                <ButtonTheme color="primary" as="a" href="/">
+                <ButtonTheme color="primary" as="link" href="/">
                     {t('auth:Create_a_new_account')}
                 </ButtonTheme>
             </DropdownButton>
@@ -28,10 +28,10 @@ export default function RegisterAll() {
             {/* start company button */}
             <DropdownButton open={openCompany} onToggle={() => setopenCompany(!openCompany)} head={<> <Courthouse size="20" color="#333333" />
                 <span className="select-none">{t('auth:Register_as_an_company')}</span></>} >
-                <ButtonTheme color="primary" outline as="a" href="/">
+                <ButtonTheme color="primary" outline as="link" href="/">
                     {t('auth:sign_in')}
                 </ButtonTheme>
-                <ButtonTheme color="primary " as="a" href="/">
+                <ButtonTheme color="primary " as="link" href="/">
                     {t('auth:Create_a_new_account')}
                 </ButtonTheme>
             </DropdownButton>

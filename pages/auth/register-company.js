@@ -1,15 +1,17 @@
 
 import { useState } from "react"
 import Login from "@/ui/short/auth";
+import { Input, InputIcon ,InputCity , InputPhone} from "@/form"
 import useTranslation from 'next-translate/useTranslation'
-import { Profile, Courthouse } from 'iconsax-react';
+import { Profile, Courthouse , Sms, Lock,Eye, EyeSlash , Flag , Call } from 'iconsax-react';
 import ButtonTheme from "@/ui/ButtonTheme"
-import DropdownButton from "@/ui/DropdownButton"
 import { Formik } from "formik";
 import * as Yup from "yup";
+
 export default function RegisterCompany() {
   const { t, lang } = useTranslation()
   const [passwordType ,setPasswordType] = useState(true)
+
   const onSubmit = (values) => {
     console.log(values)
   }
@@ -26,25 +28,34 @@ export default function RegisterCompany() {
       })}>
         {(props) => (
           <form onSubmit={props.handleSubmit}>
-            {/* <InputIcon icon="user">
-              <Input name="name" type="text" placeholder="اسم المستخدم"  />
+            <InputIcon icon={<Courthouse className="text-primary"/>}>
+              <Input name="name" type="text" placeholder="الأسم القانوني للشركة"  />
             </InputIcon>
-            <InputIcon icon="password">
-              <span  role="button" className="absolute transform top-4 rtl:left-4 ltr:right-4 rtl:md:left-3 ltr:md:right-3 " onClick={()=>setPasswordType(!passwordType)}>
-                {passwordType ? <ShowPassword width="20"/> : <HidePassword width="20"/>}
+            <InputIcon icon={<Sms className="text-primary"/>}>
+              <Input name="email" type="text" placeholder="البريد الألكتروني"  />
+            </InputIcon>
+            <InputIcon icon={<Call className="text-primary"/>}>
+            <InputPhone name="phone" type="text" placeholder="رقم الهاتف"  />
+
+              {/* <InputPhone name="city" type="text" placeholder="اسم المدينة" />          */}
+            </InputIcon> 
+            <InputIcon icon={<Lock className="text-primary"/>}>
+            <span  role="button" className="absolute transform top-4 rtl:left-4 ltr:right-4 rtl:md:left-3 ltr:md:right-3 " onClick={()=>setPasswordType(!passwordType)}>
+                {passwordType ? <Eye /> : <EyeSlash />}
               </span>
-              <Input name="password" type={passwordType ? "password" : "text"} placeholder="كلمة المرور"  />
-            </InputIcon> */}
-            <ButtonTheme color="primary" as="button" type="submit" big href="/" className="block mx-auto my-6 text-center xs:my-4 ">
+              <Input name="password" type={passwordType ? "password" : "text"} placeholder="كلمة السر"  />
+            </InputIcon>  
+           
+         
+            <ButtonTheme color="primary" as="button" type="submit" big  block className="my-6 text-center xs:my-4">
               {t('auth:Create_account')}
             </ButtonTheme>
           </form>
         )}
       </Formik>
-      <ButtonTheme color="primary" outline as="a" href="/" className="block mx-auto my-6 text-center xs:my-4 ">
+      <ButtonTheme color="primary" outline as="link" href="/login" block className="my-6 text-center xs:my-4">
         {t('auth:I_have_an_account_log_in')}
       </ButtonTheme>
-
     </Login>
   )
 }

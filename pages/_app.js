@@ -2,8 +2,12 @@ import Head from 'next/head'
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "public/flickity.css"
+import 'rsuite/dist/rsuite.min.css'
+import 'react-phone-input-2/lib/style.css'
 import 'styles/globals.css'
+import { Provider } from "react-redux";
+import store from "store/index";
+
 // import Nav from "components/Nav"
 import { NextUIProvider } from '@nextui-org/react';
 function MyApp({ Component, pageProps }) {
@@ -28,11 +32,11 @@ function MyApp({ Component, pageProps }) {
   }
   return (
     <>
-      <NextUIProvider>
+      <NextUIProvider >
         <html lang="ar" dir="rtl" />
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+            <link rel="preconnect" href="https://fonts.gstatic.com"  />
             <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
         </Head>
         {/* <Nav /> */}

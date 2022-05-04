@@ -5,6 +5,8 @@ import auth from "@/ui/short/auth";
 // import { ShowPassword, HidePassword, User } from "public/svg"
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { Button } from 'rsuite';
+
 export default function LoginPage() {
   const [passwordType ,setPasswordType] = useState(true)
   const onSubmit = (values) => {
@@ -12,6 +14,7 @@ export default function LoginPage() {
   }
   return (
     <auth>
+      <Button>Hello World</Button>
       {/* <h1 className="flex justify-center gap-4 mb-16 text-xl font-bold text-center md:mb-20 md:text-4xl"><User className="w-6 md:w-8" />تسجيل الدخول </h1> */}
       <Formik initialValues={{ name: "", password: "" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
         name: Yup.string().required("يرجى ادخال الاسم"), password: Yup.string().required('يرجى كتابة كلمة المرور.')
