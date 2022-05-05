@@ -19,31 +19,29 @@ export default function RegisterCompany() {
   return (
     <Login slider>
       <span className="mb-3 text-gray-400 text-md">{t('auth:Welcom_to_us')}</span>
-      <h1 className="mb-8 font-bold text-h2">{t('auth:register_company_title')}</h1>
+      <h1 className="mb-8 font-bold text-h2 leading-none">{t('auth:register_company_title')}</h1>
       <Formik initialValues={{ name: "", email: "", city: "", password:"" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
-        name: Yup.string().required("يرجى ادخال الاسم"),
-        email: Yup.string().email().required('يرجى كتابة كلمة الايميل.'),
-        city: Yup.string().email().required('يرجى اختيار مدينة '),
-        password: Yup.string().required('يرجى  ادخال كلمة المرور ')
+        name: Yup.string().required(t('auth:Please_enter_the_name')),
+        email: Yup.string().email().required(t('auth:Please_enter_the_email')),
+        city: Yup.string().required(t('auth:Please_enter_the_city')),
+        password: Yup.string().required(t('auth:Please_enter_the_password'))
       })}>
         {(props) => (
           <form onSubmit={props.handleSubmit}>
             <InputIcon icon={<Courthouse className="text-primary"/>}>
-              <Input name="name" type="text" placeholder="الأسم القانوني للشركة"  />
+              <Input name="name" type="text" placeholder={t('auth:The_legal_name_of_the_company')}  />
             </InputIcon>
             <InputIcon icon={<Sms className="text-primary"/>}>
-              <Input name="email" type="text" placeholder="البريد الألكتروني"  />
+              <Input name="email" type="text" placeholder={t('auth:E_mail')}  />
             </InputIcon>
-            <InputIcon icon={<Call className="text-primary"/>}>
-            <InputPhone name="phone" type="text" placeholder="رقم الهاتف"  />
-
-              {/* <InputPhone name="city" type="text" placeholder="اسم المدينة" />          */}
+            <InputIcon icon={<Flag className="text-primary"/>}>
+              <InputPhone name="city" type="text" placeholder={t('auth:residence')} />         
             </InputIcon> 
             <InputIcon icon={<Lock className="text-primary"/>}>
             <span  role="button" className="absolute transform top-4 rtl:left-4 ltr:right-4 rtl:md:left-3 ltr:md:right-3 " onClick={()=>setPasswordType(!passwordType)}>
                 {passwordType ? <Eye /> : <EyeSlash />}
               </span>
-              <Input name="password" type={passwordType ? "password" : "text"} placeholder="كلمة السر"  />
+              <Input name="password" type={passwordType ? "password" : "text"} placeholder={t('auth:password')}  />
             </InputIcon>  
            
          

@@ -8,8 +8,9 @@ import useTranslation from 'next-translate/useTranslation'
 import logo from "public/images/placeholder/logo.png"
 import SelectLangs from "@/ui/SelectLangs"
 import LoginLinks from "@/ui/short/LoginLinks"
-export default function Login({ slider, ...props }) {
+export default function Login({ slider,noLinksButton, ...props }) {
     //slider props to collect two view for layouts slider & img
+    //noLinksButton props to hide LoginLinks
     const { t, lang } = useTranslation()
     const swipperInfo = [
         { text: t('common:test'), img: { img1 } },
@@ -17,17 +18,17 @@ export default function Login({ slider, ...props }) {
     ]
     return (
         <div className="grid h-screen grid-cols-12 gap-4 ">
-            <div className={`${slider ? "col-span-6" : "col-span-8"} px-20 py-10 flex flex-col justify-between`}>
+            <div className={`${slider ? "md:col-span-6" : "md:col-span-8"} col-span-12 px-4 md:px-20 py-4 md:py-10 flex flex-col justify-between max-w-full m-auto w-[600px] min-h-screen`}>
                 <div className='flex justify-between' >
                     <img src={"/images/placeholder/logo.png"} alt="logo" width="100"  />
                     <SelectLangs />
                 </div>
                 <div>
                     {props.children}
-                    <LoginLinks />
+                    {!noLinksButton && <LoginLinks />}
                 </div>
             </div>
-            <div className={`${slider ? "col-span-6" : "col-span-4"} bg-primary relative`}>
+            <div className={`${slider ? "col-span-6" : "col-span-4"} bg-primary relative hidden md:block `}>
                 <LoginBackground className="absolute w-full top-[-10%] right-1/3 transform translate-x-1/2 hidden" />
                 {slider ?
                     <>
@@ -60,7 +61,7 @@ export default function Login({ slider, ...props }) {
                         </Swiper>
 
                     </>
-                    : <>without slider</>}
+                    : <></>}
             </div>
         </div>
     )

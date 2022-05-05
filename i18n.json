@@ -6,6 +6,11 @@
       "/": ["home", "example"],
       "/auth/login": ["auth"],
       "/auth/register-all": ["auth"],
-      "/auth/register-company": ["auth"]
+      "/auth/register-company": ["auth"],
+      "/auth/return-password": ["auth"],
+      "/auth/forget-password": ["auth"],
+      "/auth/register-user": ["auth"],
+      "/auth/login2": ["auth"],
+      "/auth/enter-code": ["auth"]
     }
   }
