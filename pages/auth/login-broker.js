@@ -7,50 +7,49 @@ import { Profile, Courthouse , Sms, Lock,Eye, EyeSlash , Flag , Call } from 'ico
 import ButtonTheme from "@/ui/ButtonTheme"
 import { Formik } from "formik";
 import * as Yup from "yup";
-
-export default function ReturnPassword() {
-  const { t, lang } = useTranslation()
+export default function LoginBroker() {
   const [passwordType ,setPasswordType] = useState(true)
+  const { t, lang } = useTranslation()
 
   const onSubmit = (values) => {
     console.log(values)
   }
- 
   return (
-    <Login noLinksButton className="mb-16">
-      <h1 className="mb-0 font-bold text-h2 ">{t('auth:reset_a_new_password')}</h1>
-      <span className="mb-8 block text-gray-400 text-md ">{t('auth:make_the_password_consist_of_letters_and_numbers_and_be_easy_to_remember')}</span>
-      <Formik initialValues={{  conpassword: "", password:"" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
-        password: Yup.string().required(t('auth:please_enter_the_password')),
-        conpassword: Yup.string().oneOf([Yup.ref('password'), null], t('auth:please_repeat_enter_the_password'))
+    <Login slider noRiskWarning>
+      <span className="mb-2 text-gray-400 text-md mt-4 block">{t('auth:welcome_with_us')}</span>
+      <h1 className="mb-8 font-bold text-h2 leading-none">{t('auth:welcome')}</h1>
+      <Formik initialValues={{ email: "", password:"" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
+        email: Yup.string().email().required(t('auth:please_enter_the_email')),
+        password: Yup.string().required(t('auth:please_enter_the_password'))
       })}>
         {(props) => (
           <form onSubmit={props.handleSubmit}>
-          
+            <InputIcon icon={<Sms className="text-primary"/>}>
+              <Input name="email" type="text" placeholder={t('auth:e_mail')}  />
+            </InputIcon>
             <InputIcon icon={<Lock className="text-primary"/>}>
             <span  role="button" className="absolute transform top-4 rtl:left-4 ltr:right-4 rtl:md:left-3 ltr:md:right-3 " onClick={()=>setPasswordType(!passwordType)}>
                 {passwordType ? <Eye /> : <EyeSlash />}
               </span>
-              <Input name="password" type={passwordType ? "password" : "text"} placeholder={t('auth:new_password')}  />
-            </InputIcon>  
-            <InputIcon icon={<Lock className="text-primary"/>}>
-              <Input name="conpassword" type="password" placeholder={t('auth:repeat_the_new_password')}  />
+              <Input name="password" type={passwordType ? "password" : "text"} placeholder={t('auth:password')}  />
             </InputIcon>  
            
          
             <ButtonTheme color="primary" as="button" type="submit" big  block className="my-6 text-center xs:my-4">
-              {t('auth:reset')}
+              {t('auth:sign_in')}
             </ButtonTheme>
           </form>
         )}
       </Formik>
+      <ButtonTheme color="primary" as="link"  href="/" outline className="block mx-auto my-10 text-center xs:my-8 w-max">
+                {t('auth:back_to_the_home_page')}
+            </ButtonTheme>
     </Login>
   )
 }
-ReturnPassword.getLayout = function PageLayout(page) {
+LoginBroker.getLayout = function PageLayout(page) {
   return <>
     {page}
   </>
 }
-
 

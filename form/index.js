@@ -15,8 +15,8 @@ function Input(props) {
 }
 function InputIcon(props) {
     return (
-        <div className="relative input-with-icon">
-            <div className="absolute right-4 top-4 z-[1]">
+        <div className="relative input-with-icon">  
+            <div className="absolute right-4 top-4 z-1">
                 {props.icon}
             </div>
             {props.children}
@@ -29,7 +29,7 @@ function InputPhone(props) {
         <div className="mb-3 md:mb-6">
             <PhoneInput
             className={`block w-full md:p-4 p-4  rounded-md bg-secondary ${props.className}`}
-                country={'jordan'}
+            country={'jo'}
                 enableSearch={true}
                 containerClass={'block w-full md:p-4 p-4  rounded-md bg-secondary flex  justify-between'}
                 placeholder={props.placeholder}
@@ -38,6 +38,14 @@ function InputPhone(props) {
                 // onChange={phone => setPhone({ phone })}
             />
         </div>
+    )
+}
+function InputCheck({name , text}) {
+    return (
+        <label className="flex gap-2">
+            <input type="checkbox" name={name} />
+          <span className="text-xs">{text}</span>
+        </label>
     )
 }
 function InputCity(props) {
@@ -51,4 +59,4 @@ function InputCity(props) {
         // />
     )
 }
-export { Input, InputIcon ,InputPhone,InputCity }
+export { Input, InputIcon ,InputPhone,InputCity , InputCheck }

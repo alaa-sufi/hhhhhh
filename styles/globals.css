@@ -10,6 +10,9 @@
 .all-unset{
   all: unset;
 }
+a:active, a:focus, a:hover {
+  text-decoration: none;
+}
 @layer base {
   body {
     /* @apply font-primary; */
@@ -43,7 +46,9 @@ a {
   cursor: pointer;
 }
 /* } */
-
+.z-1{
+  z-index: 1;
+}
 /* short project */
 .container-page {
   @apply container px-4 mx-auto lg:px-24 md:px-12 sm:px-10;
@@ -74,8 +79,12 @@ a {
   @apply px-4 text-xl md:text-4xl md:px-8 md:w-40 min-w-max;
 }
 .input-with-icon input{
-  @apply rtl:pr-12 ltr:pl-12;
+  @apply rtl:pr-12 ltr:pl-12 ;
 }
+.input-with-icon input[value=""]{
+  @apply rtl:text-right ltr:text-left;
+}
+
 .imgField{
   @apply rounded-lg border-[2px] border-dashed border-primary mb-8;
 }
@@ -192,7 +201,20 @@ a {
   background:transparent;
 }
 .react-tel-input .country-list .search{
-  background:transparent;
+  background: #f4f4f4;
+  padding-right: 0;
+  padding-left: 0;
+  opacity:1;
+}
+.react-tel-input .country-list .country{
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.react-tel-input .country-list .country-name{
+  position: absolute;
+  right: 2rem;
 }
 .react-tel-input .country-list{
   width: 100%;

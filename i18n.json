@@ -4,13 +4,14 @@
     "pages": {
       "*": ["common"],
       "/": ["home", "example"],
-      "/auth/login": ["auth"],
+      "/auth/login-user": ["auth"],
       "/auth/register-all": ["auth"],
       "/auth/register-company": ["auth"],
       "/auth/return-password": ["auth"],
       "/auth/forget-password": ["auth"],
       "/auth/register-user": ["auth"],
-      "/auth/login2": ["auth"],
+      "/auth/login-company": ["auth"],
+      "/auth/login-broker": ["auth"],
       "/auth/enter-code": ["auth"]
     }
   }
