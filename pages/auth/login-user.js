@@ -18,10 +18,10 @@ export default function LoginUser() {
   return (
     <Login slider>
       <span className="mb-3 text-gray-400 text-md">{t('auth:glad_you_are_back')}</span>
-      <h1 className="mb-8 font-bold text-h2 leading-none">{t('auth:welcome_again')}</h1>
-      <div className="flex justify-between my-2 md:my-4 gap-4">
-        <div className="text-blue-400 flex  gap-2 items-center rounded md:rounded-lg p-2 md:p-4 border w-1/2"><Facebook size="20" className="text-blue-400"/>{t('auth:register_via_facebook')} </div>
-        <div className=" flex gap-2 items-center rounded md:rounded-lg p-2 md:p-4 border w-1/2"><Google size="20" /> {t('auth:register_via_google')} </div>
+      <h1 className="mb-8 font-bold leading-none text-h2">{t('auth:welcome_again')}</h1>
+      <div className="flex justify-between gap-4 my-2 md:my-4">
+        <div className="flex items-center w-1/2 gap-2 p-2 text-blue-400 border rounded md:rounded-lg md:p-4"><Facebook size="20" className="text-blue-400"/>{t('auth:register_via_facebook')} </div>
+        <div className="flex items-center w-1/2 gap-2 p-2 border rounded md:rounded-lg md:p-4"><Google size="20" /> {t('auth:register_via_google')} </div>
       </div>
       <Formik initialValues={{ name: "", password:"" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
         name: Yup.string().required(t('auth:please_enter_the_name')),
@@ -39,7 +39,7 @@ export default function LoginUser() {
               <Input name="password" type={passwordType ? "password" : "text"} placeholder={t('auth:password')}  />
             </InputIcon>  
            <Link href="/auth/forget-password"> 
-            <a className="text-primary flex flex-row-reverse -mt-2" >{t('auth:i_forgot_the_password?')}</a>
+            <a className="flex flex-row-reverse -mt-2 text-primary" >{t('auth:i_forgot_the_password?')}</a>
            </Link>
            <InputCheck name="remember" text={t('auth:remember_me')} >
            </InputCheck>
@@ -49,7 +49,7 @@ export default function LoginUser() {
           </form>
         )}
       </Formik>
-      <ButtonTheme color="primary" outline as="link" href="/login" block className="my-6 text-center xs:my-4">
+      <ButtonTheme color="primary" outline as="link" href="/auth/register-user" block className="my-6 text-center xs:my-4">
         {t('auth:you_do_not_have_an_account_create_an_account')}
       </ButtonTheme>
     </Login>

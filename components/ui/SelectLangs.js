@@ -1,8 +1,84 @@
-import React from 'react'
-import { Global} from 'iconsax-react';
+import React , {useState} from 'react'
+import { Global, ArrowDown2 } from 'iconsax-react';
+import { SelectPicker, InputGroup } from 'rsuite';
+import useTranslation from 'next-translate/useTranslation'
+import setLanguage from 'next-translate/setLanguage'
 
 export default function SelectLangs() {
+  const { t, lang } = useTranslation()
+const [langSelect , setLangSelect] = useState("ar")
+  const data = [
+    {
+      "label": t('auth:arabia'),
+      "value": "ar",
+    },
+    {
+      "label": t('auth:english'),
+      "value": "en",
+    }
+  ]
+  const handleChange = async (e) => {
+    setLangSelect(e.target.value)
+    console.log(e.target.value)
+    if (e.target.value === "ar") {
+      await setLanguage('ar'); document.documentElement.dir = "rtl"
+    } else {
+      await setLanguage('en'); document.documentElement.dir = "ltr"
+
+    }
+  }
   return (
-    <div>SelectLangs</div>
+    <div className="flex justify-center">
+      <div className="relative my-3 xl:w-40">
+        <select className="form-select appearance-none
+block
+w-full
+rtl:pr-10
+rtl:pl-3
+ltr:pr-3
+ltr:pl-10
+py-1.5
+text-base
+font-normal
+text-gray-700
+bg-white bg-clip-padding bg-no-repeat
+border border-solid border-gray-300
+rounded
+transition
+ease-in-out
+m-0
+focus:text-gray-700 focus:bg-white focus:border-primary focus:outline-none" onChange={handleChange} aria-label="Default select example"  value={langSelect}>
+          {data.map((d, index) => (
+            <option key={index} value={d.value}>{d.label}</option>
+          ))}
+        </select>
+        <span className="absolute top-0 flex items-center justify-start h-full gap-1 rtl:left-4 ltr:right-4">
+          <ArrowDown2 size="18" />
+        </span>
+        <span className="absolute top-0 flex items-center justify-start h-full gap-1 rtl:right-4 ltr:left-4">
+          <Global />
+        </span>
+      </div>
+    </div>
+
+    // <select className="p-4 border rounded-lg border-secondary" onChange={handleChange}>
+    //   {data.map((d, index) => (
+    //     <option key={index} value={d.value}>{d.label}</option>
+    //   ))}
+    // </select>
+
+    // <>
+    //     <button onClick={async () => {await setLanguage('en');document.documentElement.dir = "ltr"}}>EN</button>
+    //   <button onClick={async () => {await setLanguage('ar');document.documentElement.dir = "rtl"}}>Ar</button>
+    //     </>
   )
 }
+//  <>
+//     <button onClick={async () => {await setLanguage('en');document.documentElement.dir = "ltr"}}>EN</button>
+//     <button onClick={async () => {await setLanguage('ar');document.documentElement.dir = "rtl"}}>Ar</button>
+//     </>
+// if (document.documentElement.dir === "rtl") {
+//   document.documentElement.dir = "ltr";
+// } else {
+//   document.documentElement.dir = "rtl";
+// }

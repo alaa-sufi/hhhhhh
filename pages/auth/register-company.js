@@ -18,13 +18,15 @@ export default function RegisterCompany() {
  
   return (
     <Login slider>
-      <span className="mb-2 text-gray-400 text-md mt-4 block">{t('auth:welcom_to_us')}</span>
-      <h1 className="mb-8 font-bold text-h2 leading-none">{t('auth:register_company_title')}</h1>
+      <span className="block mt-4 mb-2 text-gray-400 text-md">{t('auth:welcom_to_us')}</span>
+      <h1 className="mb-8 font-bold leading-none text-h2">{t('auth:register_company_title')}</h1>
       <Formik initialValues={{ name: "", email: "", city: "", password:"" , agree:false }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
         name: Yup.string().required(t('auth:please_enter_the_name')),
         email: Yup.string().email().required(t('auth:please_enter_the_email')),
         city: Yup.string().required(t('auth:please_enter_the_city')),
-        password: Yup.string().required(t('auth:please_enter_the_password'))
+        password: Yup.string().required(t('auth:please_enter_the_password')),
+        agree: Yup.bool().required().oneOf([true],t('auth:please_agree'))
+
       })}>
         {(props) => (
           <form onSubmit={props.handleSubmit}>
