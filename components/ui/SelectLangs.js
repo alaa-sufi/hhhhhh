@@ -6,7 +6,7 @@ import setLanguage from 'next-translate/setLanguage'
 
 export default function SelectLangs() {
   const { t, lang } = useTranslation()
-const [langSelect , setLangSelect] = useState("ar")
+const [langSelect , setLangSelect] = useState(lang || "ar")
   const data = [
     {
       "label": t('auth:arabia'),

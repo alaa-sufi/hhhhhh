@@ -36,9 +36,9 @@ export default function RegisterUser() {
             <InputIcon icon={<Profile className="text-primary" />}>
               <Input name="name" type="text" placeholder={t('auth:full_name')} />
             </InputIcon>
-            {/* <InputIcon icon={<Flag className="text-primary"/>}>
+            <InputIcon icon={<Flag className="text-primary"/>}>
               <InputCity name="city" type="text" placeholder={t('auth:residence')} />         
-            </InputIcon>  */}
+            </InputIcon> 
             <InputIcon icon={<Call className="text-primary" />}>
               <InputPhone name="phone" type="tel" placeholder={t('auth:phone_number')} />
             </InputIcon>

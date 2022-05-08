@@ -73,7 +73,7 @@ function InputCity(props) {
     return (
         <div className="mb-3 md:mb-6">
             <PhoneInput
-                className={`block w-full md:p-4 px-4 py-4   rounded-md bg-secondary ${props.className}`}
+                // className={`block w-full md:p-4 px-4 py-4   rounded-md bg-secondary ${props.className}`}
                 country={'jo'}
                 enableSearch={true}
                 containerClass={'block w-full md:p-4 px-4 py-4  rounded-md bg-secondary flex justify-between city'}
@@ -83,6 +83,9 @@ function InputCity(props) {
                 value={phone}
                 onChange={handleOnChange}
             />
+            <Field {...props} className={`absolute bg-transparent top-4 width-city`} >
+                {props.children}
+            </Field>
             <ErrorMessage name={props.name} component="span" className="mt-2 text-sm text-red-500 md:mt-4 md:text-md" />
         </div>
 

@@ -241,7 +241,16 @@ a {
 .city .dial-code{
   opacity: 0;
 }
+.city .form-control {
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+}
+ .width-city{
 
+  width: calc(100% - 5rem);
+  background: transparent;  
+}
 /* for nploader\ */
 /* Make clicks pass-through */
 #nprogress {
