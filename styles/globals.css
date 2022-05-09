@@ -13,6 +13,7 @@
 }
 a:active, a:focus, a:hover {
   text-decoration: none;
+  color:inherit;
 }
 @layer base {
   body {
@@ -45,6 +46,12 @@ a:active, a:focus, a:hover {
 /* @layer base { */
 a {
   cursor: pointer;
+}
+li{
+  margin: 0 !important ;
+}
+.bg-black-important{
+  background:black !important;
 }
 /* } */
 .z-1{
@@ -84,6 +91,9 @@ a {
 }
 .input-with-icon input[value=""]{
   @apply rtl:text-right ltr:text-left;
+}
+.icon-container{
+  @apply block p-2 rounded md:rounded-xl bg-primary-300;
 }
 
 .imgField{
@@ -159,10 +169,16 @@ a {
   align-items: center;
   padding: 12px;
 }
-.swiper-pagination{
+[dir='rtl'] .swiper-pagination{
   text-align: initial;
   bottom: 2rem !important;
     right: 2rem;
+}
+[dir='ltr'] .swiper-pagination{
+  bottom: 2rem !important;
+  right: 2rem;
+  left: unset;
+  text-align: right;
 }
 :root{
   --swiper-pagination-color:#fff; 

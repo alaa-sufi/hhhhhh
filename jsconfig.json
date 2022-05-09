@@ -7,7 +7,7 @@
         }
     },
     "pages": {
-        "*": ["common"],
+        "*": ["common" , "aside"],
         "/": ["home"],
         "/auth/[slug]": ["auth"],
         "/content/[slug]": ["content"],
