@@ -1,45 +1,84 @@
-import React from 'react'
+import React , {useState , useEffect} from 'react'
 import useTranslation from 'next-translate/useTranslation'
-import { SearchNormal1 ,Notification ,Translate,Sun1 ,Moon } from 'iconsax-react'
+import { SearchNormal1, Notification, Translate, Sun1, Moon } from 'iconsax-react'
 import Image from "next/image"
 import profile from "public/images/placeholder/profile.png"
 import Link from "next/link"
 export default function TopNav() {
   const { t, lang } = useTranslation()
+  const [dark , setDark] = useState(false);
+  const [dir , setDir] = useState('rtl');
+  useEffect(()=>{
+    if(typeof window !== 'undefined'){
+      if(localStorage.getItem("theme") === "dark" ){
+        setDark(true);
+        document.documentElement.classList.add("dark") ;
+      }
+    } 
+  },[])
+  const handleChangeLang = async () => {
+    if (dir === "ltr") {
+      await setDir('rtl'); document.documentElement.dir = "rtl"
+    } else {
+      await setDir('ltr'); document.documentElement.dir = "ltr"
+
+    }
+  }
+  const handleChangeDark = ()=>{
+       setDark(!dark);
+        document.documentElement.classList.toggle("dark") ;
+        localStorage.setItem("theme" , dark);
+  }
   return (
-    <div className="flex justify-between bg-white">
-      <div className="flex">
-    <SearchNormal1 className="text-primary"/>
-    <div>{t('aside:i_am_looking_for_something')}</div>
+    <div className=" bg-white flex-grow dark:bg-gray-800 dark:text-white grid-area-home-top">
+      <div className="container  px-4">
+        <div className="flex justify-between items-center">
+          <div className="flex-grow">
 
-      </div>
-    <ul className="flex items-center gap-4">
-      <li>
-        <div className="bg-black-important icon-container">
+          <form>
+          <div className="flex gap-2">
+            <button type="submit">
+            <SearchNormal1 className="text-gray-400" />
+            </button>
+            <input placeholder={t('aside:i_am_looking_for_something')} type="search" className="bg-transparent w-full"/>
+          </div>
+          </form>
+          </div>
+          <ul className="flex items-center gap-4">
+            <li>
+              <div className={`${!dark ? 'bg-black-important' : ""} icon-container pb-0-important`}>
+                <button onClick={handleChangeDark}>
+                  {dark ? 
+                  <Sun1 className="text-primary" />
+                  :
+                  <Moon className="text-white" />
+                  }
+                </button>
+              </div>
+            </li>
+            <li>
+              <div className="icon-container pb-0-important">
 
-        <Moon className="text-white"/>
+              <button onClick={handleChangeLang}>
+                
+                  <Translate className="text-primary" />
+               
+              </button>
+              </div>
+            </li>
+            <li>
+              <Link href="/">
+                <a className="icon-container">
+                  <Notification className="text-primary" />
+                </a>
+              </Link>
+            </li>
+            <li className="leading-none">
+              <Image src={profile} width="40" height="40" alt="profile" className="rounded" />
+            </li>
+          </ul>
         </div>
-        {/* <Sun1/> */}
-      </li>
-      <li>
-        <Link href="/">
-        <a className="icon-container">
-          <Translate className="text-primary"/>
-        </a>
-        </Link>
-        
-      </li>
-      <li>
-        <Link href="/">
-        <a className="icon-container">
-          <Notification className="text-primary"/>
-        </a>
-        </Link>
-      </li>
-      <li className="leading-none">
-        <Image src={profile} width="40" height="40" alt="profile" className="rounded"/>
-      </li>
-    </ul>
+      </div>
     </div>
   )
 }

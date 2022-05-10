@@ -7,11 +7,11 @@ export default function LoginLinks() {
         { title: "وثائق قانونية", href: "/" },
     ]
     return (
-        <ul className="flex justify-center gap-4 mt-20">
+        <ul className="flex justify-center gap-4 mt-24">
             {links.map((link, index)=>(
                 <li key={index} className="text-sm underline">
                     <Link href={link.href}>
-                        <a >{link.title}</a>
+                        <a className="text-inherit">{link.title}</a>
                     </Link>
                 </li>
             ))}

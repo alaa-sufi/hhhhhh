@@ -50,8 +50,29 @@ a {
 li{
   margin: 0 !important ;
 }
+.grid-area-home{
+  grid-template-areas: 
+            "aside top "
+            "aside page  "
+            "aside page  ";
+    grid-template-columns: 18rem 1fr;
+    grid-template-rows: 5rem 1fr;
+}
+.grid-area-home .grid-area-home-top{
+  grid-area: top;
+}
+.grid-area-home .grid-area-home-aside{
+  grid-area: aside;
+}
+.grid-area-home .grid-area-home-page{
+  grid-area: page;
+}
+/* important */
 .bg-black-important{
   background:black !important;
+}
+.pb-0-important{
+  padding-bottom: 0 !important;
 }
 /* } */
 .z-1{
@@ -173,12 +194,14 @@ li{
   text-align: initial;
   bottom: 2rem !important;
     right: 2rem;
+    width: 80%;
 }
 [dir='ltr'] .swiper-pagination{
   bottom: 2rem !important;
   right: 2rem;
   left: unset;
   text-align: right;
+  width: 80%;
 }
 :root{
   --swiper-pagination-color:#fff; 

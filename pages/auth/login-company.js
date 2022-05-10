@@ -18,7 +18,7 @@ export default function LoginCompany() {
   }
   return (
     <Login slider>
-      <span className="mb-2 text-gray-400 text-md mt-4 block">{t('auth:welcom_to_us')}</span>
+      <span className="mb-2 text-gray-400 text-md mt-8 block">{t('auth:welcom_to_us')}</span>
       <h1 className="mb-8 font-bold text-h2 leading-none">{t('auth:welcome_back_again')}</h1>
       <Formik initialValues={{ email: "", password:"" ,remember:false }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
         email: Yup.string().email().required(t('auth:please_enter_the_email')),

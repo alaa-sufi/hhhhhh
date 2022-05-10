@@ -18,7 +18,7 @@ export default function RegisterUser() {
 
   return (
     <Login slider>
-      <span className="block mt-4 mb-2 text-gray-400 text-md">{t('auth:start_now_for_free')}</span>
+      <span className="block mt-8 mb-2 text-gray-400 text-md">{t('auth:start_now_for_free')}</span>
       <h1 className="mb-8 font-bold leading-none text-h2">{t('auth:create_your_account_now')}</h1>
       <div className="flex justify-between gap-4 my-2 md:my-4">
         <div className="flex items-center w-1/2 gap-2 p-2 text-blue-400 border rounded md:rounded-lg md:p-4"><Facebook size="20" className="text-blue-400" />{t('auth:register_via_facebook')} </div>

@@ -53,7 +53,7 @@ export default function EnterCode() {
 
   return (
     <Login noLinksButton contactUs>
-      <h1 className="mb-0 font-bold text-h2 ">{t('auth:enter_the_code')}</h1>
+      <h1 className="mb-0 font-bold text-h2 block mt-14">{t('auth:enter_the_code')}</h1>
       <span className="mb-0 block text-gray-400 text-md">{t('auth:you_will_receive_an_sms_containing_5_numbers_enter_them_in_the_field_to_confirm_the_operation')}</span>
 
       <form onSubmit={onSubmit}>

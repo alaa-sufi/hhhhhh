@@ -18,7 +18,7 @@ export default function ReturnPassword() {
  
   return (
     <Login noLinksButton className="mb-16">
-      <h1 className="mb-0 font-bold text-h2 ">{t('auth:reset_a_new_password')}</h1>
+      <h1 className="mb-0 font-bold text-h2 block mt-10">{t('auth:reset_a_new_password')}</h1>
       <span className="mb-8 block text-gray-400 text-md ">{t('auth:make_the_password_consist_of_letters_and_numbers_and_be_easy_to_remember')}</span>
       <Formik initialValues={{  conpassword: "", password:"" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
         password: Yup.string().required(t('auth:please_enter_the_password')),

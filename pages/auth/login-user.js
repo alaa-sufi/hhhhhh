@@ -17,7 +17,7 @@ export default function LoginUser() {
   }
   return (
     <Login slider>
-      <span className="mb-3 text-gray-400 text-md">{t('auth:glad_you_are_back')}</span>
+      <span className="mb-3 text-gray-400 text-md block mt-8">{t('auth:glad_you_are_back')}</span>
       <h1 className="mb-8 font-bold leading-none text-h2">{t('auth:welcome_again')}</h1>
       <div className="flex justify-between gap-4 my-2 md:my-4">
         <div className="flex items-center w-1/2 gap-2 p-2 text-blue-400 border rounded md:rounded-lg md:p-4"><Facebook size="20" className="text-blue-400"/>{t('auth:register_via_facebook')} </div>

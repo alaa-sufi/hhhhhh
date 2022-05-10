@@ -19,7 +19,6 @@ const [langSelect , setLangSelect] = useState(lang || "ar")
   ]
   const handleChange = async (e) => {
     setLangSelect(e.target.value)
-    console.log(e.target.value)
     if (e.target.value === "ar") {
       await setLanguage('ar'); document.documentElement.dir = "rtl"
     } else {

@@ -19,7 +19,7 @@ export default function ForgetPassword() {
   return (
     
     <Login noLinksButton contactUs >
-      <h1 className="mb-0 font-bold text-h2 ">{t('auth:i_forgot_the_password')}</h1>
+      <h1 className="mb-0 font-bold text-h2 block mt-14">{t('auth:i_forgot_the_password')}</h1>
       <span className="mb-8 block text-gray-400 text-md">{t('auth:please_enter_your_account_password_to_send_a_code_to_reset_a_new_password')}</span>
       <Formik initialValues={isEmail ? {email:""}:{ phone: "" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape(isEmail ? {
         email: Yup.email().required(t('auth:please_enter_the_email')),

@@ -13,7 +13,7 @@ export default function RegisterAll() {
    
     return (
         <Login slider noRiskWarning>
-            <h1 className="mb-8 font-bold text-h2">{t('auth:welcome_with_us')}</h1>
+            <h1 className="mb-8 font-bold text-h2 mt-16">{t('auth:welcome_with_us')}</h1>
             {/* start individual button */}
             <DropdownButton open={openIndividual} onToggle={() => setopenIndividual(!openIndividual)} head={<> <Profile size="20" color="#333333" />
                 <span className="select-none">{t('auth:register_as_an_individual')}</span></>} >

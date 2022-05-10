@@ -1,5 +1,6 @@
 module.exports = {
   // content: ['./src/**/*.{html,js}', './node_modules/tw-elements/dist/js/**/*.js'],
+  darkMode: 'class',
   plugins: [
   ],
   content: [
@@ -10,6 +11,8 @@ module.exports = {
 
   theme: {
     extend: {
+      backgroundColor: ['dark'],
+      textColor: ['dark'],
       fontFamily: {
         primary: ["var(--primary-font)"],
       },

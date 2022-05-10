@@ -16,7 +16,7 @@ export default function LoginBroker() {
   }
   return (
     <Login slider noRiskWarning>
-      <span className="mb-2 text-gray-400 text-md mt-4 block">{t('auth:welcome_with_us')}</span>
+      <span className="mb-2 text-gray-400 text-md mt-12 block">{t('auth:welcome_with_us')}</span>
       <h1 className="mb-8 font-bold text-h2 leading-none">{t('auth:welcome')}</h1>
       <Formik initialValues={{ email: "", password:"" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
         email: Yup.string().email().required(t('auth:please_enter_the_email')),
