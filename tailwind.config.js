@@ -22,7 +22,7 @@ module.exports = {
           DEFAULT: "var(--primary-color)",
           '50': '#B8CDFA',
           '100': '#A5C0F9',
-          '200': '#7FA5F6',
+          '200': '#D69FFF',
           '300': '#e5deea',
           '400': '#3370F1',
           '500': '#1056EB',

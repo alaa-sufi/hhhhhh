@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import store from "store/index";
 import Aside from "@/ui/Aside"
 import TopNav from "@/ui/TopNav"
+import Warrning from "@/ui/Warrning"
 import { CustomProvider } from "rsuite";
 Router.events.on('routeChangeStart', () => NProgress.start())
 Router.events.on('routeChangeComplete', () => NProgress.done())
@@ -18,13 +19,12 @@ NProgress.configure({ showSpinner: true })
 import useTranslation from 'next-translate/useTranslation'
 
 // import Nav from "components/Nav"
-import { NextUIProvider } from '@nextui-org/react';
 function MyApp({ Component, pageProps }) {
   const { t, lang } = useTranslation();
   const dir = lang === "ar" ? "rtl" : "ltr";
   if (Component.getLayout) {
     return (
-      <NextUIProvider>
+      <>
         {/* Component.getLayout( */}
         <>
           <html lang={lang} dir={dir} />
@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </>
         {/* ) */}
-      </NextUIProvider>
+      </>
 
     )
   }
@@ -60,17 +60,19 @@ function MyApp({ Component, pageProps }) {
               <link href='https://cdnjs.cloudflare.com/ajax/libs/rsuite/5.11.0/rsuite.min.css' rel="stylesheet" />
             }
           </Head>
-      <NextUIProvider >
+      < >
         <CustomProvider rtl={lang === "ar" ? true : false} >
           <div className="grid grid-area-home">
             <Aside />
             <TopNav />
+            
             <div className="bg-secondary grid-area-home-page rtl:rounded-tr-xl ltr:rounded-tl-xl p-8">
+              <Warrning/>
               <Component {...pageProps} />
             </div>
           </div>
         </CustomProvider>
-      </NextUIProvider>
+      </>
 
     </>
   )

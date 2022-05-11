@@ -17,7 +17,7 @@ export default function Aside() {
     { title: t('aside:sign_out'), icon: <LogoutCurve className="text-primary" />, href: "/", },
   ]
   return (
-    <div className="bg-white w-72 grid-area-home-aside">
+    <div className="bg-white w-72 grid-area-home-aside fixed">
       <div className="flex items-center justify-center p-4 mb-4">
         <Logo big />
 
