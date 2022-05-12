@@ -30,9 +30,9 @@ export default function TopNav() {
         localStorage.setItem("theme" , dark);
   }
   return (
-    <div className=" bg-white flex-grow dark:bg-gray-800 dark:text-white grid-area-home-top">
-      <div className="container  px-4">
-        <div className="flex justify-between items-center">
+    <div className="flex-grow bg-white dark:bg-gray-800 dark:text-white grid-area-home-top">
+      <div className="container p-4">
+        <div className="flex items-center justify-between">
           <div className="flex-grow">
 
           <form>
@@ -40,13 +40,13 @@ export default function TopNav() {
             <button type="submit">
             <SearchNormal1 className="text-gray-400" />
             </button>
-            <input placeholder={t('aside:i_am_looking_for_something')} type="search" className="bg-transparent w-full"/>
+            <input placeholder={t('aside:i_am_looking_for_something')} type="search" className="w-full bg-transparent"/>
           </div>
           </form>
           </div>
           <ul className="flex items-center gap-4">
             <li>
-              <div className={`${!dark ? 'bg-black-important' : ""} icon-container pb-0-important`}>
+              <div className={`${!dark ? 'bg-black-important' : ""} icon-container `}>
                 <button onClick={handleChangeDark}>
                   {dark ? 
                   <Sun1 className="text-primary" />
@@ -57,7 +57,7 @@ export default function TopNav() {
               </div>
             </li>
             <li>
-              <div className="icon-container pb-0-important">
+              <div className="icon-container ">
 
               <button onClick={handleChangeLang}>
                 

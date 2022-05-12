@@ -8,7 +8,33 @@ function LoginBackground(props) {
 
     )
 }
+function DashedBorder(props) {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width={760} height={157} viewBox="0 0 760 157" fill="none" className="absolute w-full transform translate-x-1/2 -translate-y-1/2 top-1/2 right-1/2" >
+            <rect x={1} y={1} width={758} height={155} rx={19} style={{ stroke: 'var(--primary-color)' }} strokeWidth={2} strokeDasharray="15 15" />
+        </svg>
+
+    )
+}
+function Menu(props) {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width={20} height={21} viewBox="0 0 20 21" fill="none">
+            <path d="M2.5 6.26855H13.5" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M2.5 10.4271H10.5" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M2.5 14.5857H16" stroke="#292D32" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+
+
+    )
+}
+function Pin(props) {
+    return (
+        <svg {...props} xmlns="http://www.w3.org/2000/svg" width={9} height={15} viewBox="0 0 9 15" fill="none">
+            <path d="M7.07143 1.60334H6.57143V2.10334V5.59657C6.57143 6.81836 7.37347 7.89009 8.5 8.13844V8.58979H5.12357H4.62357L4.62357 9.08979V13.7853L4.48071 13.9405L4.33786 13.7853V9.08979L4.33786 8.58979H3.83786H0.5L0.5 8.13844C1.62653 7.89009 2.42857 6.81836 2.42857 5.59657L2.42857 2.10334V1.60334H1.92857H1.28571C1.26233 1.60334 1.23108 1.59373 1.19963 1.55956C1.16769 1.52484 1.14286 1.47088 1.14286 1.4047C1.14286 1.33852 1.16769 1.28456 1.19963 1.24984C1.23108 1.21567 1.26233 1.20605 1.28571 1.20605L7.71429 1.20605C7.73767 1.20605 7.76892 1.21567 7.80036 1.24984C7.83231 1.28456 7.85714 1.33852 7.85714 1.4047C7.85714 1.47088 7.83231 1.52484 7.80036 1.55956C7.76892 1.59373 7.73767 1.60334 7.71429 1.60334H7.07143Z" stroke="black" />
+        </svg>
+    )
+}
 
 
 
-export { LoginBackground } 
+export { LoginBackground, DashedBorder, Menu, Pin } 

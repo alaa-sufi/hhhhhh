@@ -35,6 +35,10 @@ module.exports = {
       fontSize: {
         'h2':["var(--h2-size)"]
       },
+      letterSpacing: {
+        widest2: '0.2em',
+        widest3: '0.3em',
+      }
     }
   },
   plugins: [],
