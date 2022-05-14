@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Modal, Text } from '@nextui-org/react';
 import Link from "next/link";
-import { Profile , Courthouse , Sms ,Global,Eye ,Flag ,Facebook,Google,Call } from 'iconsax-react';
 
 export default function ModalPage() {
     const [visible, setVisible] = React.useState(false);
@@ -16,46 +15,7 @@ export default function ModalPage() {
                 <Button auto shadow onClick={handler}>
                     Open modal
                 </Button>
-                <Profile
- size="32"
- color="#FF8A65"
-/>
-<Courthouse
- size="32"
- color="#FF8A65"
-/>
-<Sms
- size="32"
- color="#FF8A65"
-/>
-{/* <Lock1
- size="32"
- color="#FF8A65"
-/> */}
-<Eye
- size="32"
- color="#FF8A65"
-/>
-<Global
- size="32"
- color="#FF8A65"
-/>
-<Flag
- size="32"
- color="#FF8A65"
-/>
-<Facebook
- size="32"
- color="#FF8A65"
-/>
-<Google
- size="32"
- color="#FF8A65"
-/>
-<Call
- size="32"
- color="#FF8A65"
-/>
+                
                 <Modal
                     closeButton
                     aria-labelledby="modal-title"

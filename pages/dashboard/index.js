@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Wallet3, MoneyRecive, MoneySend, Login, Add} from 'iconsax-react';
+import { Wallet3, MoneyRecive, MoneySend, Login, Add } from 'iconsax-react';
 import useTranslation from 'next-translate/useTranslation'
 import ButtonTheme from '@/ui/ButtonTheme';
 import Link from "next/link"
-import {DashedBorder } from "public/svg"
+import { DashedBorder } from "public/svg"
 import CardAccount from "@/ui/CardAccount"
 export default function Dashboard() {
   const { t, lang } = useTranslation()
@@ -11,6 +11,7 @@ export default function Dashboard() {
   return (
     <div className="grid grid-cols-3 gap-4 ">
       <div className="col-span-2 ">
+        <h1 className="hidden">{t("dashboard:dashboard")}</h1>
         {/* start main */}
         <section className="p-2 bg-white rounded-lg md:rounded-xl ">
           <div className="relative flex justify-between mb-10 ">
@@ -19,8 +20,8 @@ export default function Dashboard() {
             <button className={` rounded-xl p-6 z-1 text-center w-2/5 ${tab === 2 && "text-white"}`} onClick={() => setTab(2)}>{t("dashboard:my_trading_accounts")}</button>
           </div>
           {/* start create_an_experimental_account */}
-          <div className="relative mb-10">
-           <DashedBorder/>
+          <div className="relative mb-14 flex items-center justify-center">
+            <DashedBorder />
             <Link href="/">
               <a className="flex flex-col items-center w-full p-4 text-xl rounded-xl text-primary">
                 <Add
@@ -35,14 +36,29 @@ export default function Dashboard() {
             </Link>
           </div>
           {/* end create_an_experimental_account */}
-          <div className="grid grid-cols-2 gap-4 mb-10">
-            {Array.from({ length: Number.parseInt(4) }, (item, index) => (
-              <CardAccount/>
-            ))}
-          </div>
+          {/* start cards */}
+          {tab === 1 ? <>
+            {/* experimental */}
+            <div className="grid grid-cols-2 gap-4 mb-10">
+              {Array.from({ length: Number.parseInt(4) }, (item, index) => (
+                <CardAccount  type="experimental" />
+              ))}
+            </div>
+          </>
+            :
+            <>
+              {/* real */}
+              <div className="grid grid-cols-2 gap-4 mb-10">
+                {Array.from({ length: Number.parseInt(4) }, (item, index) => (
+                  <CardAccount type="real"/>
+                ))}
+              </div>
+            </>
+          }
+          {/* end cards */}
         </section>
         {/* end main */}
-      </div>
+      </div >
       <div>
         {/* start wallet */}
         <section className="p-8 mb-6 bg-white rounded-lg md:rounded-xl">
@@ -53,7 +69,7 @@ export default function Dashboard() {
             <h2 className="m-0 text-sm text-gray-500">{t('dashboard:current_balance')}</h2>
           </div>
           <strong className="block mt-4 mb-6 text-4xl text-black"><bdi>$</bdi>5,860,00</strong>
-          <ButtonTheme color="primary" block className="flex items-center justify-center gap-1 p-4 mb-4 rounded-2xl" as="link" href="/"><MoneyRecive size="20" className="text-white" />{t('dashboard:deposit_a_new_amount')}</ButtonTheme>
+          <ButtonTheme color="primary" block className="flex items-center justify-center gap-1 p-4 mb-4 rounded-2xl" as="link" href="/dashboard/deposit"><MoneyRecive size="20" className="text-white" />{t('dashboard:deposit_a_new_amount')}</ButtonTheme>
           <ButtonTheme outline color="primary" block className="flex items-center justify-center gap-1 p-4 mb-4 rounded-2xl" as="link" href="/"><MoneySend size="20" className="text-primary" />{t('dashboard:drag')}</ButtonTheme>
         </section>
         {/* end wallet */}
@@ -85,6 +101,6 @@ export default function Dashboard() {
         {/* end your_last_activity */}
 
       </div>
-    </div>
+    </div >
   )
 }

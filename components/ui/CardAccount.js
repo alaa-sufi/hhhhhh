@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import { Menu, Pin } from "public/svg"
-import { MoneyRecive, Add, ArrowSwapVertical, Trash, Setting4, Refresh2 } from 'iconsax-react';
+import { MoneyRecive, Add, ArrowSwapVertical, Trash, Setting4, Refresh2 ,MoneySend ,Lock1} from 'iconsax-react';
 import useTranslation from 'next-translate/useTranslation'
 
-export default function CardAccount() {
+export default function CardAccount({type}) {
     const { t, lang } = useTranslation()
 
     const [openMenu, setOpenMenu] = useState(false)
 
     return (
-        <div className="col-span1" >
+        <div className={`col-span1 relative ${false &&  '[filter:drop-shadow(0px_0px_5px_rgba(255,0,0,0.6))]'}`} >
+            {false && <span className="w-8 h-8 absolute top-0 right-1/2 transform translate-x-1/2 bg-white rounded-br-lg rounded-bl-lg z-1 flex items-center justify-center"><Pin fill="black"/></span>}
             <div className="bg-[#F1F0F0]  rounded-xl  ">
-                <div className="bg-[#2980B9] py-5 px-6 rounded-xl text-white relative">
+                <div className={`${type === "real" ? "bg-[#2980B9]" : "bg-[#6ab929]" }  py-5 px-6 rounded-xl text-white relative`}>
                     <h5>{t("dashboard:balance")}</h5>
                     <span className="block mb-1 text-4xl ">$2,056</span>
                     <span className="block mb-10 tracking-widest3 text-slate-300">STANDARD</span>
@@ -23,10 +24,12 @@ export default function CardAccount() {
                             <Add className="absolute flex text-red-500 transform rotate-45 bg-white text-red top-2 rtl:left-2 ltr:right-2 rounded-xl" size="25 " />
                         </button>
                         <li className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10"><MoneyRecive className="w-5 text-black" size="25" />{t("dashboard:deposit")}</li>
+                        {type === "real" && <li className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10"> <MoneySend className="w-5 text-black" size="25" />{t("dashboard:drag")}</li>}
                         <li className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10"> <Refresh2 className="w-5 text-black" size="25" />{t("dashboard:record")}</li>
                         <li className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10"><Setting4 className="w-5 text-black" size="25" />{t("dashboard:account_information")}</li>
+                        {type === "real" && <li className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10"> <Lock1 className="w-5 text-black" size="25" />{t("dashboard:change_password")}</li>}
                         <li className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10"><Pin className="w-5 text-black" />{t("dashboard:account_installation")}</li>
-                        <li className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10"><Trash className="w-5 text-black" size="25" />{t("dashboard:deposit")}</li>
+                        <li className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-red-200"><Trash className="w-5 text-black" size="25" />{t("dashboard:delete_account")}</li>
                     </ul>}
                     <ul className="flex justify-between">
                         <li>
@@ -59,6 +62,10 @@ export default function CardAccount() {
                         <li>
                             <h6 className="text-sm">{t("dashboard:margins")}</h6>
                             <span className="text-sm font-bold text-black">200$</span>
+                        </li>
+                        <li>
+                            <h6 className="text-sm">{t("dashboard:capital")}</h6>
+                            <span className="text-sm font-bold text-black">1200$</span>
                         </li>
                         <li>
                             <h6 className="text-sm">{t("dashboard:capital")}</h6>

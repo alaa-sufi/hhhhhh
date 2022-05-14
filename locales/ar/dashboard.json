@@ -1,6 +1,7 @@
 {
     "your_profile_is_not_complete_yet":"ملفك الشخصي غير كامل بعد",
     "current_balance":"الرصيد الحالي",
+    "dashboard":"لوحة التحكم",
     "deposit_a_new_amount":"إيداع مبلغ جديد",
     "drag":"سحب المبلغ",
     "with_5_simple_steps_start_trading":"بـ 5 خطوات بسيطة ابدأ التداول",
@@ -9,6 +10,7 @@
     "my_experimental_accounts":"حساباتي التجريبية",
     "my_trading_accounts":"حساباتي التداول",
     "create_an_experimental_account":"انشاء حساب تجريبي",
+    "experimental_account":"حساب تجريبي",
     "go_to_the_profile":"انتقل للملف الشخصي",
     "balance":"الرصيد",
     "leverage":"الرافعة المالية",
@@ -21,5 +23,9 @@
     "record":"السجل",
     "account_information":"معلومات الحساب",
     "account_installation":"تثبيت الحساب",
-    "delete_account":"حذف الحساب"
+    "delete_account":"حذف الحساب",
+    "the_deposit_for_calculating":"الأيداع لحساب",
+    "fast_deposit":"أيداع سريع",
+    "deposit_now":"أيداع الأن",
+    "change_password":"تغيير كلمة السر"
 }

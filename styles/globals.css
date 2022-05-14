@@ -139,7 +139,12 @@ a {
   word-wrap: break-word;
   white-space: nowrap;
 }
-
+/* class dropdown */
+.nextui-backdrop-wrapper-enter-active{
+  background: rgba(188, 41, 41, 0);
+    backdrop-filter: blur(9.9px);
+    -webkit-backdrop-filter: blur(9.9px);
+}
 .custumn-check-box:checked + label {
   @apply text-white bg-primary
 }
