@@ -31,7 +31,7 @@ export default function TopNav() {
   }
   return (
     <div className="flex-grow bg-white dark:bg-gray-800 dark:text-white grid-area-home-top">
-      <div className="container p-4">
+      <div className="container2 p-4  mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex-grow">
 

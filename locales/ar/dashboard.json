@@ -10,6 +10,7 @@
     "my_experimental_accounts":"حساباتي التجريبية",
     "my_trading_accounts":"حساباتي التداول",
     "create_an_experimental_account":"انشاء حساب تجريبي",
+    "create_a_trading_account":"انشاء حساب تداول",
     "experimental_account":"حساب تجريبي",
     "go_to_the_profile":"انتقل للملف الشخصي",
     "balance":"الرصيد",
@@ -23,9 +24,13 @@
     "record":"السجل",
     "account_information":"معلومات الحساب",
     "account_installation":"تثبيت الحساب",
+    "cancel_account_installation":"الغاء تثبيت الحساب",
     "delete_account":"حذف الحساب",
     "the_deposit_for_calculating":"الأيداع لحساب",
     "fast_deposit":"أيداع سريع",
     "deposit_now":"أيداع الأن",
-    "change_password":"تغيير كلمة السر"
+    "change_password":"تغيير كلمة السر",
+    "platform":"نوع المنصة",
+    "basic_information":"معلومات اساسية",
+    "safety_and_appearance":"الأمان والمظهر"
 }

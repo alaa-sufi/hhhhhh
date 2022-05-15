@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal, Text } from '@nextui-org/react';
+// import { Button, Modal, Text } from '@nextui-org/react';
 import Link from "next/link";
 
 export default function ModalPage() {
@@ -12,7 +12,7 @@ export default function ModalPage() {
     return (
         <>
             <div>
-                <Button auto shadow onClick={handler}>
+                {/* <Button auto shadow onClick={handler}>
                     Open modal
                 </Button>
                 
@@ -41,7 +41,7 @@ export default function ModalPage() {
                             Sign in
                         </Button>
                     </Modal.Footer>
-                </Modal>
+                </Modal> */}
               
             </div>
         </>

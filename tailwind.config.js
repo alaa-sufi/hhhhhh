@@ -11,11 +11,16 @@ module.exports = {
 
   theme: {
     extend: {
+      zIndex: {
+        '1': '1',
+        '2': '2'
+            },
       backgroundColor: ['dark'],
       textColor: ['dark'],
       fontFamily: {
         primary: ["var(--primary-font)"],
       },
+      
       colors: {
         secondary: "var(--secondary-color)",
         primary: {
@@ -24,7 +29,7 @@ module.exports = {
           '100': '#A5C0F9',
           '200': '#D69FFF',
           '300': '#e5deea',
-          '400': '#3370F1',
+          '400': '#aa8fdd',
           '500': '#1056EB',
           '600': '#0C43B6',
           '700': '#093082',

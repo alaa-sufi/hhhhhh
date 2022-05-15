@@ -19,38 +19,24 @@ export default function Dashboard() {
             <button className={` rounded-xl p-6 z-1 text-center w-2/5 ${tab === 1 && "text-white"}`} onClick={() => setTab(1)}>{t("dashboard:my_experimental_accounts")}</button>
             <button className={` rounded-xl p-6 z-1 text-center w-2/5 ${tab === 2 && "text-white"}`} onClick={() => setTab(2)}>{t("dashboard:my_trading_accounts")}</button>
           </div>
-          {/* start create_an_experimental_account */}
-          <div className="relative mb-14 flex items-center justify-center">
-            <DashedBorder />
-            <Link href="/">
-              <a className="flex flex-col items-center w-full p-4 text-xl rounded-xl text-primary">
-                <Add
-                  size="50"
-                  className="text-primary"
-                />
 
-                <span>
-                  {t("dashboard:create_an_experimental_account")}
-                </span>
-              </a>
-            </Link>
-          </div>
-          {/* end create_an_experimental_account */}
           {/* start cards */}
           {tab === 1 ? <>
+          <CreatAccount text={t("dashboard:create_an_experimental_account")} href="/dashboard/experimental/create-account"/>
             {/* experimental */}
             <div className="grid grid-cols-2 gap-4 mb-10">
               {Array.from({ length: Number.parseInt(4) }, (item, index) => (
-                <CardAccount  type="experimental" />
+                <CardAccount  type="experimental" key={index}/>
               ))}
             </div>
           </>
             :
             <>
+          <CreatAccount text={t("dashboard:create_a_trading_account")} href="/trading/create-account"/>
               {/* real */}
               <div className="grid grid-cols-2 gap-4 mb-10">
                 {Array.from({ length: Number.parseInt(4) }, (item, index) => (
-                  <CardAccount type="real"/>
+                  <CardAccount type="trading" key={index}/>
                 ))}
               </div>
             </>
@@ -102,5 +88,25 @@ export default function Dashboard() {
 
       </div>
     </div >
+  )
+}
+
+
+ function CreatAccount({text , href}){
+  return (
+    <div className="relative mb-14 flex items-center justify-center">
+    <DashedBorder />
+    <Link href={href}>
+      <a className="flex flex-col items-center w-full p-4 text-xl rounded-xl text-primary relative">
+        <Add
+          size="50"
+          className="text-primary"
+        />
+        <span>
+          {text}
+        </span>
+      </a>
+    </Link>
+  </div>
   )
 }

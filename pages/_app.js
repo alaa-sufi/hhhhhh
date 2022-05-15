@@ -65,10 +65,11 @@ function MyApp({ Component, pageProps }) {
           <div className="grid grid-area-home">
             <Aside />
             <TopNav />
-            
-            <div className="bg-secondary grid-area-home-page rtl:rounded-tr-xl ltr:rounded-tl-xl p-8">
+            <div className="bg-secondary grid-area-home-page rtl:rounded-tr-xl ltr:rounded-tl-xl py-8">
+            <div className="container2   px-4  mx-auto">
               <Warrning/>
               <Component {...pageProps} />
+            </div>
             </div>
           </div>
         </CustomProvider>

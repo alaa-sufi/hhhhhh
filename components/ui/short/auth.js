@@ -18,7 +18,7 @@ export default function Login({ slider, noLinksButton, noRiskWarning, contactUs,
         { text: t('auth:sliderText1'), img: { img1 } },
     ]
     return (
-        <div className="grid h-screen grid-cols-12 gap-4 ">
+        <div className="grid h-screen grid-cols-12 gap-4 auth-slider">
             <div className={`${slider ? "md:col-span-6" : "md:col-span-8"} col-span-12 px-4 sm:px-6 lg:px-20 py-4 md:py-10 flex flex-col justify-between max-w-full m-auto w-[600px] min-h-screen`}>
                 <div className='flex justify-between' >
                     <Logo/>

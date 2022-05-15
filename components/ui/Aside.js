@@ -8,7 +8,7 @@ export default function Aside() {
   const { t, lang } = useTranslation()
 const [openCollabse,setOpenCollabse] = useState(false)
   const roots = [
-    { title: t('aside:control_board'), icon: <Element className="text-primary" />, href: "/", },
+    { title: t('aside:control_board'), icon: <Element className="text-primary" />, href: "/dashboard", },
     { title: t('aside:the_accounts'), icon: <Personalcard className="text-primary" />, href: "/", },
     {
       title: t('aside:record'), icon: <Refresh2 className="text-primary" />, list: [
