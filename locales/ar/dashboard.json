@@ -32,5 +32,17 @@
     "change_password":"تغيير كلمة السر",
     "platform":"نوع المنصة",
     "basic_information":"معلومات اساسية",
-    "safety_and_appearance":"الأمان والمظهر"
+    "safety_and_appearance":"الأمان والمظهر",
+    "next":"التالي",
+    "back":"رجوع",
+    "create_now":"أنشئ الأن",
+    "choose_the_account_color":"اختر لون الحساب",
+    "more":"المزيد",
+    "please_choose_the_platform_type":"يرجى اختيار نوع المنصة",
+    "please_choose_the_trading_currency":"يرجى اختيار عملة التداول",
+    "please_choose_the_leverage":"يرجى اختيار  الرافعة المالية",
+    "please_choose_the_initial_deposit_amountit_amount":"يرجى ادخال مبلغ الايداع الأولي",
+    "please_write_the_password":"يرجى كتابة كلمة المرور",
+    "password":"  كلمة المرور",
+    "please_choose_a_color":"يرجى اختيار لون"
 }

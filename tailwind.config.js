@@ -1,8 +1,14 @@
+const plugin = require("tailwindcss/plugin");
+const nextOnChecked = plugin(function ({ addVariant, e }) {
+  addVariant('nextOnChecked', ({ modifySelectors, separator }) => {
+    modifySelectors(({ className }) => {
+      return `.${e(`nextOnChecked${separator}${className}`)}:checked + *`;
+    })
+  });
+});
 module.exports = {
   // content: ['./src/**/*.{html,js}', './node_modules/tw-elements/dist/js/**/*.js'],
   darkMode: 'class',
-  plugins: [
-  ],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -11,6 +17,7 @@ module.exports = {
 
   theme: {
     extend: {
+     
       zIndex: {
         '1': '1',
         '2': '2'
@@ -46,5 +53,14 @@ module.exports = {
       }
     }
   },
-  plugins: [],
+  variants: {
+    extend: {
+      border: ['nextOnChecked'],
+      backgroundColor: ['nextOnChecked'],
+      text: ['nextOnChecked'],
+    },
+  },
+  plugins: [
+    nextOnChecked
+  ],
 }

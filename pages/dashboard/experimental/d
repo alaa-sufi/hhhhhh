@@ -1,0 +1,22 @@
+
+        {/* start step1 */}
+        <div className={` ${steps != 1 && "hidden"}`}>
+          <div className={`mb-4 `}>
+            <h2 className="text-lg text-gray-500  mb-4">{t("dashboard:platform")}</h2>
+
+          </div>
+          <h2 className="text-lg mb-4 text-gray-500 ">{t("dashboard:fast_deposit")}</h2>
+          <div className="w-max">
+            <ul className="flex gap-4 mb-8">
+              <li><button className="border-2 border-primary px-8 py-1 rounded-lg text-primary text-lg font-bold ">$1,000</button></li>
+              <li><button className="border-2 border-primary px-8 py-1 rounded-lg text-primary text-lg font-bold ">$3,000</button></li>
+              <li><button className="border-2 border-primary px-8 py-1 rounded-lg text-primary text-lg font-bold ">$5,000</button></li>
+            </ul>
+          </div>
+        </div>
+        {/* end step1 */}
+        {/* start step2 */}
+        <div className={` ${steps != 2 && "hidden"}`}>
+
+        </div>
+        {/* end step2 */}

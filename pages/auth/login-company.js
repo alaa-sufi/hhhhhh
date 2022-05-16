@@ -1,7 +1,7 @@
 
 import { useState } from "react"
 import Login from "@/ui/short/auth";
-import { Input, InputIcon ,InputCity , InputPhone , InputCheck} from "form"
+import { Input, InputIcon ,InputCity , InputPhone , InputCheck} from "@/form"
 import useTranslation from 'next-translate/useTranslation'
 import {  Sms, Lock,Eye, EyeSlash  } from 'iconsax-react';
 import ButtonTheme from "@/ui/ButtonTheme"

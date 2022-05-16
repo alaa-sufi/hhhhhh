@@ -60,6 +60,21 @@ function InputCheck({ name, text }) {
         </>
     )
 }
+function CustumnCheckbox({ name, text , value , type , color}) {
+    // name : name input
+    // text : text inside (label)
+    // value : value input
+    // type : type input 
+    // color : if input is color
+        return (
+        <div className="relative">
+        <Field name={name} type={type} value={value} className="absolute top-0 right-0 w-full h-full opacity-0 peer" />
+        <div className={`${color ? `bg-[${color}]` : 'bg-secondary'} bg-secondary rounded-xl flex items-center justify-center p-6 font-bold border-2 border-transparent peer-checked:border-2 peer-checked:border-primary peer-checked:text-primary  `}>
+          {text}
+        </div>
+      </div>
+    )
+}
 function InputCity(props) {
     const { t, lang } = useTranslation()
     const [phone, setPhone] = useState()
@@ -91,4 +106,4 @@ function InputCity(props) {
 
     )
 }
-export { Input, InputIcon, InputPhone, InputCity, InputCheck }
+export { Input, InputIcon, InputPhone, InputCity, InputCheck ,CustumnCheckbox}
