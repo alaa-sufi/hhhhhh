@@ -44,5 +44,21 @@
     "please_choose_the_initial_deposit_amountit_amount":"يرجى ادخال مبلغ الايداع الأولي",
     "please_write_the_password":"يرجى كتابة كلمة المرور",
     "password":"  كلمة المرور",
-    "please_choose_a_color":"يرجى اختيار لون"
+    "please_choose_a_color":"يرجى اختيار لون",
+    "the_trading_currency":"عملة التداول",
+    "current_leverage":"الرافعة المالية الحالية",
+    "the_first_deposit_amount":"مبلغ الأيداع الأولي",
+    "usd_usd":"دولار امريكي (USD)",
+    "another_sum":"مبلغ اخر",
+    "please_choose_a_fast_deposit_value":"يرجى اختيار قيمة ايداع سريع",
+    "account_settings_information":"معلومات اعدادات الحساب",
+    "your_request_has_been_registered_to_change_the_leverage":"تم تسجيل طلبك لتغيير الرافعة المالية",
+    "the_addict_will_be_approved_in_a_very_short_time_you_will_appear_notice_if_the_customer_succeeds_or_not":"سيتم الموافقة من قبل الأدمن خلال وقت قصير جدا سيظهر لك اشعار في حال نجاح العميلة ام لا ",
+    "done":"تمت العملية !!",
+    "successfully_an_amount_has_been_deposited":"بنجاح تم ايداع مبلغ",
+    "to_account":"الى حساب",
+    "do_you_want_to_delete_the_account":"هل تريد حذف الحساب؟"
+    
+
+
 }

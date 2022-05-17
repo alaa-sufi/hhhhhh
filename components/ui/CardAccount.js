@@ -13,7 +13,7 @@ const handleFix =()=>{
 }
     return (
         <div className={`col-span1 relative ${false &&  '[filter:drop-shadow(0px_0px_5px_rgba(255,0,0,0.6))]'}`} >
-            {fix && <span className="w-8 h-8 absolute top-0 right-1/2 transform translate-x-1/2 bg-white rounded-br-lg rounded-bl-lg z-1 flex items-center justify-center"><Pin fill="black"/></span>}
+            {fix && <span className="absolute top-0 flex items-center justify-center w-8 h-8 transform translate-x-1/2 bg-white rounded-bl-lg rounded-br-lg right-1/2 z-1"><Pin fill="black"/></span>}
             <div className="bg-[#F1F0F0]  rounded-xl  ">
                 <div className={`${type === "trading" ? "bg-[#2980B9]" : "bg-[#6ab929]" }  py-5 px-6 rounded-xl text-white relative`}>
                     <h5>{t("dashboard:balance")}</h5>
@@ -31,9 +31,11 @@ const handleFix =()=>{
                         </Link>
                         {type === "trading" && <li className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10"> <MoneySend className="w-5 text-black" size="25" />{t("dashboard:drag")}</li>}
                         <li className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10"> <Refresh2 className="w-5 text-black" size="25" />{t("dashboard:record")}</li>
-                        <li className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10"><Setting4 className="w-5 text-black" size="25" />{t("dashboard:account_information")}</li>
+                        <Link href={`/dashboard/${type}/account-information`}>
+                        <a className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10"><Setting4 className="w-5 text-black" size="25" />{t("dashboard:account_information")}</a>
+                        </Link>
                         {type === "trading" && <li className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10"> <Lock1 className="w-5 text-black" size="25" />{t("dashboard:change_password")}</li>}
-                        <button className="w-full flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10" onClick={handleFix}><Pin className="w-5 text-black" />{fix ? t("dashboard:cancel_account_installation") :t("dashboard:account_installation")}</button>
+                        <button className="flex items-center w-full gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-primary-200/10" onClick={handleFix}><Pin className="w-5 text-black" />{fix ? t("dashboard:cancel_account_installation") :t("dashboard:account_installation")}</button>
                         <li className="flex items-center gap-2 px-3 py-1 mb-1 cursor-pointer hover:bg-red-200"><Trash className="w-5 text-black" size="25" />{t("dashboard:delete_account")}</li>
                     </div>}
                     <ul className="flex justify-between">

@@ -48,11 +48,11 @@ function InputPhone(props) {
 function InputCheck({ name, text }) {
     const [field, meta, helpers] = useField(name);
 
-    const handleCheckAll = (value, checked) => {helpers.setValue(checked);};
+    const handleCheckAll = (value, checked) => { helpers.setValue(checked); };
     return (
         <>
             <label className="flex gap-2">
-            <Checkbox onChange={handleCheckAll}> {text}</Checkbox>
+                <Checkbox onChange={handleCheckAll}> {text}</Checkbox>
                 {/* <Field type="checkbox" name={name} />
                 <span className="text-xs">{text}</span> */}
             </label>
@@ -60,19 +60,20 @@ function InputCheck({ name, text }) {
         </>
     )
 }
-function CustumnCheckbox({ name, text , value , type , color}) {
+function CustumnCheckbox({ name, text, value, type, color, number }) {
     // name : name input
     // text : text inside (label)
     // value : value input
     // type : type input 
     // color : if input is color
-        return (
-        <div className="relative">
-        <Field name={name} type={type} value={value} className="absolute top-0 right-0 w-full h-full opacity-0 peer" />
-        <div className={`${color ? `bg-[${color}]` : 'bg-secondary'} bg-secondary rounded-xl flex items-center justify-center p-6 font-bold border-2 border-transparent peer-checked:border-2 peer-checked:border-primary peer-checked:text-primary  `}>
-          {text}
-        </div>
-      </div>
+    // number : if input is number
+    return (
+        <div className={`relative ${color && "aspect-square"}`}>
+            <Field name={name} type={type} value={value} className="absolute top-0 right-0 w-full h-full opacity-0 peer" />
+            <div className={`${color ? `bg-[${color}]` :!number && 'bg-secondary'}  rounded-xl flex items-center justify-center  font-bold border-2  ${color ? "peer-checked:ring-offset-2 peer-checked:ring-2 peer-checked:ring-primary" : number ? "border-primary border  text-primary peer-checked:bg-primary peer-checked:text-white px-4 py-2" : "peer-checked:border-2 peer-checked:border-primary peer-checked:text-primary"} ${!number && "h-full p-6 border-transparent"}  `}>
+                {text ? text : number ? `${value}$` : ""}
+            </div>
+        </div >
     )
 }
 function InputCity(props) {
@@ -106,4 +107,4 @@ function InputCity(props) {
 
     )
 }
-export { Input, InputIcon, InputPhone, InputCity, InputCheck ,CustumnCheckbox}
+export { Input, InputIcon, InputPhone, InputCity, InputCheck, CustumnCheckbox }
