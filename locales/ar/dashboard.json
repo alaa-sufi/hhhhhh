@@ -57,7 +57,27 @@
     "done":"تمت العملية !!",
     "successfully_an_amount_has_been_deposited":"بنجاح تم ايداع مبلغ",
     "to_account":"الى حساب",
-    "do_you_want_to_delete_the_account":"هل تريد حذف الحساب؟"
+    "do_you_want_to_delete_the_account":"هل تريد حذف الحساب؟",
+    "yes_delete_now":"نعم, حذف الأن",
+    "no_cancel_the_deletion":"لا, الغاء الحذف",
+    "steps_to_start":"خطوات لبدء",
+    "your_trading":"التداول الخاص بك",
+    "keep_the_trading_account_safety":"حافظ على امان حساب التداول",
+    "please_keep_the_trading_account_and_password_to_prevent_any_manipulation":"يرجى الحفاظ على حساب التداول وكلمة السر منعا لأي تلاعب",
+    "download":"تحميل",
+    "carrying":"حمل",
+    "start_downloading_the_appropriate_meta_trader_platform_for_you_from_the_bottom_section":"ابدا بتحميل منصة الميتاتريدر المناسبة لك من القسم الأسفل",
+    "mister_training":"التدريب بشكل مستر",
+    "after_installing_the_meta_trader_and_creating_an_account_the_training_began_immediately":"بعد تثبيت الميتاتريدر وانشاء حساب وبدأ التدريب في الحال",
+    "computers":"أجهزة الكمبيوتر",
+    "smart_phones":"الهواتف الذكية",
+    "windows":"ويندوز",
+    "apple":"أبل",
+    "android":"أندرويد",
+    "iphone":"أيفون",
+    "server_name":"اسم الخادم",
+    "saving_changes":"حفظ التغييرات",
+    "the_copy":"تم النسخ"
     
 
 

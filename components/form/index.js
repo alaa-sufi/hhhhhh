@@ -70,10 +70,24 @@ function CustumnCheckbox({ name, text, value, type, color, number }) {
     return (
         <div className={`relative ${color && "aspect-square"}`}>
             <Field name={name} type={type} value={value} className="absolute top-0 right-0 w-full h-full opacity-0 peer" />
-            <div className={`${color ? `bg-[${color}]` :!number && 'bg-secondary'}  rounded-xl flex items-center justify-center  font-bold border-2  ${color ? "peer-checked:ring-offset-2 peer-checked:ring-2 peer-checked:ring-primary" : number ? "border-primary border  text-primary peer-checked:bg-primary peer-checked:text-white px-4 py-2" : "peer-checked:border-2 peer-checked:border-primary peer-checked:text-primary"} ${!number && "h-full p-6 border-transparent"}  `}>
+            <div className={`${color ? `bg-[${color}]` : !number && 'bg-secondary'}  rounded-xl flex items-center justify-center  font-bold border-2  ${color ? "peer-checked:ring-offset-2 peer-checked:ring-2 peer-checked:ring-primary" : number ? "border-primary border  text-primary peer-checked:bg-primary peer-checked:text-white px-4 py-2" : "peer-checked:border-2 peer-checked:border-primary peer-checked:text-primary"} ${!number && "h-full p-6 border-transparent"}  `}>
                 {text ? text : number ? `${value}$` : ""}
             </div>
         </div >
+    )
+}
+function SelectWIthHead({name,head, options }) {
+    return (
+        <>
+            <div className="flex justify-between p-4 mb-4 bg-secondary rounded-xl">
+                {head}
+                <Field name={name} component="select" className="font-bold bg-transparent text-primary">
+                   {options}
+                </Field>
+            </div>
+            <ErrorMessage name={name} component="span" className="text-red-500" />
+        </>
+
     )
 }
 function InputCity(props) {
@@ -107,4 +121,4 @@ function InputCity(props) {
 
     )
 }
-export { Input, InputIcon, InputPhone, InputCity, InputCheck, CustumnCheckbox }
+export { Input, InputIcon, InputPhone, InputCity, InputCheck, CustumnCheckbox ,SelectWIthHead}

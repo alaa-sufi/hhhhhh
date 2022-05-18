@@ -3,7 +3,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import 'react-phone-input-2/lib/style.css'
+import "swiper/css/effect-cards";
 import 'styles/globals.css'
+
 import Router from 'next/router'
 import NProgress from 'nprogress'
 import { Provider } from "react-redux";

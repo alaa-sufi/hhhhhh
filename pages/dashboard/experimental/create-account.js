@@ -6,10 +6,12 @@ import ButtonTheme from "@/ui/ButtonTheme"
 import { Correct } from "public/svg"
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Profile, Courthouse, Sms, Lock, Eye, EyeSlash, Flag, Call, Facebook, Google } from 'iconsax-react';
-import { Input, InputIcon, CustumnCheckbox } from "@/form"
+import { Lock, Eye, EyeSlash} from 'iconsax-react';
+import { Input, InputIcon, CustumnCheckbox ,SelectWIthHead} from "@/form"
 import { Trider4 } from "public/svg"
+import { useRouter } from 'next/router';
 export default function CreateDemo() {
+  const router = useRouter;
   const { t, lang } = useTranslation()
   const [data, setData] = useState({
     platform: "",
@@ -22,6 +24,7 @@ export default function CreateDemo() {
   const [currentStep, setCurrentStep] = useState(0);
   const makeRequest = (formData) => {
     console.log("Form Submitted", formData);
+    router.push("//account-information")
   };
   const handleNextStep = (newData, final = false) => {
     setData((prev) => ({ ...prev, ...newData }));
@@ -112,23 +115,11 @@ const StepOne = (props) => {
             <CustumnCheckbox name="platform" value="6" text={<div className="flex items-center gap-1"><span className="text-xs grow w-max ">ميتة تريدر6</span><Trider4 /></div>} type="radio" />
           </div>
           <ErrorMessage name="platform" component="span" className="text-red-500" />
-          <div className="flex justify-between p-4 mb-4 bg-secondary rounded-xl">
-            {t("dashboard:the_trading_currency")}
-            <Field name="trading" component="select" className="font-bold bg-transparent text-primary">
-              <option value="usd">دولار امريكي (USD)</option>
-            </Field>
-          </div>
-          <ErrorMessage name="trading" component="span" className="text-red-500" />
+          
+         <SelectWIthHead name="trading" head={t("dashboard:the_trading_currency")} options={<option value="usd">دولار امريكي (USD)</option>}/>
 
-          <div className="flex justify-between p-4 mb-4 bg-secondary rounded-xl">
-            {t("dashboard:Current leverage")}
-            <Field name="current_leverage" component="select" className="font-bold bg-transparent text-primary">
-              <option value="200">1:200</option>
-            </Field>
-          </div>
-          <ErrorMessage name="current_leverage" component="span" className="text-red-500" />
-
-
+         <SelectWIthHead name="current_leverage" head={t("dashboard:current_leverage")} options={<option value="200">1:200</option>}/>
+         
           <InputIcon icon={<Lock className="text-primary" />}>
             <span role="button" className="absolute transform top-4 rtl:left-4 ltr:right-4 rtl:md:left-3 ltr:md:right-3 " onClick={() => setPasswordType(!passwordType)}>
               {passwordType ? <Eye /> : <EyeSlash />}

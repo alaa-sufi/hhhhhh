@@ -1,12 +1,12 @@
 import React from 'react'
 import useTranslation from 'next-translate/useTranslation'
-import { Wallet3, MoneyRecive, MoneySend, Login, Add, ArrowLeft } from 'iconsax-react';
+import { MoneyRecive, ArrowLeft } from 'iconsax-react';
 import Link from "next/link"
 import ButtonTheme from "@/ui/ButtonTheme"
 import CardAccountTop from "@/ui/CardAccountTop"
 import { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Input, InputIcon, CustumnCheckbox } from "@/form"
+import { CustumnCheckbox } from "@/form"
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 const handleSubmit = (values) => {

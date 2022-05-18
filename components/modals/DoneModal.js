@@ -1,7 +1,7 @@
 import React from 'react'
 import { Verify } from 'iconsax-react'
 import useTranslation from 'next-translate/useTranslation'
-import { Modal , Button} from 'rsuite';
+import { Modal } from 'rsuite';
 export default function DoneModal({open ,onClose , shiny , account}) {
   const { t, lang } = useTranslation()
 

@@ -236,21 +236,24 @@ a {
 }
 /* end slidr auth */
 /* start slider deposit */
-/* end slider deposit */
 [dir='rtl'] .deposit-slider{
   padding-right:1.5rem ;
 }
 [dir='ltr'] .deposit-slider{
   padding-left:1.5rem ;
 }
-.deposit-slider .swiper-slide{
+.deposit-slider .swiper-slide,
+.cards .swiper-slide{
   opacity: 0.3;
 }
-.deposit-slider .swiper-slide-active{
+.deposit-slider .swiper-slide-active,
+.cards .swiper-slide-visible{
   opacity: 1;
 }
 .deposit-slider .swiper-button-next,
-.deposit-slider .swiper-button-prev{
+.cards .swiper-button-next,
+.deposit-slider .swiper-button-prev,
+.cards .swiper-button-prev{
   background: var(--primary-color);
   width: 2rem;
   height: 2rem;
@@ -265,10 +268,20 @@ left: calc(50% - 1.5rem);
 right: 0.25rem;
 }
 .deposit-slider .swiper-button-next:after,
-.deposit-slider .swiper-button-prev:after{
+.cards .swiper-button-next:after,
+.deposit-slider .swiper-button-prev:after,
+.cards .swiper-button-prev:after{
   font-size: 0.5rem;
   color: #fff;
 }
+/* end slider deposit */
+/* start slider cards */
+
+.cards .swiper-slide{
+ width: 200px !important;
+}
+/* end slider cards */
+
 /* /reset phone  */
 .react-tel-input .form-control{
   width: calc(100% - 3rem);
@@ -419,8 +432,11 @@ right: 0.25rem;
 /* reset react suite modal */
 .rs-modal-content{
   border-radius: 2rem;
-    width: 500px;
+    max-width: 500px;
     margin: auto;
+}
+.less-size-modal .rs-modal-content{
+    max-width: 400px;
 }
 .rs-btn-close .rs-icon{
   color: #f72a2a;
