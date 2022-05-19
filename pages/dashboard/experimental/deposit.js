@@ -68,7 +68,7 @@ export default function Deposit() {
                 <CustumnCheckbox name="fast_deposit" value="5000" type="radio" number />
               </div>
               <ErrorMessage name="fast_deposit" component="span" className="mb-4 text-red-500" />
-              <ButtonTheme color="primary" block>{t("dashboard:deposit_now")}</ButtonTheme>
+              <ButtonTheme color="primary" block  className="px-4 py-2">{t("dashboard:deposit_now")}</ButtonTheme>
             </Form>
           )}
         </Formik>

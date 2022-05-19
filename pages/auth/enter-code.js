@@ -73,12 +73,12 @@ export default function EnterCode() {
           <span>{t('auth:re_send_through')} {time}</span>
         </span>
         <input type="number" value={allCode} className="hidden" />
-        <ButtonTheme color="primary" as="button" type="submit" big block className="my-4 text-center xs:my-2">
+        <ButtonTheme color="primary" as="button" type="submit" big block className="my-4 text-center xs:my-2 px-4 py-2">
           {t('auth:confirm_code')}
         </ButtonTheme>
 
       </form>
-      <ButtonTheme color="primary" onClick={() => router.back()} outline className=" mx-auto my-4 text-center xs:my-2 w-max flex items-center gap-2">
+      <ButtonTheme color="primary" onClick={() => router.back()} outline className=" mx-auto my-4 text-center xs:my-2 w-max flex items-center gap-2 px-4 py-2">
         {t('auth:back')}{lang == "ar" ? <ArrowLeft size="15" className="text-primary" /> : <ArrowRight size="15" className="text-primary" />}
       </ButtonTheme>
 

@@ -139,7 +139,7 @@ const StepOne = (props) => {
           <span className="bg-[#3498DB] bg-[#8E44AD] bg-[#2980B9] bg-[#2ECC71] bg-[#F1C40F] bg-[#290009] hidden"></span>
           <ErrorMessage name="color" component="span" className="text-red-500" />
 
-          <ButtonTheme type="submit" color="primary" block ><span className="flex items-center justify-center gap-2">{t("dashboard:next")} <ArrowLeft className="text-white" size="15" /></span></ButtonTheme>
+          <ButtonTheme type="submit" color="primary" block  className="px-4 py-2"><span className="flex items-center justify-center gap-2">{t("dashboard:next")} <ArrowLeft className="text-white" size="15" /></span></ButtonTheme>
 
         </Form>
       )}
@@ -178,7 +178,7 @@ const StepTwo = (props) => {
          
           </div>
           <ErrorMessage name="the_first_deposit_amount" component="span" className="text-red-500" />
-          <ButtonTheme type="submit" color="primary" block >{t("dashboard:create_now")}</ButtonTheme>
+          <ButtonTheme type="submit" color="primary" block  className="px-4 py-2" >{t("dashboard:create_now")}</ButtonTheme>
 
         </Form>
       )}

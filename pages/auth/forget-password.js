@@ -40,7 +40,7 @@ export default function ForgetPassword() {
             </InputIcon>
 
 
-            <ButtonTheme color="primary" as="button" type="submit" big block className="my-4 text-center xs:my-2">
+            <ButtonTheme color="primary" as="button" type="submit" big block className="my-4 text-center xs:my-2 px-4 py-2">
               {t('auth:send_code')}
             </ButtonTheme>
           </form>
@@ -48,7 +48,7 @@ export default function ForgetPassword() {
       </Formik>
       <button className="block w-full text-xs text-center text-primary" onClick={() => setIsEmail(!isEmail)}>{isEmail ? t('auth:send_the_code_to_the_phone') : t('auth:send_the_code_to_the_email')}</button>
 
-      <ButtonTheme color="primary" onClick={() => router.back()} outline className="flex items-center gap-2 mx-auto my-4 text-center  xs:my-2 w-max">
+      <ButtonTheme color="primary" onClick={() => router.back()} outline className="flex items-center gap-2 mx-auto my-4 text-center  xs:my-2 w-max px-4 py-2">
         {t('auth:back')}{lang == "ar" ? <ArrowLeft size="15" className="text-primary" /> : <ArrowRight size="15" className="text-primary" />}
       </ButtonTheme>
 

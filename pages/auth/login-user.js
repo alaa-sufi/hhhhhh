@@ -43,13 +43,13 @@ export default function LoginUser() {
            </Link>
            <InputCheck name="remember" text={t('auth:remember_me')} >
            </InputCheck>
-            <ButtonTheme color="primary" as="button" type="submit" big  block className="my-6 text-center xs:my-4">
+            <ButtonTheme color="primary" as="button" type="submit" big  block className="my-6 text-center xs:my-4 px-4 py-2">
               {t('auth:sign_in')}
             </ButtonTheme>
           </form>
         )}
       </Formik>
-      <ButtonTheme color="primary" outline as="link" href="/auth/register-user" block className="my-6 text-center xs:my-4">
+      <ButtonTheme color="primary" outline as="link" href="/auth/register-user" block className="my-6 text-center xs:my-4 px-4 py-2">
         {t('auth:you_do_not_have_an_account_create_an_account')}
       </ButtonTheme>
     </Login>

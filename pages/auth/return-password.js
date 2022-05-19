@@ -38,7 +38,7 @@ export default function ReturnPassword() {
             </InputIcon>  
            
          
-            <ButtonTheme color="primary" as="button" type="submit" big  block className="my-6 text-center xs:my-4">
+            <ButtonTheme color="primary" as="button" type="submit" big  block className="my-6 text-center xs:my-4 px-4 py-2">
               {t('auth:reset')}
             </ButtonTheme>
           </form>

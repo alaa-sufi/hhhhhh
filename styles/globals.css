@@ -123,12 +123,8 @@ a {
 .container-page-small {
   @apply w-[700px] px-4 mx-auto max-w-full;
 }
-.button {
-  @apply px-4 py-2 text-center rounded-lg shadow-md ;
-}
-.button.primary {
-  @apply text-white bg-primary ;
-}
+
+
 .button.out-primary {
   @apply bg-transparent text-primary outline-1 outline-primary outline;
 }

@@ -35,13 +35,13 @@ export default function LoginBroker() {
             </InputIcon>  
            
          
-            <ButtonTheme color="primary" as="button" type="submit" big  block className="my-6 text-center xs:my-4">
+            <ButtonTheme color="primary" as="button" type="submit" big  block className="my-6 text-center xs:my-4 px-4 py-2">
               {t('auth:sign_in')}
             </ButtonTheme>
           </form>
         )}
       </Formik>
-      <ButtonTheme color="primary" as="link"  href="/" outline className="block mx-auto my-10 text-center xs:my-8 w-max">
+      <ButtonTheme color="primary" as="link"  href="/" outline className="block mx-auto my-10 text-center xs:my-8 w-max px-4 py-2">
                 {t('auth:back_to_the_home_page')}
             </ButtonTheme>
     </Login>

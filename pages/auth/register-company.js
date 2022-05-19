@@ -7,7 +7,7 @@ import { Profile, Courthouse , Sms, Lock,Eye, EyeSlash , Flag , Call } from 'ico
 import ButtonTheme from "@/ui/ButtonTheme"
 import { Formik } from "formik";
 import * as Yup from "yup";
-
+import axios from "axios";
 export default function RegisterCompany() {
   const { t, lang } = useTranslation()
   const [passwordType ,setPasswordType] = useState(true)
@@ -48,13 +48,13 @@ export default function RegisterCompany() {
             <InputCheck name="agree" text={t('auth:by_clicking_on_the_box_i_acknowledge_that_i_read_the_work_agreement_the_privacy_policy_and_the_conditions_of_the_company_and_i_agree_with_it_and_this_is_considered_an_electronic_signature_by_me')} >
            </InputCheck>
          
-            <ButtonTheme color="primary" as="button" type="submit" big  block className="my-6 text-center xs:my-4">
+            <ButtonTheme color="primary" as="button" type="submit" big  block className="my-6 text-center xs:my-4 px-4 py-2">
               {t('auth:create_account')}
             </ButtonTheme>
           </form>
         )}
       </Formik>
-      <ButtonTheme color="primary" outline as="link" href="/auth/login-company" block className="my-6 text-center xs:my-4">
+      <ButtonTheme color="primary" outline as="link" href="/auth/login-company" block className="my-6 text-center xs:my-4 px-4 py-2">
         {t('auth:i_have_an_account_log_in')}
       </ButtonTheme>
     </Login>

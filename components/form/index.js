@@ -85,7 +85,7 @@ function SelectWIthHead({name,head, options }) {
                    {options}
                 </Field>
             </div>
-            <ErrorMessage name={name} component="span" className="text-red-500" />
+            <ErrorMessage name={name} component="span" className="text-red-500 block mb-4 " />
         </>
 
     )

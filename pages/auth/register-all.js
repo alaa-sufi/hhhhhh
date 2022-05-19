@@ -18,10 +18,10 @@ export default function RegisterAll() {
             <DropdownButton open={openIndividual} className="p-2 md:p-4 mb-4 rounded-lg bg-secondary align-center" center onToggle={() => setopenIndividual(!openIndividual)} head={<> <Profile size="20" color="#333333" />
                 <span className="select-none">{t('auth:register_as_an_individual')}</span></>} >
                 <div className="flex justify-center gap-4 mt-5 ">
-                    <ButtonTheme color="primary" outline as="link" href="/auth/login-user">
+                    <ButtonTheme color="primary" outline as="link" href="/auth/login-user" className="px-4 py-2">
                         {t('auth:sign_in')}
                     </ButtonTheme>
-                    <ButtonTheme color="primary" as="link" href="/auth/register-user">
+                    <ButtonTheme color="primary" as="link" href="/auth/register-user" className="px-4 py-2">
                         {t('auth:create_a_new_account')}
                     </ButtonTheme>
                 </div>
@@ -33,10 +33,10 @@ export default function RegisterAll() {
                 <span className="select-none">{t('auth:register_as_an_company')}</span></>} >
                 <div className="flex justify-center gap-4 mt-5 ">
 
-                    <ButtonTheme color="primary" outline as="link" href="/auth/login-company">
+                    <ButtonTheme color="primary" outline as="link" href="/auth/login-company"  className="px-4 py-2">
                         {t('auth:sign_in')}
                     </ButtonTheme>
-                    <ButtonTheme color="primary " as="link" href="/auth/register-company">
+                    <ButtonTheme color="primary " as="link" href="/auth/register-company"  className="px-4 py-2">
                         {t('auth:create_a_new_account')}
                     </ButtonTheme>
                 </div>
@@ -47,7 +47,7 @@ export default function RegisterAll() {
                 <span className="select-none">{t('auth:identified_broker')}</span></>} >
             </DropdownButton>
             {/* end broker button */}
-            <ButtonTheme color="primary" as="a" href="/" outline className="block mx-auto my-10 text-center xs:my-8 w-max">
+            <ButtonTheme color="primary" as="a" href="/" outline className="block mx-auto my-10 text-center xs:my-8 w-max px-4 py-2">
                 {t('auth:back_to_the_home_page')}
             </ButtonTheme>
         </Login>
