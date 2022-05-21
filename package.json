@@ -26,7 +26,8 @@
     "react-scripts": "4.0.0",
     "rsuite": "^5.10.0",
     "swiper": "^8.0.0",
-    "yup": "^0.26.6"
+    "yup": "^0.26.6",
+    "react-hot-toast": "2.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.5",

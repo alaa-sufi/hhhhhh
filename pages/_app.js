@@ -5,6 +5,7 @@ import "swiper/css/pagination";
 import 'react-phone-input-2/lib/style.css'
 import "swiper/css/effect-cards";
 import 'styles/globals.css'
+import { Toaster } from "react-hot-toast";
 
 import Router from 'next/router'
 import NProgress from 'nprogress'
@@ -41,6 +42,7 @@ function MyApp({ Component, pageProps }) {
               <link href='https://cdnjs.cloudflare.com/ajax/libs/rsuite/5.11.0/rsuite.min.css' rel="stylesheet" />
             }
           </Head>
+          <Toaster position="bottom-right" />
           <Component {...pageProps} />
         </>
         {/* ) */}
@@ -64,6 +66,7 @@ function MyApp({ Component, pageProps }) {
           </Head>
       < >
         <CustomProvider rtl={lang === "ar" ? true : false} >
+        <Toaster position="bottom-right" />
           <div className="grid grid-area-home">
             <Aside />
             <TopNav />

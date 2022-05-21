@@ -5,15 +5,27 @@ import { Input, InputIcon ,InputCity , InputPhone ,InputCheck } from "@/form"
 import useTranslation from 'next-translate/useTranslation'
 import { Profile, Courthouse , Sms, Lock,Eye, EyeSlash , Flag , Call,Facebook , Google } from 'iconsax-react';
 import ButtonTheme from "@/ui/ButtonTheme"
+import axios from "axios";
+import toast from "react-hot-toast";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link"
+import {login} from "apiHandle"
+import { useRouter } from 'next/router'
+
 export default function LoginUser() {
   const [passwordType ,setPasswordType] = useState(true)
   const { t, lang } = useTranslation()
+  const [loadingButton, setLoadingButton] = useState(false)
+  const router = useRouter()
 
   const onSubmit = (values) => {
-    console.log(values)
+    setLoadingButton(true);
+    login({
+      values : values,
+      success : ()=>{setLoadingButton(false); router.push("/dashboard");},
+      error : ()=>setLoadingButton(false),
+      t:t})
   }
   return (
     <Login slider>
@@ -43,13 +55,13 @@ export default function LoginUser() {
            </Link>
            <InputCheck name="remember" text={t('auth:remember_me')} >
            </InputCheck>
-            <ButtonTheme color="primary" as="button" type="submit" big  block className="my-6 text-center xs:my-4 px-4 py-2">
+            <ButtonTheme color="primary" as="button" type="submit" big  block className="my-6 text-center xs:my-4 px-4 py-2" loading={loadingButton}>
               {t('auth:sign_in')}
             </ButtonTheme>
           </form>
         )}
       </Formik>
-      <ButtonTheme color="primary" outline as="link" href="/auth/register-user" block className="my-6 text-center xs:my-4 px-4 py-2">
+      <ButtonTheme color="primary" outline as="link" href="/auth/register-user" block className="my-6 text-center xs:my-4 px-4 py-2" >
         {t('auth:you_do_not_have_an_account_create_an_account')}
       </ButtonTheme>
     </Login>

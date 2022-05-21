@@ -93,12 +93,13 @@ function SelectWIthHead({name,head, options }) {
 function InputCity(props) {
     const { t, lang } = useTranslation()
     const [phone, setPhone] = useState()
+    const [country, setCountry] = useState("")
     const [field, meta, helpers] = useField(props.name);
 
     const handleOnChange = (value, data, event, formattedValue) => {
-        helpers.setValue(value.slice(data.dialCode.length));
+        console.log("data" , data.name)
+        helpers.setValue(`${data.name} , ${country}`);
         setPhone(value.slice(data.dialCode.length));
-        console.log(value.slice(data.dialCode.length))
     }
     return (
         <div className="mb-3 md:mb-6">
@@ -112,10 +113,11 @@ function InputCity(props) {
                 searchPlaceholder={t('auth:write_the_name_of_the_state')}
                 value={phone}
                 onChange={handleOnChange}
+                
             />
-            <Field {...props} className={`absolute bg-transparent top-4 width-city`} >
+            <input {...props} className={`absolute bg-transparent top-4 width-city`} value={country}  onChange={(e)=>setCountry(e.target.value)} >
                 {props.children}
-            </Field>
+            </input>
             <ErrorMessage name={props.name} component="span" className="mt-2 text-sm text-red-500 md:mt-4 md:text-md" />
         </div>
 

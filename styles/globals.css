@@ -126,7 +126,7 @@ a {
 
 
 .button.out-primary {
-  @apply bg-transparent text-primary outline-1 outline-primary outline;
+  @apply bg-transparent text-primary outline-1 outline-primary outline hover:text-primary;
 }
 
 .button.unactive {
