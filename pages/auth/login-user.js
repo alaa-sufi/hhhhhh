@@ -36,13 +36,13 @@ export default function LoginUser() {
         <div className="flex items-center w-1/2 gap-2 p-2 border rounded md:rounded-lg md:p-4"><Google size="20" /> {t('auth:register_via_google')} </div>
       </div>
       <Formik initialValues={{ name: "", password:"" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
-        name: Yup.string().required(t('auth:please_enter_the_name')),
+        email: Yup.string().required(t('auth:please_enter_the_email')),
         password: Yup.string().required(t('auth:please_enter_the_password'))
       })}>
         {(props) => (
           <form onSubmit={props.handleSubmit}>
-            <InputIcon icon={<Profile className="text-primary"/>}>
-              <Input name="name" type="text" placeholder={t('auth:full_name')}  />
+            <InputIcon icon={<Sms className="text-primary"/>}>
+              <Input name="email" type="email" placeholder={t('auth:e_mail')}  />
             </InputIcon>
             <InputIcon icon={<Lock className="text-primary"/>}>
             <span  role="button" className="absolute transform top-4 rtl:left-4 ltr:right-4 rtl:md:left-3 ltr:md:right-3 " onClick={()=>setPasswordType(!passwordType)}>

@@ -2,7 +2,7 @@
     "locales": ["ar", "en"],
     "defaultLocale": "ar",
     "pages": {
-      "*": ["common" , "aside" , "dashboard"],
+      "*": ["common" , "aside" , "dashboard", "errToast"],
       "/": ["home", "example"],
       "/auth/login-user": ["auth"],
       "/auth/register-all": ["auth"],

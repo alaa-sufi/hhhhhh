@@ -36,7 +36,7 @@ export default function LoginCompany() {
         {(props) => (
           <form onSubmit={props.handleSubmit}>
             <InputIcon icon={<Sms className="text-primary"/>}>
-              <Input name="email" type="text" placeholder={t('auth:e_mail')}  />
+              <Input name="email" type="email" placeholder={t('auth:e_mail')}  />
             </InputIcon>
             <InputIcon icon={<Lock className="text-primary"/>}>
             <span  role="button" className="absolute transform top-4 rtl:left-4 ltr:right-4 rtl:md:left-3 ltr:md:right-3 " onClick={()=>setPasswordType(!passwordType)}>

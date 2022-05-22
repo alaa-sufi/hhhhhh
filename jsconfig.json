@@ -7,7 +7,7 @@
         }
     },
     "pages": {
-        "*": ["common" , "aside" , "dashoard"],
+        "*": ["common" , "aside" , "dashoard", "errToast"],
         "/": ["home"],
         "/auth/[slug]": ["auth"],
         "/content/[slug]": ["content"],

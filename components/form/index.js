@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Field, ErrorMessage, useField } from "formik";
 import PhoneInput from 'react-phone-input-2'
 import { SelectPicker } from 'rsuite';
 import useTranslation from 'next-translate/useTranslation'
 import { Checkbox, CheckboxGroup } from 'rsuite';
+import { getCurrentCountry } from "apiHandle"
 function Input(props) {
     return (
         <div className={`${!props.noMarginBottom && "mb-3 md:mb-6"}`}>
@@ -24,27 +25,7 @@ function InputIcon(props) {
         </div>
     )
 }
-function InputPhone(props) {
-    const { t, lang } = useTranslation()
-    const [field, meta, helpers] = useField(props.name);
 
-    const [phone, setPhone] = useState()
-    return (
-        <div className="mb-3 md:mb-6">
-            <PhoneInput
-                className={`block w-full md:p-4 px-4 py-4   rounded-md bg-secondary ${props.className}`}
-                country={'jo'}
-                enableSearch={true}
-                containerClass={'block w-full md:p-4 px-4 py-4  rounded-md bg-secondary flex justify-between'}
-                placeholder={props.placeholder}
-                searchPlaceholder={t('auth:write_the_name_of_the_state')}
-                value={phone}
-                onChange={phone => helpers.setValue(phone)}
-            />
-            <ErrorMessage name={props.name} component="span" className="mt-2 text-sm text-red-500 md:mt-4 md:text-md" />
-        </div>
-    )
-}
 function InputCheck({ name, text }) {
     const [field, meta, helpers] = useField(name);
 
@@ -76,13 +57,13 @@ function CustumnCheckbox({ name, text, value, type, color, number }) {
         </div >
     )
 }
-function SelectWIthHead({name,head, options }) {
+function SelectWIthHead({ name, head, options }) {
     return (
         <>
             <div className="flex justify-between p-4 mb-4 bg-secondary rounded-xl">
                 {head}
                 <Field name={name} component="select" className="font-bold bg-transparent text-primary">
-                   {options}
+                    {options}
                 </Field>
             </div>
             <ErrorMessage name={name} component="span" className="text-red-500 block mb-4 " />
@@ -90,22 +71,61 @@ function SelectWIthHead({name,head, options }) {
 
     )
 }
+function InputPhone(props) {
+    const { t, lang } = useTranslation()
+    const [field, meta, helpers] = useField(props.name);
+    const [initialCountryCode, setInitialCountryCode] = useState("")
+
+    useEffect(() => {
+        console.log("in Input phone")
+        getCurrentCountry({
+            success: (response) => { setInitialCountryCode(response.data.CurrentCountry.countryCode); },
+            error: () => { setInitialCountryCode("")}
+        })
+    }, [initialCountryCode])
+    const [phone, setPhone] = useState()
+    return (
+        <div className="mb-3 md:mb-6">
+            <PhoneInput
+                className={`block w-full md:p-4 px-4 py-4   rounded-md bg-secondary ${props.className}`}
+                country={initialCountryCode.toLowerCase()}
+                enableSearch={true}
+                containerClass={'block w-full md:p-4 px-4 py-4  rounded-md bg-secondary flex justify-between'}
+                placeholder={props.placeholder}
+                searchPlaceholder={t('auth:write_the_name_of_the_state')}
+                value={phone}
+                onChange={phone => helpers.setValue(phone)}
+            />
+            <ErrorMessage name={props.name} component="span" className="mt-2 text-sm text-red-500 md:mt-4 md:text-md" />
+        </div>
+    )
+}
 function InputCity(props) {
     const { t, lang } = useTranslation()
     const [phone, setPhone] = useState()
     const [country, setCountry] = useState("")
+    const [cityName, setCityName] = useState("")
+    const [initialCountryCode, setInitialCountryCode] = useState("")
     const [field, meta, helpers] = useField(props.name);
-
+    useEffect(() => {
+        getCurrentCountry({
+            success: (response) => { setInitialCountryCode(response.data.CurrentCountry.countryCode); },
+            error: () => {setInitialCountryCode("") }
+        })
+    }, [])
     const handleOnChange = (value, data, event, formattedValue) => {
-        console.log("data" , data.name)
-        helpers.setValue(`${data.name} , ${country}`);
         setPhone(value.slice(data.dialCode.length));
+        setCityName(data.name);
+        setLastValue()
+    }
+    const setLastValue=()=> {
+        helpers.setValue(`${cityName} , ${country}`);
     }
     return (
         <div className="mb-3 md:mb-6">
             <PhoneInput
                 // className={`block w-full md:p-4 px-4 py-4   rounded-md bg-secondary ${props.className}`}
-                country={'jo'}
+                country={initialCountryCode.toLowerCase()}
                 enableSearch={true}
                 containerClass={'block w-full md:p-4 px-4 py-4  rounded-md bg-secondary flex justify-between city'}
                 placeholder={props.placeholder}
@@ -113,9 +133,9 @@ function InputCity(props) {
                 searchPlaceholder={t('auth:write_the_name_of_the_state')}
                 value={phone}
                 onChange={handleOnChange}
-                
+
             />
-            <input {...props} className={`absolute bg-transparent top-4 width-city`} value={country}  onChange={(e)=>setCountry(e.target.value)} >
+            <input {...props} className={`absolute bg-transparent top-4 width-city`} value={country} onChange={(e) =>{ setCountry(e.target.value);setLastValue()}} >
                 {props.children}
             </input>
             <ErrorMessage name={props.name} component="span" className="mt-2 text-sm text-red-500 md:mt-4 md:text-md" />
@@ -123,4 +143,4 @@ function InputCity(props) {
 
     )
 }
-export { Input, InputIcon, InputPhone, InputCity, InputCheck, CustumnCheckbox ,SelectWIthHead}
+export { Input, InputIcon, InputPhone, InputCity, InputCheck, CustumnCheckbox, SelectWIthHead }
