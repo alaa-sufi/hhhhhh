@@ -144,6 +144,10 @@ a {
 .input-with-icon input[value=""]{
   @apply rtl:text-right ltr:text-left;
 }
+
+.input-with-icon svg{
+  @apply w-full;
+}
 .icon-container{
   @apply flex p-2 rounded md:rounded-xl bg-primary-300;
 }

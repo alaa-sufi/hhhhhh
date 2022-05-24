@@ -40,12 +40,27 @@ const getRequest =(url  , success , error )=>{
  function login ({ values, success, error , t }) {
     sendRequest(`${host}/login` , values, success, (err)=>{
         if(err.response.status === 401){
-            toast.error(t("errToast:sorry_one_of_the_fields_is_incorrect"));
+            toast.error(t("errToast:sorry_the_email_is_not_true"));
+        }
+        if(err.response.status === 402){
+            toast.error(t("errToast:sorry_the_wrong_password"));
         }
         error();
     }, t)
  }
- function forgetPassword ({ values, success, error , t }) {
+ function forgetPasswordByEmail ({ values, success, error , t }) {
+    sendRequest(`${host}/password/forgot-password` , values,
+     ()=>{
+         success();
+         toast.success(t("errToast:we_have_emailed_your_password_reset_link"));
+        }, (err)=>{
+        if(err.response.status === 402){
+            toast.error(t("errToast:sorry_the_e_mail_is_not_used"));
+        }
+        error(err);
+    }, t)
+ }
+ function forgetPasswordByPhone ({ values, success, error , t }) {
     sendRequest(`${host}/password/forgot-password` , values,
      ()=>{
          success();
@@ -59,17 +74,26 @@ const getRequest =(url  , success , error )=>{
  }
  function returnPassword ({ values, success, error , t }) {
     sendRequest(`${host}/password/reset` , values,
-     ()=>{
-         success();
-        //  toast.success(t("errToast:تم تغيير كلمة "));
-        }, (err)=>{
-        if(err.response.status === 401){
-            toast.error(t("errToast:sorry_the_e_mail_is_not_used"));
-        }
+     ()=>{success();toast.success(t("errToast:the_word_has_been_successfully_changed"));},
+      (err)=>{
+          if(err.response.status === 401){toast.error(t("errToast:sorry_the_e_mail_is_not_used"));}
+          if(err.response.status === 500){toast.error(t("errToast:sorry_please_re_appoint_the_password_setd_set"));}
+        error();
+    }, t)
+ }
+ function enterCodeNumber ({ values, success, error , t }) {
+    sendRequest(`${host}/password/reset` , values,
+     ()=>{success();toast.success(t("errToast:the_word_has_been_successfully_changed"));},
+      (err)=>{
+          if(err.response.status === 401){toast.error(t("errToast:sorry_the_e_mail_is_not_used"));}
+          if(err.response.status === 500){toast.error(t("errToast:sorry_please_re_appoint_the_password_setd_set"));}
         error();
     }, t)
  }
  function getCurrentCountry ({  success, error  }) {
     getRequest(`${host}/Get-current-country` ,success, error)
  }
-export { register , login , forgetPassword ,returnPassword, getCurrentCountry}
+ function getPhoneCode ({  success, error , phone  }) {
+    getRequest(`${host}/verifyPhone?phone_number=${phone}` ,success, error)
+ }
+export { register , login , forgetPasswordByEmail ,forgetPasswordByPhone ,returnPassword, getCurrentCountry ,enterCodeNumber,getPhoneCode}

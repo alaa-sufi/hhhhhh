@@ -12,6 +12,7 @@
       "/auth/register-user": ["auth"],
       "/auth/login-company": ["auth"],
       "/auth/login-broker": ["auth"],
-      "/auth/enter-code": ["auth"]
+      "/auth/enter-phone-code": ["auth"],
+      "/auth/enter-email-code": ["auth"]
     }
   }

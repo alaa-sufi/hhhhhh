@@ -4,10 +4,11 @@ import { Input, InputIcon, InputCity, InputPhone } from "@/form"
 import useTranslation from 'next-translate/useTranslation'
 import { Profile, Courthouse, Sms, Lock, Eye, EyeSlash, Flag, Call, ArrowLeft, ArrowRight } from 'iconsax-react';
 import ButtonTheme from "@/ui/ButtonTheme"
+import { enterCodeNumber ,getPhoneCode } from "apiHandle"
 
 import { useRouter } from 'next/router'
 
-export default function EnterCode() {
+export default function EnterPhoneCode() {
   const router = useRouter()
   const [time, setTime] = useState("01:15");
   const [duration, setDuration] = useState(60 * 1.5);
@@ -22,7 +23,6 @@ export default function EnterCode() {
       minutes = minutes < 10 ? "0" + minutes : minutes;
       seconds = seconds < 10 ? "0" + seconds : seconds;
       setTime(minutes + ":" + seconds);
-      console.log(time)
 
       if (--timer < 0) {
         timer = 0;
@@ -30,7 +30,18 @@ export default function EnterCode() {
       }
     }, 1000);
   }
-  const onSubmit = (values) => {
+
+  const onSubmit = () => {
+    const values ={
+      verification_code : allCode,
+      phone_number:router.query.phone
+    }
+    enterCodeNumber({
+      values : values,
+      success : ()=>{setLoadingButton(false); router.push(`/auth/login-user`);},
+      error : ()=>setLoadingButton(false),
+      t:t
+    })
     console.log(values)
   }
   const otpFunc = (e) => {
@@ -47,6 +58,11 @@ export default function EnterCode() {
   }
   useEffect(() => {
     startTimer(duration);
+    getPhoneCode({
+      success : ()=>{},
+      error : ()=>{},
+      phone:router.query.phone
+    })
   }, [])
   const { t, lang } = useTranslation()
 
@@ -86,7 +102,7 @@ export default function EnterCode() {
     </Login>
   )
 }
-EnterCode.getLayout = function PageLayout(page) {
+EnterPhoneCode.getLayout = function PageLayout(page) {
   return <>
     {page}
   </>

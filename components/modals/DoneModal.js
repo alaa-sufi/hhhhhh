@@ -12,7 +12,7 @@ export default function DoneModal({open ,onClose , shiny , account}) {
      </Modal.Header>
    <Modal.Body>
    <div className="text-center">
-        <Verify size="120" className="mx-auto mb-6 text-green-500"/>
+        <Verify size="120" className="mx-auto mb-6 text-success"/>
         <p className="mb-4 font-bold text-black">{t("dashboard:done")}</p>
         <p className="mb-4 font-bold text-black">{`${t("dashboard:successfully_an_amount_has_been_deposited")} ${shiny} ${t("dashboard:to_account")} ${account} ${t("dashboard:to_account")}`}</p>
     </div>

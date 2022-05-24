@@ -1,5 +1,5 @@
 
-import { useState } from "react"
+import { useState , useEffect} from "react"
 import Login from "@/ui/short/auth";
 import { Input, InputIcon ,InputCity , InputPhone} from "@/form"
 import useTranslation from 'next-translate/useTranslation'
@@ -15,20 +15,25 @@ export default function ReturnPassword() {
   const [passwordType ,setPasswordType] = useState(true)
   const [loadingButton, setLoadingButton] = useState(false)
   const router = useRouter()
+  const [token , setToken] = useState("")
+  useEffect(()=>{
+    setToken(router.query.token);
+    console.log(router.query.token)
+  },[token,router])
   const onSubmit = (values) => {
     setLoadingButton(true);
-    // returnPassword({
-    //   values : values,
-    //   success : ()=>{setLoadingButton(false); router.push("/dashboard");},
-    //   error : ()=>setLoadingButton(false),
-    //   t:t})
+    returnPassword({
+      values : {...values , token:token},
+      success : ()=>{setLoadingButton(false); router.push("/auth/register-all");},
+      error : ()=>setLoadingButton(false),
+      t:t})
   }
  
   return (
-    <Login noLinksButton className="mb-16">
+    <Login noLinksButton className="mb-16"> 
       <h1 className="mb-0 font-bold text-h2 block mt-10">{t('auth:reset_a_new_password')}</h1>
       <span className="mb-8 block text-gray-400 text-md ">{t('auth:make_the_password_consist_of_letters_and_numbers_and_be_easy_to_remember')}</span>
-      <Formik initialValues={{ token:router.query.token,emali:"", password_confirmation: "", password:"" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
+      <Formik initialValues={{ email:"", password_confirmation: "", password:"" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape({
         password: Yup.string().required(t('auth:please_enter_the_password')),
         email: Yup.string().email().required(t('auth:please_enter_the_email')),
         password_confirmation: Yup.string().oneOf([Yup.ref('password'), null], t('auth:please_repeat_enter_the_password'))

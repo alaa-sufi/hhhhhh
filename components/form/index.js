@@ -18,7 +18,7 @@ function Input(props) {
 function InputIcon(props) {
     return (
         <div className="relative input-with-icon">
-            <div className="absolute rtl:right-4 ltr:left-4 top-4 z-1">
+            <div className="absolute rtl:right-4 ltr:left-4 top-4 z-1 w-5">
                 {props.icon}
             </div>
             {props.children}

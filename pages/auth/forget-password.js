@@ -7,7 +7,7 @@ import ButtonTheme from "@/ui/ButtonTheme"
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from 'next/router'
-import {forgetPassword} from "apiHandle"
+import {forgetPasswordByEmail ,forgetPasswordByPhone} from "apiHandle"
 
 export default function ForgetPassword() {
   const { t, lang } = useTranslation()
@@ -17,11 +17,21 @@ export default function ForgetPassword() {
   const router = useRouter()
   const onSubmit = (values) => {
     setLoadingButton(true);
-    forgetPassword({
-      values : values,
-      success : ()=>{setLoadingButton(false);},
-      error : ()=>setLoadingButton(false),
-      t:t})
+    if(isEmail){
+      forgetPasswordByEmail({
+        values : values,
+        success : ()=>{setLoadingButton(false);router.push(`/auth/enter-email-code?email=${values.email}`)},
+        error : ()=>setLoadingButton(false),
+        t:t})
+      }else{
+        // ! complete it and pass number
+        forgetPasswordByPhone({
+        values : values,
+        success : ()=>{setLoadingButton(false); router.push(`/enter-phone-code?phone=${values.phone}`);},
+        error : ()=>setLoadingButton(false),
+        t:t})
+
+    }
   }
 
   return (
@@ -48,8 +58,8 @@ export default function ForgetPassword() {
             </InputIcon>
 
 
-            <ButtonTheme color="primary" as="button" type="submit" big block className="my-4 text-center xs:my-2 px-4 py-2" loading={loadingButton}>
-              {t('auth:send_code')}
+            <ButtonTheme color="primary" as="button" type="submit"  block className="my-4 text-center xs:my-2 p-4" loading={loadingButton}>
+              {t('auth:send_the_password_recovery_link')}
             </ButtonTheme>
           </form>
         )}

@@ -15,10 +15,10 @@ export default function RegisterUser() {
   const [passwordType, setPasswordType] = useState(true)
   const [loadingButton, setLoadingButton] = useState(false)
   const onSubmit = (values) => {
-    setLoadingButton(true)
+    setLoadingButton(true);
     register({
       values : values,
-      success : ()=>{setLoadingButton(false); router.push("/auth/login-user");},
+      success : ()=>{setLoadingButton(false); router.push(`/auth/enter-phone-code?phone=${values.phone}`);},
       error : ()=>setLoadingButton(false),
       t:t
     })
@@ -47,7 +47,7 @@ export default function RegisterUser() {
               <Input name="name" type="text" placeholder={t('auth:full_name')} />
             </InputIcon>
             <InputIcon icon={<Sms className="text-primary" />}>
-              <Input name="email" type="text" placeholder={t('auth:e_mail')} />
+              <Input name="email" type="email" placeholder={t('auth:e_mail')} />
             </InputIcon>
             <InputIcon icon={<Flag className="text-primary" />}>
               <InputCity name="country" type="text" placeholder={t('auth:residence')} />

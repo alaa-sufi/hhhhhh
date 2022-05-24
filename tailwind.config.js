@@ -30,6 +30,7 @@ module.exports = {
       
       colors: {
         secondary: "var(--secondary-color)",
+        success: "#2CC170",
         primary: {
           DEFAULT: "var(--primary-color)",
           '50': '#B8CDFA',
