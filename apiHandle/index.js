@@ -82,11 +82,10 @@ const getRequest =(url  , success , error )=>{
     }, t)
  }
  function enterCodeNumber ({ values, success, error , t }) {
-    sendRequest(`${host}/password/reset` , values,
+    sendRequest(`${host}/phoneVerifyCode` , values,
      ()=>{success();toast.success(t("errToast:the_word_has_been_successfully_changed"));},
       (err)=>{
-          if(err.response.status === 401){toast.error(t("errToast:sorry_the_e_mail_is_not_used"));}
-          if(err.response.status === 500){toast.error(t("errToast:sorry_please_re_appoint_the_password_setd_set"));}
+          if(err.response.status === 401){toast.error(t("errToast:sorry_the_code_is_wrong"));}
         error();
     }, t)
  }

@@ -32,7 +32,7 @@ export default function Dashboard() {
           </>
             :
             <>
-          <CreatAccount text={t("dashboard:create_a_trading_account")} href="/trading/create-account"/>
+          <CreatAccount text={t("dashboard:create_a_trading_account")} href="/dashboard/trading/create-account"/>
               {/* real */}
               <div className="grid grid-cols-2 gap-4 mb-10">
                 {Array.from({ length: Number.parseInt(4) }, (item, index) => (
@@ -94,10 +94,10 @@ export default function Dashboard() {
 
  function CreatAccount({text , href}){
   return (
-    <div className="relative mb-14 flex items-center justify-center">
+    <div className="relative flex items-center justify-center mb-14">
     <DashedBorder />
     <Link href={href}>
-      <a className="flex flex-col items-center w-full p-4 text-xl rounded-xl text-primary relative">
+      <a className="relative flex flex-col items-center w-full p-4 text-xl rounded-xl text-primary">
         <Add
           size="50"
           className="text-primary"

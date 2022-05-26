@@ -8,7 +8,7 @@ export default function CardAccountTop() {
     const { t, lang } = useTranslation()
 
   return (
-    <div className={`bg-[#6ab929]  py-5 px-6 rounded-xl text-white relative`}>
+    <div className={`bg-[#6ab929]  py-5 px-6 rounded-xl text-white relative select-none`}>
     <h5>{t("dashboard:balance")}</h5>
     <span className="block mb-1 text-4xl ">$2,056</span>
     <span className="block mb-10 tracking-widest3 text-slate-300">STANDARD</span>

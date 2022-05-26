@@ -6,5 +6,7 @@
 "we_have_emailed_your_password_reset_link":"لقد أرسلنا عبر البريد الإلكتروني رابط إعادة تعيين كلمة المرور الخاصة بك",
 "sorry_please_re_appoint_the_password_setd_set":"عذرا يرجى اعادة طلب تعيين كلمة المرور",
 "the_word_has_been_successfully_changed":" تم تغيير كلمة بنجاح",
-"please_wait_and_return_later":" يرجى الانتظار والمعاودة لاحقا"
+"please_wait_and_return_later":" يرجى الانتظار والمعاودة لاحقا",
+"sorry_there_was_an_error_in_sending_the_code_please_return_later":" عذرا حدث خطأ في ارسال  الكود يرجى المعاودة لاحقا",
+"sorry_the_code_is_wrong":" عذرا الرمز خطأ"
 }

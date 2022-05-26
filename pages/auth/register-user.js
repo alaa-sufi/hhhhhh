@@ -8,7 +8,7 @@ import ButtonTheme from "@/ui/ButtonTheme"
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from 'next/router'
-import { register } from "apiHandle"
+import { register ,getPhoneCode } from "apiHandle"
 export default function RegisterUser() {
   const { t, lang } = useTranslation()
   const router = useRouter()
@@ -21,6 +21,11 @@ export default function RegisterUser() {
       success : ()=>{setLoadingButton(false); router.push(`/auth/enter-phone-code?phone=${values.phone}`);},
       error : ()=>setLoadingButton(false),
       t:t
+    })
+    getPhoneCode({
+      success: () => { },
+      error: () => { () => toast.error(t("errToast:sorry_there_was_an_error_in_sending_the_code_please_return_later")) },
+      phone: `+${values.phone}`
     })
       
   }

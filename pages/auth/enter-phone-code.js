@@ -4,7 +4,8 @@ import { Input, InputIcon, InputCity, InputPhone } from "@/form"
 import useTranslation from 'next-translate/useTranslation'
 import { Profile, Courthouse, Sms, Lock, Eye, EyeSlash, Flag, Call, ArrowLeft, ArrowRight } from 'iconsax-react';
 import ButtonTheme from "@/ui/ButtonTheme"
-import { enterCodeNumber ,getPhoneCode } from "apiHandle"
+import { enterCodeNumber, getPhoneCode } from "apiHandle"
+import toast from "react-hot-toast";
 
 import { useRouter } from 'next/router'
 
@@ -13,6 +14,11 @@ export default function EnterPhoneCode() {
   const [time, setTime] = useState("01:15");
   const [duration, setDuration] = useState(60 * 1.5);
   const [allCode, setAllCode] = useState("");
+  const [key1, setKey1] = useState("");
+  const [key2, setKey2] = useState("");
+  const [key3, setKey3] = useState("");
+  const [key4, setKey4] = useState("");
+  const [key5, setKey5] = useState("");
 
   function startTimer(duration) {
     var timer = duration, minutes, seconds;
@@ -30,17 +36,19 @@ export default function EnterPhoneCode() {
       }
     }, 1000);
   }
-
-  const onSubmit = () => {
-    const values ={
-      verification_code : allCode,
-      phone_number:router.query.phone
+  const [loadingButton, setLoadingButton] = useState(false)
+  const onSubmit = (e) => {
+    setLoadingButton(true)
+    e.preventDefault();
+    const values = {
+      verification_code: allCode,
+      phone_number: `+${router.query.phone}`
     }
     enterCodeNumber({
-      values : values,
-      success : ()=>{setLoadingButton(false); router.push(`/auth/login-user`);},
-      error : ()=>setLoadingButton(false),
-      t:t
+      values: values,
+      success: () => { setLoadingButton(false); router.push(`/auth/login-user`); },
+      error: () => setLoadingButton(false),
+      t: t
     })
     console.log(values)
   }
@@ -58,14 +66,15 @@ export default function EnterPhoneCode() {
   }
   useEffect(() => {
     startTimer(duration);
-    getPhoneCode({
-      success : ()=>{},
-      error : ()=>{},
-      phone:router.query.phone
-    })
   }, [])
   const { t, lang } = useTranslation()
-
+  const handleGetPhoneCode = () => {
+    getPhoneCode({
+      success: () => { },
+      error: () => { () => toast.error(t("errToast:sorry_there_was_an_error_in_sending_the_code_please_return_later")) },
+      phone: `+${router.query.phone}`
+    })
+  }
 
   return (
     <Login noLinksButton contactUs>
@@ -76,20 +85,20 @@ export default function EnterPhoneCode() {
         <div className="w-full">
           <div className="py-3 text-center rounded ">
             <div id="otp" className="flex flex-row justify-center  mt-5 text-center">
-              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb5" minLength="1" data-tab="5" />
-              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb4" minLength="1" data-tab="4" />
-              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb3" minLength="1" data-tab="3" />
-              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb2" minLength="1" data-tab="2" />
-              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb1" minLength="1" data-tab="1" />
+              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb5" minLength="1" data-tab="5" onChange={(e) => { setKey1(e.target.value) }} value={key1} />
+              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb4" minLength="1" data-tab="4" onChange={(e) => { setKey2(e.target.value) }} value={key2} />
+              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb3" minLength="1" data-tab="3" onChange={(e) => { setKey3(e.target.value) }} value={key3} />
+              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb2" minLength="1" data-tab="2" onChange={(e) => { setKey4(e.target.value) }} value={key4} />
+              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb1" minLength="1" data-tab="1" onChange={(e) => { setKey5(e.target.value) }} value={key5} />
             </div>
           </div>
         </div>
         <span className=" mx-auto text-center flex justify-between">
-          <span className={`${time == "00:00" ? "text-primary cursor-pointer" : "font-bold pointer-events-none"}`} onClick={() => { startTimer(duration) }}>{t('auth:i_havent_received_the_code_yet')} </span>
+          <span className={`${time == "00:00" ? "text-primary cursor-pointer" : "font-bold pointer-events-none"}`} onClick={() => { startTimer(duration); handleGetPhoneCode() }}>{t('auth:i_havent_received_the_code_yet')} </span>
           <span>{t('auth:re_send_through')} {time}</span>
         </span>
         <input type="number" value={allCode} className="hidden" />
-        <ButtonTheme color="primary" as="button" type="submit" big block className="my-4 text-center xs:my-2 px-4 py-2">
+        <ButtonTheme color="primary" as="button" type="submit" big block className="my-4 text-center xs:my-2 px-4 py-2" loading={loadingButton}>
           {t('auth:confirm_code')}
         </ButtonTheme>
 

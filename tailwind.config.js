@@ -17,17 +17,18 @@ module.exports = {
 
   theme: {
     extend: {
-     
+
       zIndex: {
         '1': '1',
-        '2': '2'
-            },
+        '2': '2',
+        '3': '3',
+      },
       backgroundColor: ['dark'],
       textColor: ['dark'],
       fontFamily: {
         primary: ["var(--primary-font)"],
       },
-      
+
       colors: {
         secondary: "var(--secondary-color)",
         success: "#2CC170",
@@ -46,7 +47,7 @@ module.exports = {
         },
       },
       fontSize: {
-        'h2':["var(--h2-size)"]
+        'h2': ["var(--h2-size)"]
       },
       letterSpacing: {
         widest2: '0.2em',

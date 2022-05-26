@@ -79,5 +79,18 @@
     "saving_changes":"حفظ التغييرات",
     "the_copy":"تم النسخ",
     "the_password_of_the_account":"كلمة سر الحساب",
-    "create_a_real_trading_account":"أنشئ حساب تداول حقيقي"
+    "create_a_real_trading_account":"أنشئ حساب تداول حقيقي",
+
+    "account_type":"نوع الحساب",
+    "essential":"اساسية",
+    "professionalism":"أحترافية",
+    "classic":"كلاسيكية",
+    "starting_from":"تبدأ من",
+    "there_is_no_commission":"لايوجد عمولة",
+    "the_lowest_deposit_amount":"اقل مبلغ ايداع",
+    "no":"لا",
+    "less_trading_volume":"اقل حجم تداول",
+    "islamic_account":"حساب اسلامي",
+    "yes":"نعم",
+    "choose_the_account":"أختيار الحساب"
 }

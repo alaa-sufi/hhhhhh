@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import useTranslation from 'next-translate/useTranslation'
-import { Add, ArrowLeft } from 'iconsax-react';
+import { Add, ArrowLeft, Flag, Cup, Crown1 } from 'iconsax-react';
 import Link from "next/link"
 import ButtonTheme from "@/ui/ButtonTheme"
 import { Correct } from "public/svg"
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Lock, Eye, EyeSlash} from 'iconsax-react';
-import { Input, InputIcon, CustumnCheckbox ,SelectWIthHead} from "@/form"
+import { Lock, Eye, EyeSlash } from 'iconsax-react';
+import { Input, InputIcon, CustumnCheckbox, SelectWIthHead } from "@/form"
 import { Trider4 } from "public/svg"
 import { useRouter } from 'next/router';
 export default function CreateTrading() {
@@ -51,7 +51,7 @@ export default function CreateTrading() {
           <div className=" icon-container">
             <Add size="25" className="text-primary-400" />
           </div>
-          <h1 className="block text-3xl font-bold text-black">{t("dashboard:create_an_experimental_account")}</h1>
+          <h1 className="block text-3xl font-bold text-black">{t("dashboard:create_a_real_trading_account")}</h1>
         </div>
         {currentStep == 0 ?
           <Link href="/dashboard" >
@@ -65,7 +65,7 @@ export default function CreateTrading() {
           </button>
         }
       </div>
-      <div className="mx-auto py-4 w-[500px] max-w-full">
+      <div className="py-4 ">
         {/* start steps numbers*/}
         <div className={`mb-8 flex justify-center items-center text-center gap-12 text-black relative after:top-[calc(50%-1rem)] after:right-1/2 after:w-[5.5rem] after:transform after:translate-x-1/2 after:-translate-y-1/2  ${currentStep === 0 ? "after:bg-gray-200" : "after:bg-primary"} after:h-1 after:absolute`}>
           <button className={`mb-4 z-2 `} onClick={() => setCurrentStep(0)}>
@@ -107,6 +107,7 @@ const StepOne = (props) => {
       onSubmit={handleSubmit}
     >
       {() => (
+         <div className="mx-auto  w-[500px] max-w-full">
         <Form>
           <h2 className="mb-2 text-lg text-gray-500">{t("dashboard:platform")}</h2>
           <div className="flex items-center justify-between gap-4 mb-4">
@@ -115,11 +116,11 @@ const StepOne = (props) => {
             <CustumnCheckbox name="platform" value="6" text={<div className="flex items-center gap-1"><span className="text-xs grow w-max ">ميتة تريدر6</span><Trider4 /></div>} type="radio" />
           </div>
           <ErrorMessage name="platform" component="span" className="text-red-500" />
-          
-         <SelectWIthHead name="trading" head={t("dashboard:the_trading_currency")} options={<option value="usd">دولار امريكي (USD)</option>}/>
 
-         <SelectWIthHead name="current_leverage" head={t("dashboard:current_leverage")} options={<option value="200">1:200</option>}/>
-         
+          <SelectWIthHead name="trading" head={t("dashboard:the_trading_currency")} options={<option value="usd">دولار امريكي (USD)</option>} />
+
+          <SelectWIthHead name="current_leverage" head={t("dashboard:current_leverage")} options={<option value="200">1:200</option>} />
+
           <InputIcon icon={<Lock className="text-primary" />}>
             <span role="button" className="absolute transform top-4 rtl:left-4 ltr:right-4 rtl:md:left-3 ltr:md:right-3 " onClick={() => setPasswordType(!passwordType)}>
               {passwordType ? <Eye /> : <EyeSlash />}
@@ -139,9 +140,10 @@ const StepOne = (props) => {
           <span className="bg-[#3498DB] bg-[#8E44AD] bg-[#2980B9] bg-[#2ECC71] bg-[#F1C40F] bg-[#290009] hidden"></span>
           <ErrorMessage name="color" component="span" className="text-red-500" />
 
-          <ButtonTheme type="submit" color="primary" block  className="px-4 py-2"><span className="flex items-center justify-center gap-2">{t("dashboard:next")} <ArrowLeft className="text-white" size="15" /></span></ButtonTheme>
+          <ButtonTheme type="submit" color="primary" block className="px-4 py-2"><span className="flex items-center justify-center gap-2">{t("dashboard:next")} <ArrowLeft className="text-white" size="15" /></span></ButtonTheme>
 
         </Form>
+         </div>
       )}
     </Formik>
   );
@@ -163,24 +165,49 @@ const StepTwo = (props) => {
       onSubmit={handleSubmit}
     >
       {({ values }) => (
+       <div className="mx-auto  w-[700px] max-w-full">
         <Form>
-          <h2 className="mb-2 text-lg text-black">{t("dashboard:the_first_deposit_amount")} <span className="text-gray-400">{t("dashboard:usd_usd")}</span></h2>
-          <div className="p-4 border">
-          <div className="grid grid-cols-3 gap-4 mb-4">
-          <CustumnCheckbox name="the_first_deposit_amount" value="1000"  type="radio" number/>
-          <CustumnCheckbox name="the_first_deposit_amount" value="3000"  type="radio" number/>
-          <CustumnCheckbox name="the_first_deposit_amount" value="5000"  type="radio" number/>
-          <CustumnCheckbox name="the_first_deposit_amount" value="10000"  type="radio" number/>
-          <CustumnCheckbox name="the_first_deposit_amount" value="25000"  type="radio" number/>
-          <CustumnCheckbox name="the_first_deposit_amount" value="50000"  type="radio" number/>
-          </div>
-          <Field className={`block w-full  px-4 py-4  rounded-md bg-secondary `} placeholder={t("dashboard:another_sum")} name="the_first_deposit_amount" type="number"/>
-         
-          </div>
+          <h2 className="mb-2 text-lg text-gray-400 ">{t("dashboard:account_type")}</h2>
+         <div className="p-4 bg-secondary rounded-xl ">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center justify-center w-12 h-12 p-1 rounded-full bg-primary ">
+              <Flag className="text-white"/>
+              </div>
+              <h3 className="mb-4 text-2xl text-black">{t("dashboard:essential")}<br/><span className="block text-xs text-center text-gray-400 ">{t("dashboard:starting_from")}</span></h3>
+            </div>
+              <div className="mb-8 text-center">
+              <bdi><span className="text-4xl font-black text-black">1.5</span>&nbsp;pips</bdi><br/>
+                <span className="text-gray-500">{t("dashboard:there_is_no_commission")}</span>
+              </div>
+              <ul>
+                <li className="relative flex justify-between before:w-2 before:h-2 before:bg-primary before:absolute before:right-8 before:rounded-full">
+                  <span>{t("dashboard:the_lowest_deposit_amount")}</span>
+                  <span className="text-bold text-balck">$100</span>
+                </li>
+                <li className="relative flex justify-between before:w-2 before:h-2 before:bg-primary before:absolute before:right-8 before:rounded-full">
+                  <span>EA</span>
+                  <span className="text-bold text-balck">{t("dashboard:no")}</span>
+                </li>
+                <li className="relative flex justify-between before:w-2 before:h-2 before:bg-primary before:absolute before:right-8 before:rounded-full">
+                <span>{t("dashboard:less_trading_volume")}</span>
+                <span className="text-bold text-balck">0.01</span>
+                </li>
+                <li className="relative flex justify-between before:w-2 before:h-2 before:bg-primary before:absolute before:right-8 before:rounded-full">
+                <span>{t("dashboard:islamic_account")}</span>
+                <span className="text-bold text-balck">{t("dashboard:yes")}</span>
+                </li>
+              </ul>
+         </div>
+         <div></div>
+         <div></div>
           <ErrorMessage name="the_first_deposit_amount" component="span" className="text-red-500" />
-          <ButtonTheme type="submit" color="primary" block  className="px-4 py-2" >{t("dashboard:create_now")}</ButtonTheme>
+           
+          <div className="mx-auto  w-[500px] max-w-full">
+          <ButtonTheme type="submit" color="primary" block className="px-4 py-2" >{t("dashboard:create_now")}</ButtonTheme>
+          </div>
 
         </Form>
+       </div> 
       )}
     </Formik>
   );

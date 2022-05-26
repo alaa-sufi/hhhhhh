@@ -28,24 +28,17 @@ function MyApp({ Component, pageProps }) {
   if (Component.getLayout) {
     return (
       <>
-        {/* Component.getLayout( */}
-        <>
-          <html lang={lang} dir={dir} />
-          <Head>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-            <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet" />
-            <meta name="theme-color" content="#1056EB" />
-            {dir === "rtl" ?
+        <html lang={lang} dir={dir} />
+        <Head>
+         
+          {dir === "rtl" ?
               <link href="https://cdnjs.cloudflare.com/ajax/libs/rsuite/5.11.0/rsuite-rtl.min.css" rel="stylesheet" />
               :
               <link href='https://cdnjs.cloudflare.com/ajax/libs/rsuite/5.11.0/rsuite.min.css' rel="stylesheet" />
             }
-          </Head>
-          <Toaster position="bottom-right" />
-          <Component {...pageProps} />
-        </>
-        {/* ) */}
+        </Head>
+        <Toaster position="bottom-right" />
+        <Component {...pageProps} />
       </>
 
     )
@@ -53,33 +46,26 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <html lang={lang} dir={dir} />
-          <Head>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-            <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet" />
-            <meta name="theme-color" content="#1056EB" />
-            {dir === "rtl" ?
+      <Head>
+        {dir === "rtl" ?
               <link href="https://cdnjs.cloudflare.com/ajax/libs/rsuite/5.11.0/rsuite-rtl.min.css" rel="stylesheet" />
               :
               <link href='https://cdnjs.cloudflare.com/ajax/libs/rsuite/5.11.0/rsuite.min.css' rel="stylesheet" />
             }
-          </Head>
-      < >
-        <CustomProvider rtl={lang === "ar" ? true : false} >
+      </Head>
+      <CustomProvider rtl={lang === "ar" ? true : false} >
         <Toaster position="bottom-right" />
-          <div className="grid grid-area-home">
-            <Aside />
-            <TopNav />
-            <div className="bg-secondary grid-area-home-page rtl:rounded-tr-xl ltr:rounded-tl-xl py-8">
+        <div className="grid grid-area-home">
+          <Aside />
+          <TopNav />
+          <div className="bg-secondary grid-area-home-page rtl:rounded-tr-xl ltr:rounded-tl-xl py-8">
             <div className="container2   px-4  mx-auto">
-              <Warrning/>
+              <Warrning />
               <Component {...pageProps} />
             </div>
-            </div>
           </div>
-        </CustomProvider>
-      </>
-
+        </div>
+      </CustomProvider>
     </>
   )
 }
