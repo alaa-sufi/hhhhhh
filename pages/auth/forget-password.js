@@ -7,69 +7,80 @@ import ButtonTheme from "@/ui/ButtonTheme"
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from 'next/router'
-import {forgetPasswordByEmail ,forgetPasswordByPhone} from "apiHandle"
+import { forgetPasswordByEmail, forgetPasswordByPhone } from "apiHandle"
+import toast from "react-hot-toast";
 
 export default function ForgetPassword() {
-  const { t, lang } = useTranslation()
+  const { t, lang } = useTranslation("auth")
   const [isEmail, setIsEmail] = useState(true)
-  const [loadingButton, setLoadingButton] = useState(false)
+  const [loadingButton1, setLoadingButton1] = useState(false)
+  const [loadingButton2, setLoadingButton2] = useState(false)
 
   const router = useRouter()
-  const onSubmit = (values) => {
-    setLoadingButton(true);
-    if(isEmail){
-      forgetPasswordByEmail({
-        values : values,
-        success : ()=>{setLoadingButton(false);router.push(`/auth/enter-email-code?email=${values.email}`)},
-        error : ()=>setLoadingButton(false),
-        t:t})
-      }else{
-        // ! complete it and pass number
-        forgetPasswordByPhone({
-        values : values,
-        success : ()=>{setLoadingButton(false); router.push(`/enter-phone-code?phone=${values.phone}`);},
-        error : ()=>setLoadingButton(false),
-        t:t})
+  const onSubmitEmail = (values) => {
+    setLoadingButton1(true);
 
-    }
+    forgetPasswordByEmail({
+      values: values,
+      success: () => { setLoadingButton1(false); router.push(`/auth/enter-email-code?email=${values.email}`) },
+      error: () => { setLoadingButton1(false); toast.error(t("errToast:sorry_a_problem_occurred")) }
+    })
+  }
+  const onSubmitPhone = (values) => {
+    setLoadingButton2(true);
+    forgetPasswordByPhone({
+      values: values,
+      success: () => { setLoadingButton2(false); router.push(`/auth/enter-phone-code?phone=${values.phone}&forget=true`) },
+      error: () => { setLoadingButton2(false); toast.error(t("errToast:sorry_a_problem_occurred")) },
+      phone: values.phone
+    })
   }
 
   return (
 
     <Login noLinksButton contactUs >
-      <h1 className="block mb-0 font-bold text-h2 mt-14">{t('auth:i_forgot_the_password')}</h1>
-      <span className="block mb-8 text-gray-400 text-md">{t('auth:please_enter_your_account_password_to_send_a_code_to_reset_a_new_password')}</span>
-      <Formik initialValues={isEmail ? { email: "" } : { phone: "" }} onSubmit={onSubmit} validationSchema={() => Yup.object().shape(isEmail ? {
-        email: Yup.string().email().required(t('auth:please_enter_the_email')),
-      } : {
-        phone: Yup.number().required(t('auth:please_enter_the_phone')),
-      })}>
-        {(props) => (
-          <form onSubmit={props.handleSubmit}>
+      <h1 className="block mb-0 font-bold text-h2 mt-14">{t('i_forgot_the_password')}</h1>
+      <span className="block mb-8 text-gray-400 text-md">{isEmail ? t('please_enter_your_email_your_account_to_send_a_code_to_reset_a_new_password') : t("please_enter_your_account_phone_number_to_send_a_icon_to_reset_a_new_password")}</span>
+      {
+        isEmail ?
+          <Formik initialValues={{ email: "" }} onSubmit={onSubmitEmail} validationSchema={() => Yup.object().shape({
+            email: Yup.string().email().required(t('please_enter_the_email')),
+          })}>
+            {(props) => (
+              <form onSubmit={props.handleSubmit}>
 
-            <InputIcon icon={isEmail ? <Sms className="text-primary" /> : <Call className="text-primary" />}>
-              {isEmail ?
+                <InputIcon icon={<Sms className="text-primary" />}>
+                  <Input name="email" type="email" placeholder={t('e_mail')} />
+                </InputIcon>
+                <ButtonTheme color="primary" as="button" type="submit" block className="my-4 text-center xs:my-2" loading={loadingButton1}>
+                  {t('send_the_password_recovery_link')}
+                </ButtonTheme>
+              </form>
+            )}
+          </Formik>
+          :
+          <Formik initialValues={{ phone: "" }} onSubmit={onSubmitPhone} validationSchema={() => Yup.object().shape({
+            phone: Yup.number().required(t('please_enter_the_phone')),
+          })}>
+            {(props) => (
+              <form onSubmit={props.handleSubmit}>
 
-                <Input name="email" type="email" placeholder={t('auth:e_mail')} />
-                :
+                <InputIcon icon={<Call className="text-primary" />}>
+                  <InputPhone name="phone" type="tel" placeholder={t('phone_number')} />
+                </InputIcon>
+                <ButtonTheme color="primary" as="button" type="submit" block className="my-4 text-center xs:my-2" loading={loadingButton2}>
+                  {t("send_code")}
+                </ButtonTheme>
+              </form>
+            )}
+          </Formik>
+      }
+      <button className="block w-full mb-10 text-center text-primary"
+        onClick={() => setIsEmail(!isEmail)}
+      >{isEmail ? t('send_the_code_to_the_phone') : t('send_the_code_to_the_email')}</button>
 
-                <InputPhone name="phone" type="tel" placeholder={t('auth:phone_number')} />
-              }
-            </InputIcon>
-
-
-            <ButtonTheme color="primary" as="button" type="submit"  block className="my-4 text-center xs:my-2 p-4" loading={loadingButton}>
-              {t('auth:send_the_password_recovery_link')}
-            </ButtonTheme>
-          </form>
-        )}
-      </Formik>
-      <button className="block w-full text-xs text-center text-primary" 
-      // onClick={() => setIsEmail(!isEmail)}
-      >{isEmail ? t('auth:send_the_code_to_the_phone') : t('auth:send_the_code_to_the_email')}</button>
-
-      <ButtonTheme color="primary" onClick={() => router.back()} outline className="flex items-center gap-2 mx-auto my-4 text-center  xs:my-2 w-max px-4 py-2" >
-        {t('auth:back')}{lang == "ar" ? <ArrowLeft size="15" className="text-primary" /> : <ArrowRight size="15" className="text-primary" />}
+      <ButtonTheme as="button" color="primary" onClick={() => router.back()} outline size="xs" className="flex items-center gap-2 mx-auto my-4 text-center xs:my-2 w-max" >
+        {t('back')}{lang === "ar" ? <ArrowLeft size="15" className="text-inherit" /> : <ArrowRight size="15" className="text-inherit" />}
       </ButtonTheme>
 
     </Login>

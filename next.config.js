@@ -9,6 +9,9 @@
 const nextTranslate = require('next-translate')
 
 module.exports = nextTranslate({
-    basePath: '/react'
+    basePath: '/react',
+    flags: {
+        DEV_SSR: false,
+      }
 })
 // module.exports = nextConfig

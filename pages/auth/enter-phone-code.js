@@ -14,11 +14,7 @@ export default function EnterPhoneCode() {
   const [time, setTime] = useState("01:15");
   const [duration, setDuration] = useState(60 * 1.5);
   const [allCode, setAllCode] = useState("");
-  const [key1, setKey1] = useState("");
-  const [key2, setKey2] = useState("");
-  const [key3, setKey3] = useState("");
-  const [key4, setKey4] = useState("");
-  const [key5, setKey5] = useState("");
+
 
   function startTimer(duration) {
     var timer = duration, minutes, seconds;
@@ -37,74 +33,101 @@ export default function EnterPhoneCode() {
     }, 1000);
   }
   const [loadingButton, setLoadingButton] = useState(false)
+  const [disabledButton, setDisabledButton] = useState(false)
   const onSubmit = (e) => {
+    setDisabledButton(true)
     setLoadingButton(true)
     e.preventDefault();
-    const values = {
-      verification_code: allCode,
-      phone_number: `+${router.query.phone}`
+    if(allCode.length === 5){
+      const values = {
+        verification_code: allCode,
+        phone_number: `${router.query.phone}`
+      }
+      enterCodeNumber({
+        values: values,
+        success: () => { 
+          setLoadingButton(false); 
+          if(router.query.verify){
+            router.push(`/auth/login-user`); 
+          }else{
+            router.push(`/auth/return-password`); 
+          }},
+        error: () => setLoadingButton(false)
+      })
+    }else{
+      toast.error(t("errToast:please_write_the_code"))
     }
-    enterCodeNumber({
-      values: values,
-      success: () => { setLoadingButton(false); router.push(`/auth/login-user`); },
-      error: () => setLoadingButton(false),
-      t: t
-    })
-    console.log(values)
   }
+  const otpKeyDown =(e)=>{
+    if(!isFinite(e.key) || e.target.innerText.length > 1){
+      // e.target.innerText = e.target.innerText.slice(-1);
+      e.target.innerText = "";
+    }}
   const otpFunc = (e) => {
     var current = Number.parseInt(e.target.dataset.tab);
-    if (e.target.value.length != 1) {
-      e.target.value = e.target.value.slice(1, 2);
+      //delete number when click Backspace
+      if(isFinite(e.key) || e.key === "Backspace"){
+        if(e.key === "Backspace"){
+          if (current > 0 ) {
+            e.target.innerText = "";
+            if(current > 1){
+              e.target.parentElement.querySelector(`#numb${current - 1 }`).focus()
+            }
+          }
+        }else if (current < 5 && e.target.innerText != "" && e.target.innerText.length === 1) {
+          e.target.parentElement.querySelector(`#numb${current + 1}`).focus()
+        } 
+        setAllCode(`${document.getElementById("numb1").innerText}${document.getElementById("numb2").innerText}${document.getElementById("numb3").innerText}${document.getElementById("numb4").innerText}${document.getElementById("numb5").innerText} `)
+      }else{
+      // e.target.innerText = e.target.innerText.slice(-1);
+      e.target.innerText = "";
+
+      }
     }
-    if (current < 5 && e.target.value != "" && e.target.value.length === 1) {
-      e.target.parentElement.querySelector(`#numb${current + 1}`).focus()
-    } else {
-      // e.target.parentElement.focus()
-    }
-    setAllCode(`${document.getElementById("numb1").value}${document.getElementById("numb2").value}${document.getElementById("numb3").value}${document.getElementById("numb4").value}${document.getElementById("numb5").value} `)
-  }
   useEffect(() => {
+    document.querySelector(`#numb1`).focus()
     startTimer(duration);
   }, [])
-  const { t, lang } = useTranslation()
+  const { t , lang } = useTranslation("auth")
   const handleGetPhoneCode = () => {
+    setDisabledButton(false) 
+    startTimer(duration); 
     getPhoneCode({
       success: () => { },
       error: () => { () => toast.error(t("errToast:sorry_there_was_an_error_in_sending_the_code_please_return_later")) },
-      phone: `+${router.query.phone}`
+      phone: `${router.query.phone}`
     })
   }
 
   return (
     <Login noLinksButton contactUs>
-      <h1 className="mb-0 font-bold text-h2 block mt-14">{t('auth:enter_the_code')}</h1>
-      <span className="mb-0 block text-gray-400 text-md">{t('auth:you_will_receive_an_sms_containing_5_numbers_enter_them_in_the_field_to_confirm_the_operation')}</span>
+      <h1 className="block mb-0 font-bold text-h2 mt-14">{t('enter_the_code')}</h1>
+      <span className="block mb-0 text-gray-400 text-md">{t('you_will_receive_an_sms_containing_5_numbers_enter_them_in_the_field_to_confirm_the_operation')}</span>
 
       <form onSubmit={onSubmit}>
-        <div className="w-full">
+        <div className="w-full mb-12">
           <div className="py-3 text-center rounded ">
-            <div id="otp" className="flex flex-row justify-center  mt-5 text-center">
-              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb5" minLength="1" data-tab="5" onChange={(e) => { setKey1(e.target.value) }} value={key1} />
-              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb4" minLength="1" data-tab="4" onChange={(e) => { setKey2(e.target.value) }} value={key2} />
-              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb3" minLength="1" data-tab="3" onChange={(e) => { setKey3(e.target.value) }} value={key3} />
-              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb2" minLength="1" data-tab="2" onChange={(e) => { setKey4(e.target.value) }} value={key4} />
-              <input onKeyUp={otpFunc} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14" type="number" id="numb1" minLength="1" data-tab="1" onChange={(e) => { setKey5(e.target.value) }} value={key5} />
+            <div id="otp" className="flex flex-row justify-center mt-5 text-center">
+              <span onKeyUp={otpFunc} onKeyDown={otpKeyDown} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14 flex items-center justify-center focus:outline-primary focus:outline p-4"  id="numb5"  data-tab="5" contentEditable="true"  ></span>
+              <span onKeyUp={otpFunc} onKeyDown={otpKeyDown} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14 flex items-center justify-center focus:outline-primary focus:outline p-4"  id="numb4"  data-tab="4" contentEditable="true"  ></span>
+              <span onKeyUp={otpFunc} onKeyDown={otpKeyDown} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14 flex items-center justify-center focus:outline-primary focus:outline p-4"  id="numb3"  data-tab="3" contentEditable="true"  ></span>
+              <span onKeyUp={otpFunc} onKeyDown={otpKeyDown} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14 flex items-center justify-center focus:outline-primary focus:outline p-4"  id="numb2"  data-tab="2" contentEditable="true"  ></span>
+              <span onKeyUp={otpFunc} onKeyDown={otpKeyDown} className="h-16 m-2 text-lg text-center bg-gray-200 border rounded w-14 flex items-center justify-center focus:outline-primary focus:outline p-4"  id="numb1"  data-tab="1" contentEditable="true"  ></span>
             </div>
           </div>
         </div>
-        <span className=" mx-auto text-center flex justify-between">
-          <span className={`${time == "00:00" ? "text-primary cursor-pointer" : "font-bold pointer-events-none"}`} onClick={() => { startTimer(duration); handleGetPhoneCode() }}>{t('auth:i_havent_received_the_code_yet')} </span>
-          <span>{t('auth:re_send_through')} {time}</span>
+        <span className="flex justify-between mx-auto text-center ">
+          <span className={`${time == "00:00" ? "text-primary cursor-pointer" : "font-bold pointer-events-none"}`} onClick={() => { handleGetPhoneCode();}}>{t('i_havent_received_the_code_yet')} </span>
+          <span>{t('re_send_through')} {time}</span>
         </span>
         <input type="number" value={allCode} className="hidden" />
-        <ButtonTheme color="primary" as="button" type="submit" big block className="my-4 text-center xs:my-2 px-4 py-2" loading={loadingButton}>
-          {t('auth:confirm_code')}
+        <ButtonTheme color="primary" as="button" type="submit"  block size="md" className="my-4 text-center xs:my-2" loading={loadingButton} disabled={disabledButton}>
+          {t('confirm_code')}
         </ButtonTheme>
 
       </form>
-      <ButtonTheme color="primary" onClick={() => router.back()} outline className=" mx-auto my-4 text-center xs:my-2 w-max flex items-center gap-2 px-4 py-2">
-        {t('auth:back')}{lang == "ar" ? <ArrowLeft size="15" className="text-primary" /> : <ArrowRight size="15" className="text-primary" />}
+      <ButtonTheme color="primary" onClick={() => router.back()} outline size="xs" className="flex items-center gap-2 mx-auto my-4 text-center xs:my-2 w-max">
+        {t('back')}{lang == "ar" ? <ArrowLeft size="15" className="text-inherit" /> : <ArrowRight size="15" className="text-inherit" />}
       </ButtonTheme>
 
 

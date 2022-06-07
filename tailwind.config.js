@@ -17,11 +17,16 @@ module.exports = {
 
   theme: {
     extend: {
-
-      zIndex: {
+      maxWidth: {
+        '7/10': '70%',
+      },
+      zIndex: { 
         '1': '1',
         '2': '2',
         '3': '3',
+        '4': '4',
+        '5': '5',
+        '6': '6',
       },
       backgroundColor: ['dark'],
       textColor: ['dark'],
@@ -31,7 +36,9 @@ module.exports = {
 
       colors: {
         secondary: "var(--secondary-color)",
-        success: "#2CC170",
+        success: "var(--success-color)",
+        danger: "#C73838",
+        help1: "#222222",
         primary: {
           DEFAULT: "var(--primary-color)",
           '50': '#B8CDFA',
@@ -52,6 +59,9 @@ module.exports = {
       letterSpacing: {
         widest2: '0.2em',
         widest3: '0.3em',
+      },
+      spacing: {
+        '120': '30rem',
       }
     }
   },

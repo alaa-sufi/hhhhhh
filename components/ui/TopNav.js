@@ -5,7 +5,7 @@ import Image from "next/image"
 import profile from "public/images/placeholder/profile.png"
 import Link from "next/link"
 export default function TopNav() {
-  const { t, lang } = useTranslation()
+  const { t } = useTranslation("aside")
   const [dark , setDark] = useState(false);
   const [dir , setDir] = useState('rtl');
   useEffect(()=>{
@@ -40,7 +40,7 @@ export default function TopNav() {
             <button type="submit">
             <SearchNormal1 className="text-gray-400" />
             </button>
-            <input placeholder={t('aside:i_am_looking_for_something')} type="search" className="w-full bg-transparent"/>
+            <input placeholder={t('i_am_looking_for_something')} type="search" className="w-full bg-transparent"/>
           </div>
           </form>
           </div>

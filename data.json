@@ -1,0 +1,30 @@
+[
+    {
+      "the_account":"1033065",
+      "the_operation": "بيع",
+      "type": "chfjpy.uk+",
+      "register": "#1234567",
+      "the_closure_price": 1.24568,
+      "the_opening_price": 1.24568,
+      "profit":"+ 505.65"
+    },
+    {
+      "the_account":"1033065",
+      "the_operation": "بيع",
+      "type": "chfjpy.uk+",
+      "register": "#1234567",
+      "the_closure_price": 1.24568,
+      "the_opening_price": 1.24568,
+      "profit":"+ 505.65"
+    },
+    {
+      "the_account":"1033065",
+      "the_operation": "بيع",
+      "type": "chfjpy.uk+",
+      "register": "#1234567",
+      "the_closure_price": 1.24568,
+      "the_opening_price": 1.24568,
+      "profit":"+ 505.65"
+    }
+   
+  ]

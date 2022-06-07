@@ -4,6 +4,6 @@ import logo from "public/images/placeholder/logo.png"
 
 export default function Logo({big}) {
   return (
-    <Image src={logo} alt="logo" width={big ? "200" : "100"}  height={big ? "70" : "50"} />
+    <Image src={logo} alt="logo" width={big ? "200" : "150"}  height={big ? "70" : "45"} />
   )
 }

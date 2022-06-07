@@ -9,19 +9,15 @@ import { Toaster } from "react-hot-toast";
 
 import Router from 'next/router'
 import NProgress from 'nprogress'
-import { Provider } from "react-redux";
-import store from "store/index";
 import Aside from "@/ui/Aside"
 import TopNav from "@/ui/TopNav"
-import Warrning from "@/ui/Warrning"
+import Warring from "@/ui/Warring"
 import { CustomProvider } from "rsuite";
 Router.events.on('routeChangeStart', () => NProgress.start())
 Router.events.on('routeChangeComplete', () => NProgress.done())
 Router.events.on('routeChangeError', () => NProgress.done())
 NProgress.configure({ showSpinner: true })
 import useTranslation from 'next-translate/useTranslation'
-
-// import Nav from "components/Nav"
 function MyApp({ Component, pageProps }) {
   const { t, lang } = useTranslation();
   const dir = lang === "ar" ? "rtl" : "ltr";
@@ -60,7 +56,7 @@ function MyApp({ Component, pageProps }) {
           <TopNav />
           <div className="bg-secondary grid-area-home-page rtl:rounded-tr-xl ltr:rounded-tl-xl py-8">
             <div className="container2   px-4  mx-auto">
-              <Warrning />
+              <Warring />
               <Component {...pageProps} />
             </div>
           </div>

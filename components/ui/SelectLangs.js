@@ -1,19 +1,19 @@
-import React , {useState} from 'react'
+import React, { useState } from 'react'
 import { Global, ArrowDown2 } from 'iconsax-react';
 import { SelectPicker, InputGroup } from 'rsuite';
 import useTranslation from 'next-translate/useTranslation'
 import setLanguage from 'next-translate/setLanguage'
 
 export default function SelectLangs() {
-  const { t, lang } = useTranslation()
-const [langSelect , setLangSelect] = useState(lang || "ar")
+  const { t, lang } = useTranslation("auth")
+  const [langSelect, setLangSelect] = useState(lang || "ar")
   const data = [
     {
-      "label": t('auth:arabia'),
+      "label": t('arabia'),
       "value": "ar",
     },
     {
-      "label": t('auth:english'),
+      "label": t('english'),
       "value": "en",
     }
   ]
@@ -32,13 +32,12 @@ const [langSelect , setLangSelect] = useState(lang || "ar")
         <select className="form-select appearance-none
 block
 w-full
-rtl:pr-10
+rtl:pr-12
 rtl:pl-3
 ltr:pr-3
-ltr:pl-10
+ltr:pl-12
 py-1.5
 text-base
-font-normal
 text-gray-700
 bg-white bg-clip-padding bg-no-repeat
 border border-solid border-gray-300
@@ -46,7 +45,7 @@ rounded
 transition
 ease-in-out
 m-0
-focus:text-gray-700 focus:bg-white focus:border-primary focus:outline-none" onChange={handleChange} aria-label="Default select example"  value={langSelect}>
+focus:text-gray-700 focus:bg-white focus:border-primary focus:outline-none" onChange={handleChange} aria-label="Default select example" value={langSelect}>
           {data.map((d, index) => (
             <option key={index} value={d.value}>{d.label}</option>
           ))}
