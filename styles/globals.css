@@ -532,6 +532,9 @@ select:focus-within{
 }
 
 /* reset date picker */
+.rs-picker-date{
+  width: 100%;
+}
 .rs-picker-daterange-panel{
   direction:ltr;
 }
@@ -551,4 +554,17 @@ select:focus-within{
 .rs-picker-toolbar-right .rs-btn-primary:disabled{
   background:var(--primary-color);
   
+}
+
+/* reset image upload */
+.upload-image .rs-uploader.rs-uploader-picture.rs-uploader-draggable{
+  margin: auto;
+  width: 9rem;
+  height: 9rem;
+  display: block;
+}
+.upload-image .rs-uploader-picture .rs-uploader-trigger-btn{
+  width: 9rem;
+  height: 9rem;
+  border-radius: 1rem;
 }

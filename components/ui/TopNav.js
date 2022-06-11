@@ -4,8 +4,10 @@ import { SearchNormal1, Notification, Translate, Sun1, Moon } from 'iconsax-reac
 import Image from "next/image"
 import profile from "public/images/placeholder/profile.png"
 import Link from "next/link"
+import usePersistLocaleCookie from "hooks/use-persist-locale-cookie"
 export default function TopNav() {
   const { t } = useTranslation("aside")
+    usePersistLocaleCookie()
   const [dark , setDark] = useState(false);
   const [dir , setDir] = useState('rtl');
   useEffect(()=>{

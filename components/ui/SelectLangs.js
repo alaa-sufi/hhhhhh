@@ -3,10 +3,12 @@ import { Global, ArrowDown2 } from 'iconsax-react';
 import { SelectPicker, InputGroup } from 'rsuite';
 import useTranslation from 'next-translate/useTranslation'
 import setLanguage from 'next-translate/setLanguage'
+import usePersistLocaleCookie from "hooks/use-persist-locale-cookie"
 
 export default function SelectLangs() {
   const { t, lang } = useTranslation("auth")
   const [langSelect, setLangSelect] = useState(lang || "ar")
+  usePersistLocaleCookie()
   const data = [
     {
       "label": t('arabia'),

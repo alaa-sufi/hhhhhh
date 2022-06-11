@@ -1,5 +1,5 @@
 import axios from "axios";
-const host = "https://www.hululmfx.com/api";
+const host = process.env.host;
 import toast from "react-hot-toast";
 import Trans from 'next-translate/Trans'
 
@@ -14,10 +14,10 @@ const sendRequest = (url, values, success, error) => {
             if (err.response) {
                 error(err);
             } else {
+                toast.error(
+                    <Trans i18nKey="errToast:sorry_a_problem_occurred" />
+                )
             }
-            toast.error(
-                <Trans i18nKey="errToast:sorry_a_problem_occurred" />
-            )
         })
 }
 const getRequest = (url, success, error) => {
@@ -76,7 +76,7 @@ function forgetPasswordByEmail({ values, success, error }) {
             error(err);
         })
 }
-function forgetPasswordByPhone({  success, error ,phone}) {
+function forgetPasswordByPhone({ success, error, phone }) {
     getRequest(`${host}/send-phone-code?phone_number=${phone}`,
         () => {
             success();
@@ -113,14 +113,91 @@ function createDemoAccount({ values, success, error }) {
             error();
         })
 }
+function profilePersonalProfileUserPersonly({ values, success, error }) {
+    sendRequest(`${host}/store-user-Personal-Profile-Info`, values,
+        () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
+        (err) => {
+            error();
+        })
+}
+function profilePersonalProfileCompanyPersonly({ values, success, error }) {
+    sendRequest(`${host}/store-company-Personal-Profile-Info`, values,
+        () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
+        (err) => {
+            error();
+        })
+}
+function profilePersonalUserContactInformation({ values, success, error }) {
+    sendRequest(`${host}/store-user-store-Contact-Information`, values,
+        () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
+        (err) => {
+            if (err.response.status === 401) {
+                toast.error(
+                    <Trans i18nKey="errToast:sorry_email_previously_used" />
+                )
+            }
+            error();
+
+        })
+}
+function profilePersonalCompanyContactInformation({ values, success, error }) {
+    sendRequest(`${host}/store-company-store-Contact-Information`, values,
+        () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
+        (err) => {
+            if (err.response.status === 401) {
+                toast.error(
+                    <Trans i18nKey="errToast:sorry_email_previously_used" />
+                )
+            }
+            error();
+        })
+}
+function profilePersonalProfileUserHeadLines({ values, success, error }) {
+    sendRequest(`${host}/store-user-store-Addresses-Information`, values,
+        () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
+        (err) => {
+            error();
+        })
+}
+function profilePersonalProfileCompanyHeadLines({ values, success, error }) {
+    sendRequest(`${host}/store-company-store-Addresses-Information`, values,
+        () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
+        (err) => {
+            error();
+        })
+}
+function profilePersonalProfileChangePass({ values, success, error }) {
+    sendRequest(`${host}/change-user-password`, values,
+        () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
+        (err) => {
+            if (err.response.status === 401) {
+                toast.error(
+                    <Trans i18nKey="errToast:sorry_the_wrong_password" />
+                )
+            }
+            error();
+        })
+}
 
 
-
-//get
+/////////////////////////////////
+// get
+////////////////////////////////
 function getCurrentCountry({ success, error }) {
     getRequest(`${host}/Get-current-country`, success, error)
 }
 function getPhoneCode({ success, error, phone }) {
     getRequest(`${host}/verifyPhone?phone_number=${phone}`, success, error)
 }
-export { register, login, forgetPasswordByEmail, forgetPasswordByPhone, returnPassword, getCurrentCountry, enterCodeNumber, getPhoneCode ,createDemoAccount}
+
+
+// ///////////////////////////////////
+//  swr
+const userPersonalProfile = (userId) => `${process.env.host}/get-user-basic-information?user_id=${userId}`
+const companyPersonalProfile = (companyId) => `${process.env.host}/get-company-basic-information?company_id=${companyId}`
+// / /////////////////////////////
+export {
+    register, login, forgetPasswordByEmail, forgetPasswordByPhone, returnPassword, getCurrentCountry, enterCodeNumber, getPhoneCode, createDemoAccount, profilePersonalProfileUserPersonly, profilePersonalProfileCompanyPersonly, userPersonalProfile, companyPersonalProfile,
+    profilePersonalCompanyContactInformation, profilePersonalUserContactInformation,
+    profilePersonalProfileUserHeadLines, profilePersonalProfileCompanyHeadLines ,profilePersonalProfileChangePass
+}

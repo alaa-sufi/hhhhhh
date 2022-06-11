@@ -14,6 +14,8 @@ import CopyToClip from "./CopyToClip"
 import RecordCard from "./RecordCard"
 import CustomDateRangePicker from "./CustomDateRangePicker"
 import SmallAside from "./SmallAside"
+import Error from "./Error"
+import Loading from "./Loading"
 export {
     Aside,
     ButtonTheme,
@@ -30,6 +32,8 @@ export {
     CopyToClip,
     RecordCard,
     CustomDateRangePicker,
-    SmallAside
+    SmallAside,
+    Error,
+    Loading
 
 }

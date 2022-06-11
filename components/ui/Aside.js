@@ -20,7 +20,7 @@ const [openCollabse,setOpenCollabse] = useState(false)
     { title: t('promotion'), icon: <Star1 size="18"  className="text-primary" />, href: "/", },
     { title: t('tools'), icon: <Setting4 size="18"  className="text-primary" />, href: "/", },
     { title: t('money_management'), icon: <Wallet3 size="18"  className="text-primary" />, href: "/", },
-    { title: t('profile_personly'), icon: <Profile size="18"  className="text-primary" />, href: "/dashboard/profile/personal", },
+    { title: t('profile_personly'), icon: <Profile size="18"  className="text-primary" />, href: "/dashboard/profile/personal/profile-personly", },
     { title: t('sign_out'), icon: <LogoutCurve size="18"  className="text-primary" />, href: "/", },
   ]
   return (

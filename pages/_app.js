@@ -6,6 +6,7 @@ import 'react-phone-input-2/lib/style.css'
 import "swiper/css/effect-cards";
 import 'styles/globals.css'
 import { Toaster } from "react-hot-toast";
+import useSWR, { SWRConfig } from 'swr'
 
 import Router from 'next/router'
 import NProgress from 'nprogress'
@@ -23,7 +24,11 @@ function MyApp({ Component, pageProps }) {
   const dir = lang === "ar" ? "rtl" : "ltr";
   if (Component.getLayout) {
     return (
-      <>
+      <SWRConfig 
+      value={{
+        fetcher: (...args) => fetch(...args).then(res => res.json())
+      }}
+    >
         <html lang={lang} dir={dir} />
         <Head>
          
@@ -35,12 +40,16 @@ function MyApp({ Component, pageProps }) {
         </Head>
         <Toaster position="bottom-right" />
         <Component {...pageProps} />
-      </>
+        </SWRConfig>
 
     )
   }
   return (
-    <>
+    <SWRConfig 
+      value={{
+        fetcher: (...args) => fetch(...args).then(res => res.json())
+      }}
+    >
       <html lang={lang} dir={dir} />
       <Head>
         {dir === "rtl" ?
@@ -62,7 +71,7 @@ function MyApp({ Component, pageProps }) {
           </div>
         </div>
       </CustomProvider>
-    </>
+    </SWRConfig>
   )
 }
 

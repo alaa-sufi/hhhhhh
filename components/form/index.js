@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Field, ErrorMessage, useField } from "formik";
 import PhoneInput from 'react-phone-input-2'
 import useTranslation from 'next-translate/useTranslation'
-import { Checkbox, CheckboxGroup, SelectPicker } from 'rsuite';
+import { Checkbox, CheckboxGroup, SelectPicker, Uploader, Loader, Avatar, DatePicker } from 'rsuite';
 import { getCurrentCountry } from "apiHandle"
-import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
-
+import { ArrowDown2, ArrowUp2, GalleryAdd, Calendar } from 'iconsax-react';
+import Image from "next/image"
+import toast from "react-hot-toast";
+import { dateFns } from "date-fns"
+import { isAfter, format } from 'date-fns'
 function Input(props) {
     return (
         <div className={`${!props.noMarginBottom && "mb-3 md:mb-6"}`}>
@@ -18,11 +21,32 @@ function Input(props) {
 }
 function InputIcon(props) {
     return (
-        <div className="relative input-with-icon">
+        <div className={`relative input-with-icon ${props.className}`}>
             <div className="absolute w-5 rtl:right-4 ltr:left-4 top-4 z-1">
                 {props.icon}
             </div>
             {props.children}
+        </div>
+    )
+}
+function InputDate(props) {
+    const { t, lang } = useTranslation("dashboard");
+    const [field, meta, helpers] = useField(props.name);
+
+    return (
+        <div className="relative input-with-icon">
+            <div className="absolute w-5 rtl:right-4 ltr:left-4 top-4 z-1">
+                {props.icon}
+            </div>
+            <div className={`mb-3 md:mb-6`}>
+                <div className="relative flex items-center gap-2 p-2 rounded-lg bg-secondary ">
+                    <DatePicker oneTap disabledDate={date => isAfter(date, new Date())} caretAs={"l"} appearance="subtle" cleanable={false} isoWeek={true} showWeekNumbers={true} locale={{ today: t("the_today"), yesterday: t("yesterday"), last7Days: t("last7Days"), ok: t("ok") }} placement={lang === "ar" ? "bottomEnd" : "bottomStart"} onChange={(date) => { helpers.setValue(format(date, 'yyyy-MM-dd')) }} defaultValue={props.defaultValue} />
+                    <div className="p-2 rounded-lg pointer-events-none bg-primary z-5">
+                        <Calendar className="text-white" size="30" />
+                    </div>
+                </div>
+                <ErrorMessage name={props.name} component="span" className="mt-2 text-sm text-danger md:mt-4 md:text-md" />
+            </div>
         </div>
     )
 }
@@ -58,7 +82,7 @@ function CustumnCheckbox({ name, text, value, type, color, number }) {
         </div >
     )
 }
-function SelectWIthHead({ name, head, options, value }) {
+function SelectWIthHead({ name, head, options, defaultValue }) {
     const [field, meta, helpers] = useField(name);
     const { t } = useTranslation("dashboard");
     const detectData = (role) => {
@@ -94,13 +118,41 @@ function SelectWIthHead({ name, head, options, value }) {
 
             ]
         }
+        if (role === "representative_position") {
+            return [
+
+                {
+                    "value": "owner",
+                    "label": t("profile:owner"),
+                },
+                {
+                    "value": "Higher administration",
+                    "label": t("profile:higher_administration"),
+                },
+
+                {
+                    "value": "Medium management / head of the department",
+                    "label": t("profile:medium_management_head_of_the_department"),
+                },
+                {
+                    "value": "Executive Director / Deputy Director",
+                    "label": t("profile:executive_director_deputy_director"),
+                },
+                {
+                    "value": "employee",
+                    "label": t("profile:employee"),
+                },
+
+
+            ]
+        }
 
     }
     return (
         <>
-            <div className="flex justify-between  mb-4 bg-secondary rounded-xl relative py-3">
-                <span className="absolute z-6 top-1/2 transform -translate-y-1/2  right-4 select-none pointer-events-none font-bold">{head}</span>
-                <SelectPicker name={name} data={detectData(options)} appearance="subtle" searchable={false} cleanable={false} className="w-full" onSelect={(value) => helpers.setValue(value)} defaultValue={value} />
+            <div className="relative flex justify-between py-3 mb-4 bg-secondary rounded-xl">
+                <span className="absolute font-bold transform -translate-y-1/2 pointer-events-none select-none z-6 top-1/2 right-4">{head}</span>
+                <SelectPicker name={name} data={detectData(options)} appearance="subtle" searchable={false} cleanable={false} className="w-full" onSelect={(value) => helpers.setValue(value)} defaultValue={defaultValue} />
             </div>
             <ErrorMessage name={name} component="span" className="block mb-4 text-danger " />
         </>
@@ -156,12 +208,16 @@ function InputPhone(props) {
     const [initialCountryCode, setInitialCountryCode] = useState("")
 
     useEffect(() => {
-        getCurrentCountry({
-            success: (response) => { setInitialCountryCode(response.data.CurrentCountry.countryCode); },
-            error: () => { setInitialCountryCode("") }
-        })
-    }, [initialCountryCode])
-    const [phone, setPhone] = useState()
+        if (!props.defaultValue) {
+            getCurrentCountry({
+                success: (response) => { 
+                    setInitialCountryCode(response.data.CurrentCountry.countryCode); 
+                },
+                error: () => { setInitialCountryCode("") }
+            })
+        }
+    }, [])
+    const [phone, setPhone] = useState(props.defaultValue)
     return (
         <div className="mb-3 md:mb-6">
             <PhoneInput
@@ -186,16 +242,27 @@ function InputCity(props) {
     const [initialCountryCode, setInitialCountryCode] = useState("")
     const [field, meta, helpers] = useField(props.name);
     useEffect(() => {
-        getCurrentCountry({
-            success: (response) => { setInitialCountryCode(response.data.CurrentCountry.countryCode); setCountry(response.data.CurrentCountry.countryName) },
-            error: () => { setInitialCountryCode("") }
-        })
+        if (!props.defaultValue) {
+            getCurrentCountry({
+                success: (response) => {
+                    const countryCode = response.data.CurrentCountry.countryCode
+                    const countryName = response.data.CurrentCountry.countryName
+                    setInitialCountryCode(countryCode);
+                    setCountry(countryName);
+                    helpers.setValue(`${countryName}-${countryCode.toLowerCase()}`)
+                },
+                error: () => { setInitialCountryCode() }
+            })
+        } else {
+            setCountry(props.defaultValue.split("-")[0]);
+        }
     }, [])
     const handleOnChange = (value, data, event, formattedValue) => {
+        console.log(data)
         setPhone(value.slice(data.dialCode.length));
         // setCityName(data.name);
         // setLastValue(data.name)
-        helpers.setValue(data.name)
+        helpers.setValue(`${data.name}-${data.countryCode}`)
         setCountry(data.name)
     }
     const setLastValue = () => {
@@ -204,7 +271,7 @@ function InputCity(props) {
     return (
         <div className="mb-3 md:mb-6">
             <PhoneInput
-                country={initialCountryCode.toLowerCase()}
+                country={props.defaultValue ? props.defaultValue.split("-")[1] : initialCountryCode.toLowerCase()}
                 enableSearch={true}
                 containerClass={'block w-full md:p-4 px-4 py-4  rounded-md bg-secondary flex justify-between city'}
                 placeholder={props.placeholder}
@@ -223,14 +290,14 @@ function InputCity(props) {
 
     )
 }
-const CustomnBalance = ({name}) => {
+const CustomnBalance = ({ name }) => {
     const { t } = useTranslation("dashboard")
     const [field, meta, helpers] = useField(name);
-    const [input , setInput]= useState()
-    const [check , setCheck]= useState()
-const values = [
-    '1000','3000','5000','10000','25000','50000'
-]
+    const [input, setInput] = useState()
+    const [check, setCheck] = useState()
+    const values = [
+        '1000', '3000', '5000', '10000', '25000', '50000'
+    ]
     const handleChange = (e) => {
         console.log(e.target.value)
         helpers.setValue(e.target.value);
@@ -238,7 +305,7 @@ const values = [
         setCheck("")
 
     }
-    const handleChangeCheck = (e)=>{
+    const handleChangeCheck = (e) => {
         setInput("")
         setCheck(e.target.value)
         helpers.setValue(e.target.value);
@@ -247,21 +314,78 @@ const values = [
         <>
             <div className="p-4 border">
                 <div className="grid grid-cols-3 gap-4 mb-4">
-                    {values.map((value, index)=>(
-                          <div className={`relative `} key={index}>
-                          <input name={name} type="radio" value={value} className="absolute top-0 right-0 w-full h-full opacity-0 peer" onChange={handleChangeCheck} checked={check === value} />
-                          <div className={`rounded-lg flex items-center justify-center  font-bold border-2  border-primary   text-primary peer-checked:bg-primary peer-checked:text-white px-4 py-2 `}>
-                              {`${value}$`}
-                          </div>
-                      </div >
+                    {values.map((value, index) => (
+                        <div className={`relative `} key={index}>
+                            <input name={name} type="radio" value={value} className="absolute top-0 right-0 w-full h-full opacity-0 peer" onChange={handleChangeCheck} checked={check === value} />
+                            <div className={`rounded-lg flex items-center justify-center  font-bold border-2  border-primary   text-primary peer-checked:bg-primary peer-checked:text-white px-4 py-2 `}>
+                                {`${value}$`}
+                            </div>
+                        </div >
                         // <CustumnCheckbox name={name} key={index} value={value} type="radio" number onChange={handleChangeCheck} />
                     ))}
                 </div>
                 <input className={`block w-full  px-4 py-4  rounded-md bg-secondary `} placeholder={t("another_sum")} name="Balance" type="number" onChange={handleChange} value={input} />
 
             </div>
-            <ErrorMessage name={name}component="span" className="text-danger" />
+            <ErrorMessage name={name} component="span" className="text-danger" />
         </>
     )
 }
-export { Input, InputIcon, InputPhone, InputCity, InputCheck, CustumnCheckbox, SelectWIthHead, CustomnCheckColors, CustomnBalance }
+const UploadImage = ({ name, defaultImg }) => {
+    const { t } = useTranslation("dashboard")
+    const [field, meta, helpers] = useField(name);
+    const [uploading, setUploading] = useState(false);
+    const [fileInfo, setFileInfo] = useState(null);
+    function previewFile(file, callback) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            callback(reader.result);
+        };
+        reader.readAsDataURL(file);
+    }
+    return (
+        <div className="relative mx-auto upload-image w-max mb-16">
+            <Uploader
+                fileListVisible={false}
+                draggable
+                maxPreviewFileSize={5242880}
+                listType="picture"
+                action="https://www.hululmfx.com/api/uploading-file-api"
+                onUpload={file => {
+                    setUploading(true);
+                    previewFile(file.blobFile, value => {
+                        setFileInfo(value);
+                    });
+                }}
+                onSuccess={(response) => {
+                    setUploading(false);
+                    helpers.setValue(response.file);
+
+                }}
+                onError={() => {
+                    setFileInfo(null);
+                    setUploading(false);
+                    toast.error(t("errToast:sorry_a_problem_has_occurred_in_downloading_the_image"))
+                }}
+            >
+                <span >
+                    {uploading && <Loader backdrop center />}
+                    {fileInfo ? (
+                        <Image src={fileInfo} layout="fill" className="object-cover w-full h-full " />
+                    ) : (
+
+                        defaultImg ?
+                            <Image src={`${process.env.hostImage}/${defaultImg}`} layout="fill" />
+                            :
+                            <div className="bg-[#c4c4c4] rounded w-full h-full"></div>
+
+                    )}
+                </span>
+            </Uploader>
+            <div className="absolute p-3 border-4 border-white -bottom-4 -right-4 bg-primary rounded-xl">
+                <GalleryAdd className="text-white" size="20" />
+            </div>
+        </div>
+    )
+}
+export { Input, InputIcon, InputPhone, InputCity, InputCheck, CustumnCheckbox, SelectWIthHead, CustomnCheckColors, CustomnBalance, UploadImage, InputDate }

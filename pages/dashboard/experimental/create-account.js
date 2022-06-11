@@ -19,7 +19,7 @@ export default function CreateDemo() {
   const [data, setData] = useState({
     // platform: "",
     //! change it
-    user_id:"1",
+    user_id:process.env.userId,
     currency: "USD",
     leverage: "100",
     Balance: "",
