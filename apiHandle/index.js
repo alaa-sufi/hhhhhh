@@ -170,9 +170,15 @@ function profilePersonalProfileChangePass({ values, success, error }) {
     sendRequest(`${host}/change-user-password`, values,
         () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
         (err) => {
-            if (err.response.status === 401) {
+            console.log(err.response.data.error)
+            if (err.response.data.error === "Your current password does not matches with the password.") {
                 toast.error(
                     <Trans i18nKey="errToast:sorry_the_wrong_password" />
+                )
+            }
+            if (err.response.data.error === "New Password cannot be same as your current password.") {
+                toast.error(
+                    <Trans i18nKey="errToast:new_password_cannot_be_same_as_your_current_password" />
                 )
             }
             error();

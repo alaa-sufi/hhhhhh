@@ -13,5 +13,6 @@
 "please_write_the_code":"يرجى كتابة الكود",
 "account_successfully_created":"تم إنشاء الحساب بنجاح",
 "sorry_a_problem_has_occurred_in_downloading_the_image":"عذرا حدثت مشكلة في تحميل الصورة",
-"the_data_has_been_successfully_saved":"تم حفظ البيانات بنجاح"
+"the_data_has_been_successfully_saved":"تم حفظ البيانات بنجاح",
+"new_password_cannot_be_same_as_your_current_password":"لا يمكن أن تكون كلمة المرور الجديدة هي نفسها كلمة مرورك الحالية"
 }

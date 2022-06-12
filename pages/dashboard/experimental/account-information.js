@@ -135,7 +135,11 @@ export default function AccountInformation() {
       <button onClick={() => setDone(true)}>DoneModal</button>{" "}
       <button onClick={() => setDeleteAccount(true)}>DeleteAccountModal</button>{" "}
       <ChangeLeverageModal open={changeLeverage} onClose={() => setChangeLeverage(false)} />
-      <DoneModal open={done} onClose={() => setDone(false)} shiny="$1998" account="103568" />
+      <DoneModal open={done} onClose={() => setDone(false)}  message={
+      <>
+        <p className="mb-4 font-bold text-black">{t("done")}</p>
+        <bdi className="mb-4 font-bold text-black">{`${t("successfully_an_amount_has_been_deposited")} ${'$1998'} ${t("from_account")} ${"103568"} ${t("to_account")}`}</bdi>
+      </>}/>
       <DeleteAccountModal open={deleteAccount} onClose={() => setDeleteAccount(false)} onDelete={onDelete} />
 
     </>

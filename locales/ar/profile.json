@@ -32,6 +32,10 @@
   "employee":"موظف",
   "old_password": "كلمة السر القديمة",
   "new_password": "كلمة السر الجديدة",
+  "the_password_should_not_be_less_than_eight_letters":"كلمة السر يجب ان لا تقل عن ثمانية محارف",
+  "the_password_should_not_exceed_twelve_letters":"كلمة السر يجب ان لا تزيد عن اثنا عشر محرف",
+  "the_password_must_contain_numbers":"كلمة السر يجب أن تحوي أرقام",
+  "the_password_must_contain_letters":"كلمة السر يجب أن تحوي أحرف",
   "repeat_the_new_password": "كرر كلمة السر الجديدة",
   "please_enter_the_old_password": "يرجى ادخال كلمة السر القديمة",
   "please_enter_the_new_password": "يرجى ادخال كلمة السر الجديدة",
@@ -47,5 +51,25 @@
   "details_of_the_bank_account": "تفاصيل الحساب البنكي",
   "purchase_cards": "بطاقات الشراء",
   "email": "البريد الالكتروني",
-  "phone": "رقم الهاتف"
+  "phone": "رقم الهاتف",
+  "choose_how_to_confirm_your_personal_identity": "أختر طريقة تأكيد هويتك الشخصية",
+  "passport": "جواز سغر",
+  "id": "هوية شخصية",
+  "driving_card": "بطاقة قيادة",
+  "make_sure_the_following_information_is_clearly_showing": "تأكد ان تظهر بالصور المعلومات التالية بشكل واضح :",
+  "your_personal_picture": "صورتك الشخصية",
+  "your_full_name": "أسمك الكامل",
+  "expiration_date": "تاريخ انتهاء الصلاحية",
+  "card_number": "رقم البطاقة",
+  "We need to confirm your current residence address": "نحتاج تأكيد عنوان سكنك الحالي",
+  "date": "التاريخ",
+  "bank_account_statement": "كشف حساب بنكي",
+  "bill": "فاتورة",
+  "another_thing": "شيئ اخر",
+  "home_adress": "عنوان السكن",
+  "the_name_issued_by_the_document": "اسم الصادر عنه الوثيقة",
+  "fabulous_the_files_will_be_reviewed_by_our_team_and_we_inform_you_in_the_event_of_approval_or_re_upload_a_document": "رائع!! سيتم مراجعة الملفات من قبل فريقنا ونبلغك في حال الموافقة او اعادة رفع مستند",
+  "we_need_to_confirm_your_identity": "نحتاج تأكيد هويتك "
+  
+
 }

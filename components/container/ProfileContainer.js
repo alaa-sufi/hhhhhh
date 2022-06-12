@@ -23,8 +23,8 @@ export default function ProfileContainer({ tab, ...props }) {
       { title: t('safety_and_password'), icon: <Location size="18" className="text-primary" />, href: "/dashboard/profile/personal/safety-and-password", },
     ],
     uploadDocuments: [
-      { title: t('confirm_the_address'), icon: <ProfileTick size="18" className="text-primary" />, href: "/dashboard/profile/upload-documents/confirm-the-address", },
-      { title: t('identification_confirmation'), icon: <LocationTick size="18" className="text-primary" />, href: "/dashboard/profile/upload-documents/identification-confirmation", },
+      { title: t('identification_confirmation'), icon: <ProfileTick size="18" className="text-primary" />, href: "/dashboard/profile/upload-documents/identification-confirmation", },
+      { title: t('confirm_the_address'), icon: <LocationTick size="18" className="text-primary" />, href: "/dashboard/profile/upload-documents/confirm-the-address", },
     ],
     bankAccount: [
       { title: t('details_of_the_bank_account'), icon: <ProfileTick size="18" className="text-primary" />, href: "/dashboard/profile/bank-account/details_of_the_bank_account", },
@@ -55,7 +55,7 @@ export default function ProfileContainer({ tab, ...props }) {
       <div className="bg-white ">
         <div className={`${tab && "grid grid-cols-9"}`}>
           {tab && <SmallAside roots={roots[`${tab}`]} className="col-span-2" />}
-          <div className={`${tab && "col-span-7"}`}>
+          <div className={`${tab && "col-span-7"} px-8`}>
             {props.children}
           </div>
         </div>
