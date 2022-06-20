@@ -5,8 +5,9 @@ import { UploadImage, InputIcon, Input, InputCity, InputDate, SelectWIthHead } f
 import { ButtonTheme, Error, Loading } from "@/ui"
 import { Formik } from "formik";
 import { Sms, Lock, Eye, EyeSlash, Profile, Star1, Location, Courthouse, MedalStar } from 'iconsax-react';
-import { profilePersonalProfileUserHeadLines, profilePersonalProfileCompanyHeadLines } from "apiHandle"
-import { useProfilePersonal } from "hooks/use-with-swr"
+import { profilePersonalProfileUserHeadLines, profilePersonalProfileCompanyHeadLines,userPersonalProfile,companyPersonalProfile  } from "apiHandle"
+import useSWR from 'swr'
+
 export default function Headlines() {
   const { t, lang } = useTranslation("profile");
   const role = "admin"
@@ -29,7 +30,7 @@ export default function Headlines() {
     })
   }
 
-  const { data, error } = useProfilePersonal(role)
+  const { data, error } = useSWR(role === "user" ? userPersonalProfile() : companyPersonalProfile())
   if (error) return <Error />
   if (!data) return <Loading />
   return (

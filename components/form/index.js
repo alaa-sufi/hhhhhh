@@ -4,15 +4,28 @@ import PhoneInput from 'react-phone-input-2'
 import useTranslation from 'next-translate/useTranslation'
 import { Checkbox, CheckboxGroup, SelectPicker, Uploader, Loader, Avatar, DatePicker } from 'rsuite';
 import { getCurrentCountry } from "apiHandle"
-import { ArrowDown2, ArrowUp2, GalleryAdd, Calendar } from 'iconsax-react';
+import { ArrowDown2, ArrowUp2, GalleryAdd, Calendar, DocumentUpload, Gallery } from 'iconsax-react';
 import Image from "next/image"
 import toast from "react-hot-toast";
 import { dateFns } from "date-fns"
 import { isAfter, format } from 'date-fns'
 function Input(props) {
+    const { t, lang } = useTranslation("")
+    const [dir , setDir]= useState(props.dir ? props.dir : lang==="ar"? "rtl" : "ltr")
+const autoDir =(e)=> {
+    console.log(e.target.value)
+  if (e.target.value.charCodeAt(0) < 200) {
+    //above 200 start english charackter
+    setDir("ltr")
+    // this.style.direction = "ltr";
+  } else {
+    setDir("rtl")
+    // this.style.direction = "rtl";
+  }
+};
     return (
-        <div className={`${!props.noMarginBottom && "mb-3 md:mb-6"}`}>
-            <Field {...props} className={`block w-full  px-4 py-4  rounded-md bg-secondary focus:outline-0 ${props.className}`} dir={props.dir ? props.dir : "auto"}>
+        <div className={`${!props.noMarginBottom && "mb-3 md:mb-6"} ${props.className}`} onKeyUp={autoDir}>
+            <Field {...props} className={`block w-full  px-4 py-4  rounded-md bg-secondary focus:outline-0 ${props.className}`} dir={dir}>
                 {props.children}
             </Field>
             <ErrorMessage name={props.name} component="span" className="mt-2 text-sm text-danger md:mt-4 md:text-md" />
@@ -66,7 +79,7 @@ function InputCheck({ name, text }) {
         </>
     )
 }
-function CustumnCheckbox({ name, text, value, type, color, number }) {
+function CustumnCheckbox({ name, text, value, type, color, number, ...props }) {
     // name : name input
     // text : text inside (label)
     // value : value input
@@ -74,7 +87,7 @@ function CustumnCheckbox({ name, text, value, type, color, number }) {
     // color : if input is color
     // number : if input is number
     return (
-        <div className={`relative ${color && "aspect-square"}`}>
+        <div className={`relative ${color && "aspect-square"} ${props.className}`}>
             <Field name={name} type={type} value={value} className="absolute top-0 right-0 w-full h-full opacity-0 peer" />
             <div className={`${color ? `bg-[${color}]` : !number && 'bg-secondary'}  rounded-lg flex items-center justify-center  font-bold border-2  ${color ? "peer-checked:ring-offset-2 peer-checked:ring-2 peer-checked:ring-primary" : number ? "border-primary border  text-primary peer-checked:bg-primary peer-checked:text-white px-4 py-2" : "peer-checked:border-2 peer-checked:border-primary peer-checked:text-primary"} ${!number && "h-full p-6 border-transparent"}  `}>
                 {text ? text : number ? `${value}$` : ""}
@@ -82,8 +95,13 @@ function CustumnCheckbox({ name, text, value, type, color, number }) {
         </div >
     )
 }
-function SelectWIthHead({ name, head, options, defaultValue }) {
+function SelectWIthHead({ name, head, options, defaultValue,optionsOutside, ...props }) {
     const [field, meta, helpers] = useField(name);
+    const [defaultValueAfter, setDefaultValueAfter] = useState(defaultValue)
+    useEffect(() => {
+        setDefaultValueAfter(defaultValue);
+        console.log("defaultValue", defaultValue)
+    }, [name])
     const { t } = useTranslation("dashboard");
     const detectData = (role) => {
         if (role === "currency") {
@@ -146,13 +164,51 @@ function SelectWIthHead({ name, head, options, defaultValue }) {
 
             ]
         }
+        if (role === "select-study") {
+            return [...optionsOutside]
+        }
+        if (role === "select-study-level") {
+            return [
+                {
+                    "label": t("profile:initials"),
+                    "value": `initials`,
+                },
+                {
+                    "label": t("profile:preparatory"),
+                    "value": `preparatory`,
+                },
+                {
+                    "label": t("profile:fetal"),
+                    "value": `fetal`,
+                },
+                {
+                    "label": t("profile:university"),
+                    "value": `university`,
+                },
+                {
+                    "label": t("profile:masters"),
+                    "value": `masters`,
+                },
+                {
+                    "label": t("profile:doctorate"),
+                    "value": `doctorate`,
+                },
+                {
+                    "label": t("profile:no_certificate"),
+                    "value": `no_certificate`,
+                },
+
+
+            ]
+        }
+
 
     }
     return (
         <>
-            <div className="relative flex justify-between py-3 mb-4 bg-secondary rounded-xl">
-                <span className="absolute font-bold transform -translate-y-1/2 pointer-events-none select-none z-6 top-1/2 right-4">{head}</span>
-                <SelectPicker name={name} data={detectData(options)} appearance="subtle" searchable={false} cleanable={false} className="w-full" onSelect={(value) => helpers.setValue(value)} defaultValue={defaultValue} />
+            <div className={`relative flex justify-between py-3 mb-4 bg-secondary rounded-xl ${props.className}`}>
+                {head && <span className="absolute font-bold transform -translate-y-1/2 pointer-events-none select-none z-6 top-1/2 right-4">{head}</span>}
+                <SelectPicker name={name} data={detectData(options)} appearance="subtle" searchable={props.searchable ? true : false} cleanable={false} className="w-full" onSelect={(value) => helpers.setValue(value)} defaultValue={defaultValueAfter} />
             </div>
             <ErrorMessage name={name} component="span" className="block mb-4 text-danger " />
         </>
@@ -210,8 +266,8 @@ function InputPhone(props) {
     useEffect(() => {
         if (!props.defaultValue) {
             getCurrentCountry({
-                success: (response) => { 
-                    setInitialCountryCode(response.data.CurrentCountry.countryCode); 
+                success: (response) => {
+                    setInitialCountryCode(response.data.CurrentCountry.countryCode);
                 },
                 error: () => { setInitialCountryCode("") }
             })
@@ -235,7 +291,7 @@ function InputPhone(props) {
     )
 }
 function InputCity(props) {
-    const { t } = useTranslation("auth")
+    const { t } = useTranslation("common")
     const [phone, setPhone] = useState()
     const [country, setCountry] = useState("")
     const [cityName, setCityName] = useState("")
@@ -243,16 +299,18 @@ function InputCity(props) {
     const [field, meta, helpers] = useField(props.name);
     useEffect(() => {
         if (!props.defaultValue) {
-            getCurrentCountry({
-                success: (response) => {
-                    const countryCode = response.data.CurrentCountry.countryCode
-                    const countryName = response.data.CurrentCountry.countryName
-                    setInitialCountryCode(countryCode);
-                    setCountry(countryName);
-                    helpers.setValue(`${countryName}-${countryCode.toLowerCase()}`)
-                },
-                error: () => { setInitialCountryCode() }
-            })
+            if(props.notGetApi){
+                getCurrentCountry({
+                    success: (response) => {
+                        const countryCode = response.data.CurrentCountry.countryCode
+                        const countryName = response.data.CurrentCountry.countryName
+                        setInitialCountryCode(countryCode);
+                        setCountry(countryName);
+                        helpers.setValue(`${countryName}-${countryCode.toLowerCase()}`)
+                    },
+                    error: () => { setInitialCountryCode() }
+                })
+            }
         } else {
             setCountry(props.defaultValue.split("-")[0]);
         }
@@ -271,7 +329,7 @@ function InputCity(props) {
     return (
         <div className="mb-3 md:mb-6">
             <PhoneInput
-                country={props.defaultValue ? props.defaultValue.split("-")[1] : initialCountryCode.toLowerCase()}
+                country={props.defaultValue ? props.defaultValue.split("-")[1] : initialCountryCode && initialCountryCode.toLowerCase()}
                 enableSearch={true}
                 containerClass={'block w-full md:p-4 px-4 py-4  rounded-md bg-secondary flex justify-between city'}
                 placeholder={props.placeholder}
@@ -282,7 +340,7 @@ function InputCity(props) {
                 disableCountryCode={true}
 
             />
-            <input {...props} className={`absolute bg-transparent top-4 width-city focus:outline-0`} value={country} readOnly dir="auto" onClick={(e) => e.target.parentElement.parentElement.querySelector(".selected-flag").click()}>
+            <input {...props} className={`absolute bg-transparent top-4 width-city focus:outline-0 rtl:right-0 ltr:left-0`} value={country} readOnly dir="auto" onClick={(e) => e.target.parentElement.parentElement.querySelector(".selected-flag").click()}>
                 {props.children}
             </input>
             <ErrorMessage name={props.name} component="span" className="mt-2 text-sm text-danger md:mt-4 md:text-md" />
@@ -350,7 +408,7 @@ const UploadImage = ({ name, defaultImg }) => {
                 draggable
                 maxPreviewFileSize={5242880}
                 listType="picture"
-                action="https://www.hululmfx.com/api/uploading-file-api"
+                action={`${process.env.host}/uploading-file-api`}
                 onUpload={file => {
                     setUploading(true);
                     previewFile(file.blobFile, value => {
@@ -367,6 +425,7 @@ const UploadImage = ({ name, defaultImg }) => {
                     setUploading(false);
                     toast.error(t("errToast:sorry_a_problem_has_occurred_in_downloading_the_image"))
                 }}
+                accept="image/*"
             >
                 <span >
                     {uploading && <Loader backdrop center />}
@@ -388,4 +447,48 @@ const UploadImage = ({ name, defaultImg }) => {
         </div>
     )
 }
-export { Input, InputIcon, InputPhone, InputCity, InputCheck, CustumnCheckbox, SelectWIthHead, CustomnCheckColors, CustomnBalance, UploadImage, InputDate }
+const UploadDraggableImage = ({ name, fileName, dirty }) => {
+    const { t } = useTranslation("common")
+    const [field, meta, helpers] = useField(name);
+    const [once, setOnce] = useState(false)
+    return (
+        <div className={`draggable-upload ${once && "pointer-events-none-upload"}`}>
+
+            <Uploader
+                action={`${process.env.host}/uploading-file-api`}
+                draggable
+                accept="image/*"
+                maxPreviewFileSize={10485760} //10Mb
+                onRemove={() => {
+                    helpers.setValue("");
+                    setOnce(false)
+
+                }}
+                onUpload={() => {
+                    setOnce(true)
+                }}
+                onSuccess={(response) => {
+                    console.log(response)
+                    helpers.setValue(response.file);
+                }}
+                renderFileInfo={(file, fileElement) => {
+                    return (
+                        <div className="flex gap-2">
+                            <Gallery className="text-primary" />
+                            <span>{file.name}</span>
+                        </div>
+                    );
+                }}
+                locale={{ error: t("the_lifting_is_not_complete"), complete: t("the_lifting_is_completed") }}
+            >
+                <div>
+                    <h2 className="font-bold mb-4 text-xl">{fileName}</h2>
+                    <DocumentUpload size="75" className="text-primary mb-6" />
+                    <p className="text-xs" >{t("drag_the_file_and_see_it_here_or")}</p>
+                    <p className="text-xs" >{t("review_a_search_for_a_file_for_download")}</p>
+                </div>
+            </Uploader>
+        </div>
+    )
+}
+export { Input, InputIcon, InputPhone, InputCity, InputCheck, CustumnCheckbox, SelectWIthHead, CustomnCheckColors, CustomnBalance, UploadImage, InputDate, UploadDraggableImage }

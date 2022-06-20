@@ -9,6 +9,7 @@ import { Sms, Lock1, Eye, EyeSlash, Profile, Star1, Location, Courthouse, MedalS
 import { profilePersonalProfileChangePass } from "apiHandle"
 import * as Yup from "yup";
 import Link from "next/link"
+import useSWR from 'swr'
 
 
 export default function SafetyAndPassword() {

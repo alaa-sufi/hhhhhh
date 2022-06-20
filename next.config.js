@@ -20,8 +20,9 @@ module.exports = nextTranslate({
   env: {
     host: 'https://www.hululmfx.com/api',
     hostImage: 'https://www.hululmfx.com/public/files',
-    userId : "65",
+    userId : "2",
     company_id : "67",
+    companyName : "حلول",
   },
 })
 // module.exports = nextConfig

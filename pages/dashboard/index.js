@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-import { Wallet3, MoneyRecive, MoneySend, Add } from 'iconsax-react';
+import { Wallet3, MoneyRecive, MoneySend } from 'iconsax-react';
 import useTranslation from 'next-translate/useTranslation'
-import Link from "next/link"
-import { DashedBorder } from "public/svg"
-import {CardAccount ,FiveSteps ,ButtonTheme ,LastActivity} from "@/ui"
+import {CardAccount ,FiveSteps ,ButtonTheme ,LastActivity , CreatAccount} from "@/ui"
 
 export default function Dashboard() {
   const { t, lang } = useTranslation("dashboard")
@@ -67,21 +65,3 @@ export default function Dashboard() {
 }
 
 
- function CreatAccount({text , href}){
-  return (
-    <div className="relative flex items-center justify-center mb-14">
-    <DashedBorder />
-    <Link href={href}>
-      <a className="relative flex flex-col items-center w-full p-4 text-xl rounded-xl text-primary">
-        <Add
-          size="50"
-          className="text-primary"
-        />
-        <span>
-          {text}
-        </span>
-      </a>
-    </Link>
-  </div>
-  )
-}

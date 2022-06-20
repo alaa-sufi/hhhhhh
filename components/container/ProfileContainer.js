@@ -28,7 +28,7 @@ export default function ProfileContainer({ tab, ...props }) {
     ],
     bankAccount: [
       { title: t('details_of_the_bank_account'), icon: <ProfileTick size="18" className="text-primary" />, href: "/dashboard/profile/bank-account/details_of_the_bank_account", },
-      { title: t('purchase_cards'), icon: <LocationTick size="18" className="text-primary" />, href: "/dashboard/profile/bank-account/purchase_cards", },
+      { title: t('payment_cards'), icon: <LocationTick size="18" className="text-primary" />, href: "/dashboard/profile/bank-account/payment_cards", },
     ]
   }
   return (
@@ -53,9 +53,9 @@ export default function ProfileContainer({ tab, ...props }) {
         </div>
       </div>
       <div className="bg-white ">
-        <div className={`${tab && "grid grid-cols-9"}`}>
-          {tab && <SmallAside roots={roots[`${tab}`]} className="col-span-2" />}
-          <div className={`${tab && "col-span-7"} px-8`}>
+        <div className={`${tab && "grid grid-cols-11"}`}>
+          {tab && <SmallAside roots={roots[`${tab}`]} className="col-span-3 rtl:border-l ltr:border-r border-gray-300 rtl:pl-4 ltr:pr-4" />}
+          <div className={`${tab && "col-span-8"} px-8`}>
             {props.children}
           </div>
         </div>
