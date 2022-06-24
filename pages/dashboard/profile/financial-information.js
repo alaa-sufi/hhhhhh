@@ -357,7 +357,7 @@ export default function FinancialInformation() {
 
     },
     {
-      title: t("i_trained_on_experimental_accounts"),
+      title: t("i_trained_on_demo_accounts"),
       name: "Q16_trained_demo_accounts",
 
       options: [
@@ -687,6 +687,6 @@ const InputOther = ({ name, defaultValue, ...props }) => {
     helpers.setValue(e.target.value);
   }
   return (
-    <input className={`${props.className} block w-full text-center px-4 py-4  rounded-md bg-secondary ${defaultValue.length && "border-2 border-primary "}`} placeholder={t("other")} name={name} onChange={handleChange} value={input} onClick={handleChange} />
+    <input className={`${props.className} block w-full text-center px-4 py-4  rounded-md bg-secondary dark:bg-dark-secondary  ${defaultValue.length && "border-2 border-primary "}`} placeholder={t("other")} name={name} onChange={handleChange} value={input} onClick={handleChange} />
   )
 }

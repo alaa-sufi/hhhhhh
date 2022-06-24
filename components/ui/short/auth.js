@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useEffect}from 'react'
 import { LoginBackground } from "public/svg"
 import { Swiper, SwiperSlide } from "swiper/react";
 import img1 from "public/images/DefaultImg.png"
@@ -13,6 +13,9 @@ export default function Login({ slider, noLinksButton, noRiskWarning, contactUs,
     //noRiskWarning props to hide RiskWarning
     //contactUs props to show contactUs
     const { t , lang } = useTranslation("auth")
+    useEffect(()=>{
+    document.documentElement.classList.remove("dark")
+    },[])
 
     const swipperInfo = [
         { text: t('common:test'), img: { img1 } },

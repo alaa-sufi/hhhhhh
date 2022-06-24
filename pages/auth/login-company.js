@@ -41,9 +41,9 @@ export default function LoginCompany() {
             </InputIcon>
             <InputIcon icon={<Lock className="text-primary" />}>
               <span role="button" className="absolute transform top-4 rtl:left-4 ltr:right-4 rtl:md:left-3 ltr:md:right-3 " onClick={() => setPasswordType(!passwordType)}>
-                {passwordType ? <Eye /> : <EyeSlash />}
+                {passwordType ? <Eye className="text-black dark:text-white"/> : <EyeSlash className="text-black dark:text-white"/>}
               </span>
-              <Input name="password" type={passwordType ? "password" : "text"} placeholder={t('password')} dir={lang === "ar" ? "rtl" : "ltr"}/>
+              <Input name="password" type={passwordType ? "password" : "text"} placeholder={t('password')} dir={lang === "ar" ? "rtl" : "ltr"} className="password"/>
             </InputIcon>
             <div className="flex items-center justify-between -mt-4">
               <InputCheck name="remember" text={t('remember_me')} >

@@ -50,7 +50,7 @@ const CardAccountVisa = ({ color }) => {
             <div className={`${color} py-5 px-6 rounded-t-xl`}>
                 <div className="mb-8 flex justify-between items-center">
                     <VisaIcon />
-                    <button className="bg-white text-[#E30000] rounded-xl px-2 py-4 text-5xl leading-1">&times;</button>
+                    <button className="bg-white dark:bg-dark-white text-[#E30000] rounded-xl px-2 py-4 text-5xl leading-1">&times;</button>
                 </div>
                 <span className="block   text-gray-400">{t("card_number")}</span>
                 <bdi className="block  text-4xl ">5468   7912   ***   ****</bdi>

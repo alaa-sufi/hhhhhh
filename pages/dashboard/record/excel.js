@@ -2,6 +2,9 @@ import React , { useState} from "react";
 // import { Button } from "react-bootstrap";
 import FileSaver from "file-saver";
 import XLSX from "xlsx";
+import { Refresh2, SearchNormal1, ImportCurve, Calendar } from 'iconsax-react';
+import { RecordCard, CustomDateRangePicker, ButtonTheme, Error, Loading } from "@/ui"
+
 import fakeData from "/data.json"
 const data = fakeData.filter((v, i) => i < 8);
 
@@ -56,15 +59,13 @@ const ExportCSV = ({ csvData, fileName, wscols }) => {
     };
 
     return (
-        <button
-        className="bg-priamry"
-            onClick={e => exportToCSV(csvData, fileName, wscols)}
-        >
-            Export XLSX
-        </button>
+        <ButtonTheme color="primary" outline as="button" size="xs" className="p-4-important" onClick={e => exportToCSV(csvData, fileName, wscols)} >
+        <ImportCurve className="text-inherit" size="30" />
+      </ButtonTheme>
+       
     );
 };
-
+export {ExportCSV}
 
 export default function Excel() {
     const [customers, setCustomers] = useState(data)
@@ -85,7 +86,7 @@ export default function Excel() {
             
             <ExportCSV
             csvData={customers}
-            fileName="Customers_Infomation_xlsx"
+            fileName="Hululfx_xlsx"
             wscols={wscols}
           />
         </div>

@@ -65,9 +65,9 @@ export default function RegisterUser() {
             </InputIcon>
             <InputIcon icon={<Lock className="text-primary" />}>
               <span role="button" className="absolute transform top-4 rtl:left-4 ltr:right-4 rtl:md:left-3 ltr:md:right-3 " onClick={() => setPasswordType(!passwordType)}>
-                {passwordType ? <Eye /> : <EyeSlash />}
+                {passwordType ? <Eye className="text-black dark:text-white"/> : <EyeSlash className="text-black dark:text-white"/>}
               </span>
-              <Input name="password" type={passwordType ? "password" : "text"} placeholder={t('password')} dir={lang === "ar" ? "rtl" : "ltr"} />
+              <Input name="password" type={passwordType ? "password" : "text"} placeholder={t('password')} dir={lang === "ar" ? "rtl" : "ltr"} className="password"/>
             </InputIcon>
             <InputCheck name="agree" text={<span className="text-xs">{t('by_clicking_on_the_box_i_acknowledge_that_i_read_the_work_agreement_the_privacy_policy_and_the_conditions_of_the_company_and_i_agree_with_it_and_this_is_considered_an_electronic_signature_by_me')}</span>} >
             </InputCheck>

@@ -9,15 +9,19 @@ export default function TopNav() {
   const { t } = useTranslation("aside")
     usePersistLocaleCookie()
   const [dark , setDark] = useState(false);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+     if(localStorage.getItem("theme") === "dark"){
+      setDark(true)
+      document.documentElement.classList.add("dark") ;
+    }else{
+      setDark(false)
+      document.documentElement.classList.remove("dark") ;
+     }
+    }
+  }, []);
   const [dir , setDir] = useState('rtl');
-  useEffect(()=>{
-    if(typeof window !== 'undefined'){
-      if(localStorage.getItem("theme") === "dark" ){
-        setDark(true);
-        document.documentElement.classList.add("dark") ;
-      }
-    } 
-  },[])
+ 
   const handleChangeLang = async () => {
     if (dir === "ltr") {
       await setDir('rtl'); document.documentElement.dir = "rtl"
@@ -29,10 +33,10 @@ export default function TopNav() {
   const handleChangeDark = ()=>{
        setDark(!dark);
         document.documentElement.classList.toggle("dark") ;
-        localStorage.setItem("theme" , dark);
+        localStorage.setItem("theme" , "dark");
   }
   return (
-    <div className="flex-grow bg-white dark:bg-gray-800 dark:text-white grid-area-home-top">
+    <div className="flex-grow bg-white dark:bg-dark-white dark:bg-dark-white dark:text-white grid-area-home-top">
       <div className="container2 p-4  mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex-grow">

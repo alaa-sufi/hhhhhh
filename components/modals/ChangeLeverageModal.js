@@ -11,8 +11,8 @@ export default function ChangeLeverageModal({ open, onClose }) {
         </Modal.Header>
       <Modal.Body>
         <div className="text-center">
-          <Timer size="120" className="mx-auto mb-6 text-gray-800" />
-          <p className="mb-4 font-bold text-black ">{t("your_request_has_been_registered_to_change_the_leverage")}</p>
+          <Timer size="120" className="mx-auto mb-6 text-gray-800 dark:text-white" />
+          <p className="mb-4 font-bold text-black dark:text-white ">{t("your_request_has_been_registered_to_change_the_leverage")}</p>
           <p className="mb-4 text-gray-500 mx-auto max-w-7/10">{t("the_addict_will_be_approved_in_a_very_short_time_you_will_appear_notice_if_the_customer_succeeds_or_not")}</p>
         </div>
       </Modal.Body>

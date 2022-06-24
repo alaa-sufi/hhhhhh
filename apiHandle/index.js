@@ -35,6 +35,21 @@ const getRequest = (url, success, error) => {
             }
         })
 }
+const deleteRequest = (url, success, error) => {
+    axios.delete(url)
+        .then(function (response) {
+            success(response);
+        })
+        .catch(function (err) {
+            if (err.response) {
+                error();
+            } else {
+                toast.error(
+                    <Trans i18nKey="errToast:sorry_a_problem_occurred" />
+                )
+            }
+        })
+}
 const register = ({ values, success, error }) => {
     sendRequest(`${host}/register`, values, success, (err) => {
         if (err.response.status === 401) {
@@ -187,7 +202,7 @@ function profilePersonalProfileChangePass({ values, success, error }) {
 function profilePersonalIdentificationConfirmation({ values, success, error }) {
     sendRequest(`${host}/store-Documents`, values,
         () => { success(); },
-        (err) => {error(); })
+        (err) => { error(); })
 }
 function profilePersonalFinancialInformation({ values, success, error }) {
     sendRequest(`${host}/store-user-Quc`, values,
@@ -199,7 +214,7 @@ function profilePersonalFinancialInformation({ values, success, error }) {
                 )
             }
             error();
-         })
+        })
 }
 function profileBankAccount({ values, success, error }) {
     sendRequest(`${host}store-Bank-account-details`, values,
@@ -207,7 +222,15 @@ function profileBankAccount({ values, success, error }) {
         (err) => {
 
             error();
-         })
+        })
+}
+function changeRealAccountSetting({ values, success, error }) {
+    sendRequest(`${host}Edit-Real-account`, values,
+        () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
+        (err) => {
+
+            error();
+        })
 }
 
 
@@ -229,10 +252,23 @@ const companyPersonalProfile = () => `${process.env.host}/get-company-basic-info
 const profileIdentCheck = () => `${process.env.host}/check-identityConfirmation-documents?user_id=${process.env.userId}`
 const profileAddressCheck = () => `${process.env.host}/check-AddressConfirmation-documents?user_id=${process.env.userId}`
 const profileFinancialInformation = () => `${process.env.host}/check-user-financial-profile-info?user_id=${process.env.userId}`
+const recordClosedDeals = (login) => `${process.env.host}/get-record-for-all-Deals?login=${login}&user_id=${process.env.userId}`
+const userDemoAccount = ({perPage,page}) => `${process.env.host}/getUserDemoAccounts-WithPagination?user_id=${process.env.userId}&perPage=${perPage}&page=${page}`
+const userRealAccount = ({perPage,page}) => `${process.env.host}/getUserRealAccounts?user_id=${process.env.userId}`
+const allAccountsTypes = () => `${process.env.host}/getAllAccountsTypes`
 // / /////////////////////////////
+
+// delete 
+function deleteDemoAccount({ login, success, error }) {
+    deleteRequest(`${host}/delete-account/${login}`,
+        () => { success();  },
+        (err) => { error(); })
+}
+
 export {
     register, login, forgetPasswordByEmail, forgetPasswordByPhone, returnPassword, getCurrentCountry, enterCodeNumber, getPhoneCode, createDemoAccount, profilePersonalProfileUserPersonly, profilePersonalProfileCompanyPersonly, userPersonalProfile, companyPersonalProfile,
     profilePersonalCompanyContactInformation, profilePersonalUserContactInformation,
-    profilePersonalProfileUserHeadLines,profileBankAccount, profilePersonalProfileCompanyHeadLines ,profilePersonalProfileChangePass,
-    profilePersonalIdentificationConfirmation , profileIdentCheck ,profileAddressCheck ,profileFinancialInformation,profilePersonalFinancialInformation
+    profilePersonalProfileUserHeadLines, profileBankAccount, profilePersonalProfileCompanyHeadLines, profilePersonalProfileChangePass,
+    profilePersonalIdentificationConfirmation, profileIdentCheck, profileAddressCheck, profileFinancialInformation, profilePersonalFinancialInformation, recordClosedDeals, userDemoAccount, userRealAccount, allAccountsTypes, deleteDemoAccount,
+    changeRealAccountSetting
 }

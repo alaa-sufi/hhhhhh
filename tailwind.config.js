@@ -37,6 +37,8 @@ module.exports = {
       colors: {
         secondary: "var(--secondary-color)",
         success: "var(--success-color)",
+        'dark-white': "var(--dark-white-color)",
+        'dark-secondary': "var(--dark-secondary-color)",
         danger: "#C73838",
         help1: "#222222",
         primary: {

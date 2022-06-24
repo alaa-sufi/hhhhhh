@@ -16,7 +16,7 @@ export default function CardAccountTop() {
     <ul className="flex justify-between">
         <li>
             <div className="flex items-center gap-2">
-                <span className="p-1 rounded-lg bg-white/10">
+            <span className="p-1 rounded-lg bg-white/30 dark:bg-dark-white/10">
                     <ArrowSwapVertical size="20" />
                 </span>
                 <span>

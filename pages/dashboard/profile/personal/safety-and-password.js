@@ -9,7 +9,6 @@ import { Sms, Lock1, Eye, EyeSlash, Profile, Star1, Location, Courthouse, MedalS
 import { profilePersonalProfileChangePass } from "apiHandle"
 import * as Yup from "yup";
 import Link from "next/link"
-import useSWR from 'swr'
 
 
 export default function SafetyAndPassword() {
@@ -57,7 +56,7 @@ export default function SafetyAndPassword() {
               </Link>
                 <InputIcon icon={<Lock1 className="text-primary" />}>
                   <span role="button" className="absolute transform top-4 rtl:left-4 ltr:right-4 rtl:md:left-3 ltr:md:right-3 " onClick={() => setPasswordType(!passwordType)}>
-                    {passwordType ? <Eye /> : <EyeSlash />}
+                    {passwordType ? <Eye className="text-black dark:text-white"/> : <EyeSlash className="text-black dark:text-white"/>}
                   </span>
                   <Input name="new_password" type={passwordType ? "password" : "text"} placeholder={t('new_password')} dir={lang === "ar" ? "rtl" : "ltr"} />
                 </InputIcon>

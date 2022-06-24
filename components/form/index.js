@@ -25,7 +25,7 @@ const autoDir =(e)=> {
 };
     return (
         <div className={`${!props.noMarginBottom && "mb-3 md:mb-6"} ${props.className}`} onKeyUp={autoDir}>
-            <Field {...props} className={`block w-full  px-4 py-4  rounded-md bg-secondary focus:outline-0 ${props.className}`} dir={dir}>
+            <Field {...props} className={`block w-full  px-4 py-4  rounded-md bg-secondary dark:bg-dark-secondary  focus:outline-0 ${props.className}`} dir={dir}>
                 {props.children}
             </Field>
             <ErrorMessage name={props.name} component="span" className="mt-2 text-sm text-danger md:mt-4 md:text-md" />
@@ -52,7 +52,7 @@ function InputDate(props) {
                 {props.icon}
             </div>
             <div className={`mb-3 md:mb-6`}>
-                <div className="relative flex items-center gap-2 p-2 rounded-lg bg-secondary ">
+                <div className="relative flex items-center gap-2 p-2 rounded-lg bg-secondary dark:bg-dark-secondary  ">
                     <DatePicker oneTap disabledDate={date => isAfter(date, new Date())} caretAs={"l"} appearance="subtle" cleanable={false} isoWeek={true} showWeekNumbers={true} locale={{ today: t("the_today"), yesterday: t("yesterday"), last7Days: t("last7Days"), ok: t("ok") }} placement={lang === "ar" ? "bottomEnd" : "bottomStart"} onChange={(date) => { helpers.setValue(format(date, 'yyyy-MM-dd')) }} defaultValue={props.defaultValue} />
                     <div className="p-2 rounded-lg pointer-events-none bg-primary z-5">
                         <Calendar className="text-white" size="30" />
@@ -88,8 +88,8 @@ function CustumnCheckbox({ name, text, value, type, color, number, ...props }) {
     // number : if input is number
     return (
         <div className={`relative ${color && "aspect-square"} ${props.className}`}>
-            <Field name={name} type={type} value={value} className="absolute top-0 right-0 w-full h-full opacity-0 peer" />
-            <div className={`${color ? `bg-[${color}]` : !number && 'bg-secondary'}  rounded-lg flex items-center justify-center  font-bold border-2  ${color ? "peer-checked:ring-offset-2 peer-checked:ring-2 peer-checked:ring-primary" : number ? "border-primary border  text-primary peer-checked:bg-primary peer-checked:text-white px-4 py-2" : "peer-checked:border-2 peer-checked:border-primary peer-checked:text-primary"} ${!number && "h-full p-6 border-transparent"}  `}>
+            <Field name={name} type={type} value={value} className="absolute top-0 right-0 w-full h-full opacity-0 peer text-black dark:text-white" />
+            <div className={`${color ? "bg-color" : !number && 'bg-secondary dark:bg-dark-secondary '} text-black dark:text-white  rounded-lg flex items-center justify-center  font-bold border-2  ${color ? "peer-checked:ring-offset-2 peer-checked:ring-2 peer-checked:ring-primary" : number ? "border-primary border  text-primary peer-checked:bg-primary peer-checked:text-white px-4 py-2" : "peer-checked:border-2 peer-checked:border-primary peer-checked:text-primary"} ${!number && "h-full p-6 border-transparent"}  `} style={{"--color": color}}>
                 {text ? text : number ? `${value}$` : ""}
             </div>
         </div >
@@ -206,8 +206,8 @@ function SelectWIthHead({ name, head, options, defaultValue,optionsOutside, ...p
     }
     return (
         <>
-            <div className={`relative flex justify-between py-3 mb-4 bg-secondary rounded-xl ${props.className}`}>
-                {head && <span className="absolute font-bold transform -translate-y-1/2 pointer-events-none select-none z-6 top-1/2 right-4">{head}</span>}
+            <div className={`relative flex justify-between py-3 mb-4 bg-secondary dark:bg-dark-secondary  rounded-xl ${props.className}`}>
+                {head && <span className="absolute font-bold transform -translate-y-1/2 pointer-events-none select-none z-6 top-1/2 right-4 text-black dark:text-white">{head}</span>}
                 <SelectPicker name={name} data={detectData(options)} appearance="subtle" searchable={props.searchable ? true : false} cleanable={false} className="w-full" onSelect={(value) => helpers.setValue(value)} defaultValue={defaultValueAfter} />
             </div>
             <ErrorMessage name={name} component="span" className="block mb-4 text-danger " />
@@ -242,7 +242,7 @@ function CustomnCheckColors({ name }) {
                     <CustumnCheckbox name={name} value={color} color={color} type="radio" key={index} />
                 ))}
                 <div className={`relative aspect-square`}>
-                    <span tabIndex="-1" className={` rounded-xl  items-center justify-center border-2 h-full flex flex-col gap-1 w-full select-none cursor-pointer `} onClick={() => setOpenMore(!openMore)}>
+                    <span tabIndex="-1" className={` rounded-xl  items-center justify-center border-2 h-full flex flex-col gap-1 w-full select-none cursor-pointer text-black dark:text-white`} onClick={() => setOpenMore(!openMore)}>
                         {openMore ? t("less") : t("more")}
                         {openMore ? <ArrowUp2 size="20" className="text-gray-600" /> : <ArrowDown2 size="20" className="text-gray-600" />}
                     </span>
@@ -252,14 +252,13 @@ function CustomnCheckColors({ name }) {
                 ))}
 
             </div>
-            <span className="bg-[#3498DB] bg-[#8E44AD] bg-[#2980B9] bg-[#2ECC71] bg-[#F1C40F] bg-[#290009] hidden  bg-[#290009] bg-[#34495e] bg-[#ff7675] bg-[#e84393] bg-[#00b894] bg-[#6c5ce7] "></span>
             <ErrorMessage name={name} component="span" className="text-danger" />
         </>
 
     )
 }
 function InputPhone(props) {
-    const { t } = useTranslation("auth")
+    const { t } = useTranslation("common")
     const [field, meta, helpers] = useField(props.name);
     const [initialCountryCode, setInitialCountryCode] = useState("")
 
@@ -277,10 +276,10 @@ function InputPhone(props) {
     return (
         <div className="mb-3 md:mb-6">
             <PhoneInput
-                className={`block w-full md:p-4 px-4 py-4   rounded-md bg-secondary ${props.className}`}
+                className={`block w-full md:p-4 px-4 py-4   rounded-md bg-secondary dark:bg-dark-secondary  ${props.className}`}
                 country={initialCountryCode.toLowerCase()}
                 enableSearch={true}
-                containerClass={'block w-full md:p-4 px-4 py-4  rounded-md bg-secondary flex justify-between'}
+                containerClass={'block w-full md:p-4 px-4 py-4  rounded-md bg-secondary dark:bg-dark-secondary  flex justify-between'}
                 placeholder={props.placeholder}
                 searchPlaceholder={t('write_the_name_of_the_state')}
                 value={phone}
@@ -331,7 +330,7 @@ function InputCity(props) {
             <PhoneInput
                 country={props.defaultValue ? props.defaultValue.split("-")[1] : initialCountryCode && initialCountryCode.toLowerCase()}
                 enableSearch={true}
-                containerClass={'block w-full md:p-4 px-4 py-4  rounded-md bg-secondary flex justify-between city'}
+                containerClass={'block w-full md:p-4 px-4 py-4  rounded-md bg-secondary dark:bg-dark-secondary  flex justify-between city'}
                 placeholder={props.placeholder}
                 countryCodeEditable={false}
                 searchPlaceholder={t('write_the_name_of_the_state')}
@@ -382,7 +381,7 @@ const CustomnBalance = ({ name }) => {
                         // <CustumnCheckbox name={name} key={index} value={value} type="radio" number onChange={handleChangeCheck} />
                     ))}
                 </div>
-                <input className={`block w-full  px-4 py-4  rounded-md bg-secondary `} placeholder={t("another_sum")} name="Balance" type="number" onChange={handleChange} value={input} />
+                <input className={`block w-full  px-4 py-4  rounded-md bg-secondary dark:bg-dark-secondary  `} placeholder={t("another_sum")} name="Balance" type="number" onChange={handleChange} value={input} />
 
             </div>
             <ErrorMessage name={name} component="span" className="text-danger" />

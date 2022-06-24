@@ -6,7 +6,7 @@
       "register": "#1234567",
       "the_closure_price": 1.24568,
       "the_opening_price": 1.24568,
-      "profit":"+ 505.65"
+      "profit":"+505.65"
     },
     {
       "the_account":"1033065",
@@ -15,7 +15,7 @@
       "register": "#1234567",
       "the_closure_price": 1.24568,
       "the_opening_price": 1.24568,
-      "profit":"+ 505.65"
+      "profit":"-198"
     },
     {
       "the_account":"1033065",
@@ -24,7 +24,7 @@
       "register": "#1234567",
       "the_closure_price": 1.24568,
       "the_opening_price": 1.24568,
-      "profit":"+ 505.65"
+      "profit":"+505.65"
     }
    
   ]

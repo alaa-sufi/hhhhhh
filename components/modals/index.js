@@ -1,7 +1,7 @@
 import ChangeLeverageModal from "./ChangeLeverageModal"
-import DeleteAccountModal from "./DeleteAccountModal"
+import WarningModal from "./WarningModal"
 import DoneModal from "./DoneModal"
 import DepositModal from "./DepositModal"
 export {
-    ChangeLeverageModal ,DeleteAccountModal ,DoneModal,DepositModal
+    ChangeLeverageModal ,WarningModal ,DoneModal,DepositModal
 }

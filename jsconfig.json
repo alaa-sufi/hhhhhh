@@ -7,7 +7,7 @@
         }
     },
     "pages": {
-        "*": ["common" , "aside" , "dashoard", "errToast", "profile","auth" , "common"],
+        "*": ["common" , "aside" , "dashoard", "errToast", "profile","auth" , "common","record"],
         "/": ["home"],
         "/auth/[slug]": ["auth"],
         "/content/[slug]": ["content"],

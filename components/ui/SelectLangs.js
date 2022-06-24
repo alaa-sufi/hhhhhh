@@ -41,13 +41,13 @@ ltr:pl-12
 py-1.5
 text-base
 text-gray-700
-bg-white bg-clip-padding bg-no-repeat
+bg-white dark:bg-dark-white bg-clip-padding bg-no-repeat
 border border-solid border-gray-300
 rounded
 transition
 ease-in-out
 m-0
-focus:text-gray-700 focus:bg-white focus:border-primary focus:outline-none" onChange={handleChange} aria-label="Default select example" value={langSelect}>
+focus:text-gray-700 focus:bg-white dark:bg-dark-white focus:border-primary focus:outline-none" onChange={handleChange} aria-label="Default select example" value={langSelect}>
           {data.map((d, index) => (
             <option key={index} value={d.value}>{d.label}</option>
           ))}

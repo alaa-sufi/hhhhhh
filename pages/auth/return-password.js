@@ -47,12 +47,12 @@ export default function ReturnPassword() {
             </InputIcon>
             <InputIcon icon={<Lock className="text-primary"/>}>
             <span  role="button" className="absolute transform top-4 rtl:left-4 ltr:right-4 rtl:md:left-3 ltr:md:right-3 " onClick={()=>setPasswordType(!passwordType)}>
-                {passwordType ? <Eye /> : <EyeSlash />}
+                {passwordType ? <Eye className="text-black dark:text-white"/> : <EyeSlash className="text-black dark:text-white"/>}
               </span>
-              <Input name="password" type={passwordType ? "password" : "text"} placeholder={t('new_password')} dir={lang === "ar" ? "rtl" : "ltr"} />
+              <Input name="password" type={passwordType ? "password" : "text"} placeholder={t('new_password')} dir={lang === "ar" ? "rtl" : "ltr"} className="password"/>
             </InputIcon>  
             <InputIcon icon={<Lock className="text-primary"/>}>
-              <Input name="password_confirmation" type="password" placeholder={t('repeat_the_new_password')} dir={lang === "ar" ? "rtl" : "ltr"} />
+              <Input name="password_confirmation" type="password" placeholder={t('repeat_the_new_password')} dir={lang === "ar" ? "rtl" : "ltr"} className="password"/>
             </InputIcon>  
             <ButtonTheme color="primary" as="button" type="submit" size="md"  block className="my-6 text-center xs:my-4" loading={loadingButton}>
               {t('reset')}

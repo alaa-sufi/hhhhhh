@@ -146,7 +146,7 @@
   "no_experience": "لا يوجد خبرة",
   "there_is_no": "لا يوجد ",
   "i_attended_a_course_or_a_seminar_on_foreign_exchange_or_contracts_for_the_differences_or_other_financial_tools": "لقد حضرت دورة أو ندوة حول تداول العملات الأجنبية أو العقود مقابل الفروقات أو الأدوات المالية الأخرى",
-  "i_trained_on_experimental_accounts": "تدربت على حسابات تجريبية",
+  "i_trained_on_demo_accounts": "تدربت على حسابات تجريبية",
   "yes_the_average_quarterly_trading_volume_on_regular_contracts_during_the_past_year_was_less_than_10_decades": " نعم - كان متوسط حجم التداول ربع السنوي على العقود العادية خلال العام الماضي أقل من 10 عقود",
   "yes_the_average_quarterly_trading_volume_on_regular_contracts_during_the_past_year_was_between_10_and_100_contracts": "نعم - كان متوسط حجم التداول ربع السنوي على العقود العادية خلال العام الماضي بين 10 و 100 عقد",
   "yes_the_average_quarterly_trading_volume_on_regular_contracts_during_the_past_year_was_more_than_100_contracts": "نعم - كان متوسط حجم التداول ربع السنوي على العقود العادية خلال العام الماضي أكثر من 100 عقد",
@@ -224,6 +224,7 @@
   "please_enter_the_banks_presence": "يرجى ادخال دولة تواجد البنك",
   "please_enter_the_street_name": "يرجى ادخال اسم الشارع",
   "please_enter_the_name_of_the_neighborhood": "يرجى ادخال اسم الحي"
+
 
  
 

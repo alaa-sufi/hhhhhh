@@ -20,7 +20,7 @@ module.exports = nextTranslate({
   env: {
     host: 'https://www.hululmfx.com/api',
     hostImage: 'https://www.hululmfx.com/public/files',
-    userId : "2",
+    userId : "12",
     company_id : "67",
     companyName : "حلول",
   },

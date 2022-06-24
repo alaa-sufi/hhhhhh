@@ -16,7 +16,7 @@ import CustomDateRangePicker from "./CustomDateRangePicker"
 import SmallAside from "./SmallAside"
 import Error from "./Error"
 import Loading from "./Loading"
-import CreatAccount from "./CreatAccount"
+import CreateAccount from "./CreateAccount"
 export {
     Aside,
     ButtonTheme,
@@ -36,6 +36,6 @@ export {
     SmallAside,
     Error,
     Loading,
-    CreatAccount
+    CreateAccount
 
 }

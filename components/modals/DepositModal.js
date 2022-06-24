@@ -14,7 +14,7 @@ export default function DepositModal({ open, onClose }) {
       <Modal.Body >
         <div className="text-center px-4">
           <MoneyRecive size="120" className="mx-auto mb-6 text-primary more-linear" />
-          <p className="mb-8 font-bold text-black">{t("do_you_want_to_deposit_now")}</p>
+          <p className="mb-8 font-bold text-black dark:text-white">{t("do_you_want_to_deposit_now")}</p>
           <ButtonTheme color="primary" as="link" href="/" block className="mb-4 py-3 ">
             <div className="flex gap-2 justify-center items-center ">
               <Wallet3 />

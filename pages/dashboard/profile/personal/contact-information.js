@@ -5,13 +5,12 @@ import { UploadImage, InputIcon, Input, InputCity, InputDate, SelectWIthHead, In
 import { ButtonTheme, Error, Loading } from "@/ui"
 import { Formik } from "formik";
 import { Sms, Lock, Eye, EyeSlash, Profile, Star1, Location, Courthouse, MedalStar, Call, Whatsapp, CallAdd } from 'iconsax-react';
-import { profilePersonalUserContactInformation, profilePersonalCompanyContactInformation,userPersonalProfile,  companyPersonalProfile  } from "apiHandle"
-import useSWR from 'swr'
-
+import { profilePersonalUserContactInformation, profilePersonalCompanyContactInformation,  } from "apiHandle"
+import {useProfilePersonal} from "hooks/use-with-swr"
 
 export default function ContactInformation() {
   const { t, lang } = useTranslation("profile");
-  const role = "admin"
+  const role = "user"
   const [loadingButton, setLoadingButton] = useState(false)
   const [change, setChange] = useState(false)
   const onSubmitUser = (values) => {
@@ -30,7 +29,7 @@ export default function ContactInformation() {
       error: () => setLoadingButton(false)
     })
   }
-  const { data, error } = useSWR(role === "user" ? userPersonalProfile() : companyPersonalProfile())
+  const { data, error } = useProfilePersonal(role);
   if (error) return <Error />
   if (!data) return <Loading />
   return (

@@ -60,7 +60,7 @@ export default function ConfirmTheAddress() {
                     <h1 className="text-center text-2xl mb-8">{t("choose_how_to_confirm_your_personal_identity")}</h1>
                     <ul className="flex justify-between gap-6 mb-10">
                       {options.map((option, index) => (
-                        <li key={index} className="bg-secondary rounded-xl w-full text-center flex justify-center items-center">
+                        <li key={index} className="bg-secondary dark:bg-dark-secondary  rounded-xl w-full text-center flex justify-center items-center">
                           <button className=" py-6 px-8" onClick={() => { setChoose(index);; setChooseValue(option.value) }}>
                             <div className="mb-4 text-primary">{option.icon}</div>
                             <div className="text-xl">{option.title} </div>
