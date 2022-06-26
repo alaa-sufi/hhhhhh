@@ -580,7 +580,7 @@ const Step = (props) => {
 
               {type === "select-city" &&
                 <InputIcon icon={<Flag className="text-primary" />} className={` ${longAnswer && "col-span-2"}`}>
-                  <InputCity name={name} type="text" />
+                  <InputCity name={name} type="text" placeholder={t("choose_the_city")}/>
                 </InputIcon>
               }
               {(type === "select-study" || type === "select-study-level" || type === "representative_position") &&
@@ -687,6 +687,6 @@ const InputOther = ({ name, defaultValue, ...props }) => {
     helpers.setValue(e.target.value);
   }
   return (
-    <input className={`${props.className} block w-full text-center px-4 py-4  rounded-md bg-secondary dark:bg-dark-secondary  ${defaultValue.length && "border-2 border-primary "}`} placeholder={t("other")} name={name} onChange={handleChange} value={input} onClick={handleChange} />
+    <input className={`${props.className} block w-full text-center px-4 py-4  rounded-md bg-secondary dark:bg-dark-secondary  ${(defaultValue && defaultValue.length) && "border-2 border-primary "}`} placeholder={t("other")} name={name} onChange={handleChange} value={input} onClick={handleChange} />
   )
 }

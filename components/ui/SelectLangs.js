@@ -52,10 +52,10 @@ focus:text-gray-700 focus:bg-white dark:bg-dark-white focus:border-primary focus
             <option key={index} value={d.value}>{d.label}</option>
           ))}
         </select>
-        <span className="absolute top-0 flex items-center justify-start h-full gap-1 rtl:left-4 ltr:right-4">
+        <span className="absolute top-0 flex items-center justify-start h-full gap-2 rtl:left-4 ltr:right-4">
           <ArrowDown2 size="18" />
         </span>
-        <span className="absolute top-0 flex items-center justify-start h-full gap-1 rtl:right-4 ltr:left-4">
+        <span className="absolute top-0 flex items-center justify-start h-full gap-2 rtl:right-4 ltr:left-4">
           <Global />
         </span>
       </div>

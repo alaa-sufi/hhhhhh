@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Progress ,Badge} from 'rsuite';
 import { useRouter } from 'next/router'
 import { SmallAside } from "@/ui"
-import { Location, ClipboardText, Lock1, Call, ProfileTick, Profile, LocationTick } from 'iconsax-react'
+import { Location, ClipboardText, Lock1, Call, ProfileTick, Profile, LocationTick ,ReceiptEdit,Cards} from 'iconsax-react'
 export default function ProfileContainer({ tab, ...props }) {
   const { t, lang } = useTranslation("profile")
   const router = useRouter()
@@ -27,8 +27,8 @@ export default function ProfileContainer({ tab, ...props }) {
       { title: t('confirm_the_address'), icon: <LocationTick size="18" className="text-primary" />, href: "/dashboard/profile/upload-documents/confirm-the-address", },
     ],
     bankAccount: [
-      { title: t('details_of_the_bank_account'), icon: <ProfileTick size="18" className="text-primary" />, href: "/dashboard/profile/bank-account/details-of-the-bank-account", },
-      { title: t('payment_cards'), icon: <LocationTick size="18" className="text-primary" />, href: "/dashboard/profile/bank-account/payment_cards", },
+      { title: t('details_of_the_bank_account'), icon: <ReceiptEdit size="18" className="text-primary" />, href: "/dashboard/profile/bank-account/details-of-the-bank-account", },
+      { title: t('payment_cards'), icon: <Cards size="18" className="text-primary" />, href: "/dashboard/profile/bank-account/payment_cards", },
     ]
   }
   return (

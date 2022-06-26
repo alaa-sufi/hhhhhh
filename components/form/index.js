@@ -11,18 +11,20 @@ import { dateFns } from "date-fns"
 import { isAfter, format } from 'date-fns'
 function Input(props) {
     const { t, lang } = useTranslation("")
-    const [dir , setDir]= useState(props.dir ? props.dir : lang==="ar"? "rtl" : "ltr")
-const autoDir =(e)=> {
-    console.log(e.target.value)
-  if (e.target.value.charCodeAt(0) < 200) {
-    //above 200 start english charackter
-    setDir("ltr")
-    // this.style.direction = "ltr";
-  } else {
-    setDir("rtl")
-    // this.style.direction = "rtl";
-  }
-};
+    const [dir, setDir] = useState(props.dir ? props.dir : lang === "ar" ? "rtl" : "ltr")
+    const autoDir = (e) => {
+        if (e.target.value.charCodeAt(0) < 200) {
+            //above 200 start english charackter
+            if(!props.dir){
+                setDir("ltr")
+            }
+        } else {
+            if(!props.dir){
+                setDir("rtl")
+            }
+            // this.style.direction = "rtl";
+        }
+    };
     return (
         <div className={`${!props.noMarginBottom && "mb-3 md:mb-6"} ${props.className}`} onKeyUp={autoDir}>
             <Field {...props} className={`block w-full  px-4 py-4  rounded-md bg-secondary dark:bg-dark-secondary  focus:outline-0 ${props.className}`} dir={dir}>
@@ -89,13 +91,13 @@ function CustumnCheckbox({ name, text, value, type, color, number, ...props }) {
     return (
         <div className={`relative ${color && "aspect-square"} ${props.className}`}>
             <Field name={name} type={type} value={value} className="absolute top-0 right-0 w-full h-full opacity-0 peer text-black dark:text-white" />
-            <div className={`${color ? "bg-color" : !number && 'bg-secondary dark:bg-dark-secondary '} text-black dark:text-white  rounded-lg flex items-center justify-center  font-bold border-2  ${color ? "peer-checked:ring-offset-2 peer-checked:ring-2 peer-checked:ring-primary" : number ? "border-primary border  text-primary peer-checked:bg-primary peer-checked:text-white px-4 py-2" : "peer-checked:border-2 peer-checked:border-primary peer-checked:text-primary"} ${!number && "h-full p-6 border-transparent"}  `} style={{"--color": color}}>
+            <div className={`${color ? "bg-color" : !number && 'bg-secondary dark:bg-dark-secondary '} text-black dark:text-white  rounded-lg flex items-center justify-center  font-bold border-2  ${color ? "peer-checked:ring-offset-2 peer-checked:ring-2 peer-checked:ring-primary" : number ? "border-primary border  text-primary peer-checked:bg-primary peer-checked:text-white px-4 py-2" : "peer-checked:border-2 peer-checked:border-primary peer-checked:text-primary"} ${!number && "h-full p-6 border-transparent"}  `} style={{ "--color": color }}>
                 {text ? text : number ? `${value}$` : ""}
             </div>
         </div >
     )
 }
-function SelectWIthHead({ name, head, options, defaultValue,optionsOutside, ...props }) {
+function SelectWIthHead({ name, head, options, defaultValue, optionsOutside, ...props }) {
     const [field, meta, helpers] = useField(name);
     const [defaultValueAfter, setDefaultValueAfter] = useState(defaultValue)
     useEffect(() => {
@@ -242,7 +244,7 @@ function CustomnCheckColors({ name }) {
                     <CustumnCheckbox name={name} value={color} color={color} type="radio" key={index} />
                 ))}
                 <div className={`relative aspect-square`}>
-                    <span tabIndex="-1" className={` rounded-xl  items-center justify-center border-2 h-full flex flex-col gap-1 w-full select-none cursor-pointer text-black dark:text-white`} onClick={() => setOpenMore(!openMore)}>
+                    <span tabIndex="-1" className={` rounded-xl  items-center justify-center border-2 h-full flex flex-col gap-2 w-full select-none cursor-pointer text-black dark:text-white`} onClick={() => setOpenMore(!openMore)}>
                         {openMore ? t("less") : t("more")}
                         {openMore ? <ArrowUp2 size="20" className="text-gray-600" /> : <ArrowDown2 size="20" className="text-gray-600" />}
                     </span>
@@ -298,7 +300,7 @@ function InputCity(props) {
     const [field, meta, helpers] = useField(props.name);
     useEffect(() => {
         if (!props.defaultValue) {
-            if(props.notGetApi){
+            if (props.notGetApi) {
                 getCurrentCountry({
                     success: (response) => {
                         const countryCode = response.data.CurrentCountry.countryCode

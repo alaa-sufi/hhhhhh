@@ -32,7 +32,7 @@ export default function CreateDemo() {
     setLoadingButton(true);
     createDemoAccount({
      values : formData,
-     success : ()=>{setLoadingButton(false); router.push("/dashboard/demo/account-information");},
+     success : (response)=>{console.log("response" , response.data.account_id);setLoadingButton(false); router.push(`/dashboard/demo/${response.data.account_id}/account-information`);},
      error : ()=>setLoadingButton(false),
      })
     
@@ -122,9 +122,9 @@ const StepOne = (props) => {
         <Form>
           <h2 className="mb-2 text-lg text-gray-500">{t("platform")}</h2>
           <div className="flex items-center justify-between  mb-4">
-            <CustumnCheckbox name="platform" value="4" text={<div className="flex items-center gap-1"><span className="text-xs grow w-max ">ميتة تريدر4</span><Trider4 /></div>} type="radio" />
-            <CustumnCheckbox name="platform" value="5" text={<div className="flex items-center gap-1"><span className="text-xs grow w-max ">ميتة تريدر5</span><Trider4 /></div>} type="radio" />
-            <CustumnCheckbox name="platform" value="6" text={<div className="flex items-center gap-1"><span className="text-xs grow w-max ">ميتة تريدر6</span><Trider4 /></div>} type="radio" />
+            <CustumnCheckbox name="platform" value="4" text={<div className="flex items-center gap-2"><span className="text-xs grow w-max ">ميتة تريدر4</span><Trider4 /></div>} type="radio" />
+            <CustumnCheckbox name="platform" value="5" text={<div className="flex items-center gap-2"><span className="text-xs grow w-max ">ميتة تريدر5</span><Trider4 /></div>} type="radio" />
+            <CustumnCheckbox name="platform" value="6" text={<div className="flex items-center gap-2"><span className="text-xs grow w-max ">ميتة تريدر6</span><Trider4 /></div>} type="radio" />
           </div>
           <ErrorMessage name="platform" component="span" className="text-danger" />
           

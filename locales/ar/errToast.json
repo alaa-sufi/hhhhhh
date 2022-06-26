@@ -15,5 +15,6 @@
 "sorry_a_problem_has_occurred_in_downloading_the_image":"عذرا حدثت مشكلة في تحميل الصورة",
 "the_data_has_been_successfully_saved":"تم حفظ البيانات بنجاح",
 "new_password_cannot_be_same_as_your_current_password":"لا يمكن أن تكون كلمة المرور الجديدة هي نفسها كلمة مرورك الحالية",
-"sorry_you_cant_fill_your_financial_profile_info_more_than_one_time":"عذرا لأنك غير قادر على ملء معلومات ملفك الشخصي المالي أكثر من مرة "
+"sorry_you_cant_fill_your_financial_profile_info_more_than_one_time":"عذرا لأنك غير قادر على ملء معلومات ملفك الشخصي المالي أكثر من مرة ",
+"sorry_the_account_is_not_present":"عذرا الحساب غير موجود"
 }

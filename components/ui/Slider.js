@@ -22,7 +22,7 @@ export default function Slider(props) {
           <ArrowRight2 />
         </div>
       </div>
-      {Array.from({ length: Number.parseInt(4) }, (slide, i) => (
+      {Array.from({ length: Number.parseInt(props.total) }, (slide, i) => (
         <div className={` ${chooseSlide === i ? active : "opacity-70 transform scale-75  "} ${chooseSlide === i + 1 ? next : chooseSlide === i - 1 ? prev : "left-0 right-0 "} absolute 	 mx-auto h-full w-[320px] transition duration-75	  `} onClick={() => handleCLickSlider(i)} key={i}>
          {props.item}
         </div>

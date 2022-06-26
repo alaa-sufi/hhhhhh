@@ -8,7 +8,7 @@ export default function LastActivity() {
           <h2 className="mb-6 text-sm text-gray-500">{t('your_last_activity')}</h2>
           <ul className="p-0 m-0 text-black dark:text-white">
             {Array.from({ length: Number.parseInt(3) }, (item, index) => (
-              <li className="flex items-start gap-1 " key={index}>
+              <li className="flex items-start gap-2 mb-4" key={index}>
                 <div className="mb-2 icon-container">
                   <Wallet3 size="18" className="text-primary" />
                 </div>

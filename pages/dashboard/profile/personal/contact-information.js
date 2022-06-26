@@ -5,7 +5,7 @@ import { UploadImage, InputIcon, Input, InputCity, InputDate, SelectWIthHead, In
 import { ButtonTheme, Error, Loading } from "@/ui"
 import { Formik } from "formik";
 import { Sms, Lock, Eye, EyeSlash, Profile, Star1, Location, Courthouse, MedalStar, Call, Whatsapp, CallAdd } from 'iconsax-react';
-import { profilePersonalUserContactInformation, profilePersonalCompanyContactInformation,  } from "apiHandle"
+import { profilePersonalUserContactInformation, profilePersonalCompanyContactInformation  } from "apiHandle"
 import {useProfilePersonal} from "hooks/use-with-swr"
 
 export default function ContactInformation() {

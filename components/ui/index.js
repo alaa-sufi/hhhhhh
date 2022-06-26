@@ -17,6 +17,7 @@ import SmallAside from "./SmallAside"
 import Error from "./Error"
 import Loading from "./Loading"
 import CreateAccount from "./CreateAccount"
+import RealTypesAccounts from "./RealTypesAccounts"
 export {
     Aside,
     ButtonTheme,
@@ -36,6 +37,7 @@ export {
     SmallAside,
     Error,
     Loading,
-    CreateAccount
+    CreateAccount,
+    RealTypesAccounts
 
 }

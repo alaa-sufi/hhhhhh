@@ -14,6 +14,7 @@ import Link from "next/link"
 export default function SafetyAndPassword() {
   const { t, lang } = useTranslation("profile");
   const [loadingButton, setLoadingButton] = useState(false)
+  const [change, setChange] = useState(false)
   const [openSuccessChange, setOpenSuccessChange] = useState(false)
   const [passwordType, setPasswordType] = useState(true)
   const role = "user"
@@ -45,9 +46,9 @@ export default function SafetyAndPassword() {
           })}
           onSubmit={onSubmit} >
           {(props) => {
-           
-            return (
-              <form onSubmit={props.handleSubmit}>
+             props.dirty && setChange(true)
+             return (
+               <form onSubmit={props.handleSubmit}>
                 <InputIcon icon={<Lock1 className="text-primary" />} className=" mt-8">
                   <Input name="current_password" type="password" placeholder={t('old_password')} dir={lang === "ar" ? "rtl" : "ltr"} />
                 </InputIcon>
@@ -64,7 +65,7 @@ export default function SafetyAndPassword() {
                   <Input name="new_password_confirmation" type="password" placeholder={t('repeat_the_new_password')} dir={lang === "ar" ? "rtl" : "ltr"} />
                 </InputIcon>
 
-                <ButtonTheme color="primary" as="button" type="submit" size="md" bLock1 className="my-12 text-center xs:my-4" loading={loadingButton}  block>
+                <ButtonTheme color="primary" as="button" type="submit" size="md" bLock1 className="my-12 text-center xs:my-4" loading={loadingButton}  block disabled={!change}>
                   {t('save')}
                 </ButtonTheme>
               </form>

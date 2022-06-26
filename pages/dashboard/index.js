@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Wallet3, MoneyRecive, MoneySend, CardPos } from 'iconsax-react';
 import useTranslation from 'next-translate/useTranslation'
 import { CardAccount, FiveSteps, ButtonTheme, LastActivity, CreateAccount, Error, Loading } from "@/ui"
@@ -6,31 +6,40 @@ import useSWR, { useSWRConfig } from 'swr'
 import { userDemoAccount, userRealAccount } from "apiHandle"
 import { WarningModal } from "@/modals"
 import { Pagination } from 'rsuite';
-
+import { useRouter } from 'next/router';
 export default function Dashboard() {
   const { t, lang } = useTranslation("dashboard")
-  const [tab, setTab] = useState(1)
+  const router = useRouter()
+  const { mutate } = useSWRConfig()
   const [allTrue, setAllTrue] = useState(false)
   const perPage = 8;
-  const [paginationDemoPage, setPaginationDemoPage] = useState(1)
-  const [paginationRealPage, setPaginationRealPage] = useState(1)
+  const [paginationDemoPage, setPaginationDemoPage] = useState()
+  const [paginationRealPage, setPaginationRealPage] = useState()
+  const [tab, setTab] = useState()
   const [notCompleteModal, setNotCompleteModal] = useState(false)
-  const { mutate } = useSWRConfig()
+  useEffect(() => {
+    if(router){
+      setPaginationDemoPage(+router.query.demoPage || 1)
+      setPaginationRealPage(+router.query.realPage || 1)
+      setTab(+router.query.tab===2 ? 2 : 1)
+    }
+  }, [router])
   const handleDeleteDone = (type) => {
     mutate(type === "real" ? userRealAccount() : userDemoAccount())
   }
   const { data: demo, error: errorDemo } = useSWR(userDemoAccount({ perPage: perPage, page: paginationDemoPage }))
   const { data: real, error: errorReal } = useSWR(userRealAccount({ perPage: perPage, page: paginationRealPage }))
-  const handleDemoPagination=(page)=>{
+  const handleDemoPagination = (page) => {
+    router.push(`?demoPage=${page}`)
     setPaginationDemoPage(page);
     mutate(userDemoAccount({ perPage: perPage, page: page }))
   }
-  const handleRealPagination=(page)=>{
+  const handleRealPagination = (page) => {
+    router.push(`?realPage=${page}`)
     setPaginationRealPage(page);
     mutate(userRealAccount({ perPage: perPage, page: paginationRealPage }))
   }
-  if (errorDemo || errorReal) return <Error />
-  if (!demo || !real) return <Loading />
+
   return (
     <>
       <div className="grid grid-cols-3 gap-4 ">
@@ -40,8 +49,8 @@ export default function Dashboard() {
           <section className="p-2 bg-white dark:bg-dark-white rounded-lg md:rounded-xl ">
             <div className="relative flex justify-between mb-10 ">
               <span className={`absolute bg-primary text-white h-full  w-2/5  rounded-xl transition-all duration-150  ease-linear	 ${tab === 1 ? "rtl:right-0 ltr:left-0" : "ltr:right-0 rtl:left-0"}`}></span>
-              <button className={` rounded-xl p-6 z-1 text-center w-2/5 ${tab === 1 ? "text-white dark:text-white/100" : "text-balck dark:text-white/70"}`} onClick={() => setTab(1)}>{t("my_demo_accounts")}</button>
-              <button className={` rounded-xl p-6 z-1 text-center w-2/5 ${tab === 2 ? "text-white dark:text-white/100" : "text-balck dark:text-white/70"}`} onClick={() => setTab(2)}>{t("my_trading_accounts")}</button>
+              <button className={` rounded-xl p-6 z-1 text-center w-2/5 ${tab === 1 ? "text-white dark:text-white/100" : "text-balck dark:text-white/70"}`} onClick={() => { setTab(1); router.push(`?tab=1`) }}>{t("my_demo_accounts")}</button>
+              <button className={` rounded-xl p-6 z-1 text-center w-2/5 ${tab === 2 ? "text-white dark:text-white/100" : "text-balck dark:text-white/70"}`} onClick={() => { setTab(2); router.push(`?tab=2`) }}>{t("my_trading_accounts")}</button>
             </div>
 
             {/* start cards */}
@@ -49,19 +58,21 @@ export default function Dashboard() {
               <CreateAccount text={t("create_an_demo_account")} href="/dashboard/demo/create-account" type="demo" />
               {/* demo */}
               <div className="grid grid-cols-2 gap-4 mb-10">
-                {demo.demo_accounts_Informations.data.length ? demo.demo_accounts_Informations.data.map((data, index) => (
-                  <CardAccount type="demo" data={data} key={index} handleDeleteDone={handleDeleteDone} />
-                ))
-                  :
-                  <NoData text={t("there_are_no_demo_accounts_yet")} />
+                {errorDemo ? <Error /> :
+                  !demo ? <Loading /> :
+                    demo.demo_accounts_Informations.data.length ? demo.demo_accounts_Informations.data.map((data, index) => (
+                      <CardAccount type="demo" data={data} key={index} handleDeleteDone={handleDeleteDone} />
+                    ))
+                      :
+                      <NoData text={t("there_are_no_demo_accounts_yet")} />
                 }
               </div>
-             {demo.demo_accounts_Informations.total && <Pagination
+              {(demo && !errorDemo && (demo.demo_accounts_Informations.total > perPage)) && <Pagination
                 prev
                 next
                 maxButtons={4}
                 size="lg"
-                total={4}
+                total={+demo.demo_accounts_Informations.total}
                 ellipsis={true}
                 activePage={paginationDemoPage}
                 limit={perPage}
@@ -73,13 +84,26 @@ export default function Dashboard() {
                 <CreateAccount text={t("create_a_trading_account")} href="/dashboard/real/create-account" type="real" handleOpenModal={() => setNotCompleteModal(true)} allTrue={allTrue} />
                 {/* real */}
                 <div className="grid grid-cols-2 gap-4 mb-10">
-                  {real.real_accounts_Informations.data.length ? real.real_accounts_Informations.data.map((data, index) => (
-                    <CardAccount type="real" data={data} key={index} handleDeleteDone={handleDeleteDone} />
-                  ))
-                    :
-                    <NoData text={t("there_are_no_trading_accounts_yet")} />
+                  {errorReal ? <Error /> :
+                    !real ? <Loading /> :
+                      real.real_accounts_Informations.data.length ? real.real_accounts_Informations.data.map((data, index) => (
+                        <CardAccount type="real" data={data} key={index} handleDeleteDone={handleDeleteDone} />
+                      ))
+                        :
+                        <NoData text={t("there_are_no_trading_accounts_yet")} />
                   }
                 </div>
+                 {(real && !errorReal && (real.real_accounts_Informations.total > perPage)) && <Pagination
+                prev
+                next
+                maxButtons={4}
+                size="lg"
+                total={+real.real_accounts_Informations.total }
+                ellipsis={true}
+                activePage={paginationRealPage}
+                limit={perPage}
+                onChangePage={handleRealPagination}
+              />}
 
               </>
             }
