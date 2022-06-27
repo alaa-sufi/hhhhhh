@@ -4,15 +4,15 @@ import { MoneyRecive, Add, ArrowSwapVertical, Trash, Setting4, Refresh2 ,MoneySe
 import useTranslation from 'next-translate/useTranslation'
 import Link from "next/link"
 
-export default function CardAccountTop() {
+export default function CardAccountTop({data , type}) {
     const { t } = useTranslation("dashboard")
-
+    const { balance, currency, color, leverage, login  } = data
 
   return (
-    <div className={`bg-[#6ab929]  py-5 px-6 rounded-xl text-white relative select-none`}>
+    <div className={`  py-5 px-6 rounded-xl text-white relative bg-color`} style={{ "--color": color }}>
     <h5>{t("balance")}</h5>
-    <span className="block mb-1 text-4xl ">$2,056</span>
-    <span className="block mb-10 tracking-widest3 text-slate-300">STANDARD</span>
+    <span className="block mb-1 text-4xl ">${balance}</span>
+    <span className="block mb-10 tracking-widest3 text-slate-300">{type === "real" ? data.account_type_name : 'STANDARD'}</span>
     <ul className="flex justify-between">
         <li>
             <div className="flex items-center gap-2">
@@ -21,17 +21,17 @@ export default function CardAccountTop() {
                 </span>
                 <span>
                     <h6 className="text-sm leading-none text-slate-300">MT5</h6>
-                    <span className="text-base">USD</span>
+                    <span className="text-base">{currency}</span>
                 </span>
             </div>
         </li>
         <li>
             <h6 className="text-sm leading-none text-slate-300">{t("leverage")}</h6>
-            <span className="text-base">1:300</span>
+            <span className="text-base">1:{leverage}</span>
         </li>
         <li>
             <h6 className="text-sm leading-none text-slate-300">{t("account_number")}</h6>
-            <span className="text-base tracking-widest2">101316</span>
+            <span className="text-base tracking-widest2">{login}</span>
         </li>
     </ul>
 </div>

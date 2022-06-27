@@ -9,38 +9,35 @@ import { ButtonTheme } from "@/ui"
 import { WarningModal } from "@/modals";
 import { convertAccountToFixed } from "apiHandle"
 
-export default function CardAccount({ type, data, handleDeleteDone }) {
-    const { balance, currency, color, leverage, login, freeMargin, equity, id , fixed } = data
+export default function CardAccount({ type, data, handelFixed, handleDeleteDone }) {
+    const { balance, currency, color, leverage, login, freeMargin, equity, id, fixed } = data
     const { t } = useTranslation("dashboard")
     const [deleteAccount, setDeleteAccount] = useState(false)
     const [openMenu, setOpenMenu] = useState(false)
-    const [fix, setFixed] = useState(fixed === "1")
     const [loadingDeleteButton, setLoadingDeleteButton] = useState(false)
     const [loadingFixedButton, setLoadingFixedButton] = useState(false)
     const handleFix = () => {
         setLoadingFixedButton(true);
-        // fixed recently
-        
-            convertAccountToFixed({
-                id:id,
-              success: () => { setLoadingFixedButton(false); setFixed(!fix); setOpenMenu(false); },
-              error: () => setLoadingFixedButton(false)
-            })
-      
+        convertAccountToFixed({
+            id: id,
+            success: () => { setLoadingFixedButton(false); setOpenMenu(false); handelFixed(); },
+            error: () => setLoadingFixedButton(false)
+        })
+
 
     }
     const handleDelete = () => {
-        setLoadingDeleteButton(true);
+        // setLoadingDeleteButton(true);
         deleteDemoAccount({
             login: login,
-            success: () => { setLoadingDeleteButton(false); setOpenMenu(false);setDeleteAccount(false); handleDeleteDone(type) },
-            error: () => setLoadingDeleteButton(false)
+            success: () => { setOpenMenu(false); setDeleteAccount(false); handleDeleteDone(type) },
+            error: () => {setOpenMenu(false);}
         })
     }
     return (
         <>
             <div className={`col-span1 relative ${false && '[filter:drop-shadow(0px_0px_5px_rgba(255,0,0,0.6))]'}`} >
-                {fix && <span className="absolute top-0 flex items-center justify-center w-8 h-8 transform translate-x-1/2 bg-white  rounded-bl-lg rounded-br-lg right-1/2 z-1 text-black"><Pin fill="inherit" /></span>}
+                {fixed === "1" && <span className="absolute top-0 flex items-center justify-center w-8 h-8 transform translate-x-1/2 bg-white  rounded-bl-lg rounded-br-lg right-1/2 z-1 text-black"><Pin fill="inherit" /></span>}
                 <div className="bg-secondary dark:bg-dark-secondary rounded-xl  ">
                     <div className={`  py-5 px-6 rounded-xl text-white relative bg-color`} style={{ "--color": color }}>
                         <h5>{t("balance")}</h5>
@@ -49,7 +46,7 @@ export default function CardAccount({ type, data, handleDeleteDone }) {
                         <button className="absolute flex p-1 bg-white  rounded-lg top-4 rtl:left-4 ltr:right-4" onClick={() => setOpenMenu(true)}>
                             <Menu />
                         </button>
-                        {openMenu && <div className="absolute text-black dark:text-white bg-white dark:bg-dark-white rounded-lg top-4 rtl:left-4 ltr:right-4 z-2 p-3">
+                        {openMenu && <div className="absolute z-3 text-black dark:text-white bg-white dark:bg-dark-white rounded-lg top-4 rtl:left-4 ltr:right-4 z-2 p-3">
                             <button onClick={() => setOpenMenu(false)} className="top-2 rtl:left-2 ltr:right-2 absolute">
                                 <Add className=" flex text-[#E30000] transform rotate-45 bg-white dark:bg-dark-white  rounded-xl" size="25 " />
                             </button>
@@ -64,7 +61,7 @@ export default function CardAccount({ type, data, handleDeleteDone }) {
                                 <a className="flex items-center gap-2 px-3 py-2 mb-1 cursor-pointer hover:bg-primary-200/10"><Setting4 className="w-5 text-black dark:text-white" size="25" />{type === "real" ? t("account_information") : t("account_modification")}</a>
                             </Link>
                             {/* {type === "real" && <li className="flex items-center gap-2 px-3 py-2 mb-1 cursor-pointer hover:bg-primary-200/10"> <Lock1 className="w-5 text-black dark:text-white" size="25" />{t("change_password")}</li>} */}
-                            <button  disabled={loadingFixedButton} className="flex items-center w-full gap-2 px-3 py-2 mb-1 cursor-pointer hover:bg-primary-200/10" onClick={handleFix}>{loadingFixedButton ? <Loader /> : <Pin className="w-5 text-black dark:text-white" fill="inherit" />}{fix ? t("cancel_account_installation") : t("account_installation")}</button>
+                            <button disabled={loadingFixedButton} className="flex items-center w-full gap-2 px-3 py-2 mb-1 cursor-pointer hover:bg-primary-200/10" onClick={handleFix}>{loadingFixedButton ? <Loader /> : <Pin className="w-5 text-black dark:text-white" fill="inherit" />}{fixed === "1" ? t("cancel_account_installation") : t("account_installation")}</button>
                             {type != "real" && <button onClick={() => setDeleteAccount(true)} disabled={loadingDeleteButton} className="flex items-center gap-2 px-3 py-2 mb-1 cursor-pointer hover:bg-red-600 hover:text-white"><Trash className="w-5 text-inherit" size="25" />{t("delete_account")}</button>}
                         </div>}
                         <ul className="flex justify-between">
@@ -123,11 +120,12 @@ export default function CardAccount({ type, data, handleDeleteDone }) {
                 <>
                     <p className="mb-4 font-bold text-black dark:text-white text-xl">{t("do_you_want_to_delete_the_account")}</p>
                     <div className="flex my-8 justify-between p-1 gap-4">
-                        <ButtonTheme loading={loadingDeleteButton} color="primary" onClick={()=>handleDelete()} className="w-1/2 px-4 py-2">{t("yes_delete_now")}</ButtonTheme>
+                        <ButtonTheme  color="primary" onClick={() => handleDelete()} className="w-1/2 px-4 py-2">{t("yes_delete_now")}</ButtonTheme>
                         <ButtonTheme color="primary" outline onClick={() => setDeleteAccount(false)} className="w-1/2 px-4 py-2">{t("no_cancel_the_deletion")}</ButtonTheme>
                     </div>
                 </>
             } />
+            {openMenu && <div className=" z-2 h-full w-full top-0 right-0 fixed" onClick={()=>setOpenMenu(false)}></div>}
         </>
     )
 }

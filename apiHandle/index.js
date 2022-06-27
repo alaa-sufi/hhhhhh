@@ -297,6 +297,7 @@ const profileAddressCheck = () => `${process.env.host}/check-AddressConfirmation
 const profileFinancialInformation = () => `${process.env.host}/check-user-financial-profile-info?user_id=${process.env.userId}`
 const recordClosedDeals = (login) => `${process.env.host}/get-record-for-all-Deals?login=${login}&user_id=${process.env.userId}`
 const userDemoAccount = ({perPage,page}) => `${process.env.host}/getUserDemoAccounts-WithPagination?user_id=${process.env.userId}&perPage=${perPage}&page=${page}`
+const userDemoAccountWithoutPagination = () => `${process.env.host}/getUserDemoAccounts-WithOutPagination?user_id=${process.env.userId}`
 const userRealAccount = ({perPage,page}) => `${process.env.host}/getUserRealAccounts?user_id=${process.env.userId}&perPage=${perPage}&page=${page}`
 const allAccountsTypes = () => `${process.env.host}/getAllAccountsTypes`
 // / /////////////////////////////
@@ -312,6 +313,6 @@ export {
     register, login, forgetPasswordByEmail, forgetPasswordByPhone, returnPassword, getCurrentCountry, enterCodeNumber, getPhoneCode, createDemoAccount, profilePersonalProfileUserPersonly, profilePersonalProfileCompanyPersonly, userPersonalProfile, companyPersonalProfile,
     profilePersonalCompanyContactInformation, profilePersonalUserContactInformation,
     profilePersonalProfileUserHeadLines, profileBankAccount, profilePersonalProfileCompanyHeadLines, profilePersonalProfileChangePass,
-    profilePersonalIdentificationConfirmation, profileIdentCheck, profileAddressCheck, profileFinancialInformation, profilePersonalFinancialInformation, recordClosedDeals, userDemoAccount, userRealAccount, allAccountsTypes, deleteDemoAccount,
+    profilePersonalIdentificationConfirmation, profileIdentCheck, profileAddressCheck, profileFinancialInformation, profilePersonalFinancialInformation, recordClosedDeals, userDemoAccount,userDemoAccountWithoutPagination, userRealAccount, allAccountsTypes, deleteDemoAccount,
     changeRealAccountSetting,changeDemoAccountSetting ,createRealAccount,convertAccountToFixed
 }

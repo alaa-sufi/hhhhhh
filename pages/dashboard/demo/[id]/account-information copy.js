@@ -1,7 +1,8 @@
 import React, { useState , useEffect } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { Setting4, ArrowLeft, Apple, GooglePlay, EyeSlash, Eye, ArrowLeft2, ArrowRight2 } from 'iconsax-react';
-import Link from "next/link"  
+import { DoneModal, ChangeLeverageModal } from "@/modals"
+import Link from "next/link"
 import { ButtonTheme, CopyToClip, Slider,Error, Loading , NoData  } from "@/ui"
 import { SelectWIthHead, CustomnCheckColors } from "@/form"
 import * as Yup from "yup";
@@ -57,8 +58,7 @@ export default function AccountInformation() {
     router.push({
       pathname: router.asPath.split("?")[0],
       query: { account: data.demo_accounts_Informations[i].id },
-     
-    }, undefined, { scroll: false })
+    })
     setCurrentAccount(data.demo_accounts_Informations[i])
     setCurrentId(data.demo_accounts_Informations[i].id)
   }
@@ -79,7 +79,7 @@ export default function AccountInformation() {
           </Link>
         </div>
         <div className="max-w-full py-4 mx-auto">
-          <div className="grid grid-cols-10 gap-16">
+          <div className="grid grid-cols-9 gap-16">
             <div className="col-span-5">
               <Slider   data={allAccounts}  currentAccount={currentAccount} type="demo" chooseSlide={allAccounts.indexOf(currentAccount)} handleChooseIndexSlide={handleChooseIndexSlide}/>
               <Formik
@@ -131,7 +131,7 @@ export default function AccountInformation() {
                         <span className="text-base font-bold text-gray-400 ">hululfx9_demo</span>
                         <CopyToClip text="hululfx9_demo" />
                       </div>
-                      <CustomnCheckColors name="color" more={true}/>
+                      <CustomnCheckColors name="color" />
 
                       <ButtonTheme loading={loadingButton} color="primary" type="submit" block disabled={!change} className="p-4">{t("saving_changes")}</ButtonTheme>
                     </form>
@@ -139,7 +139,7 @@ export default function AccountInformation() {
                 }}
               </Formik>
             </div>
-            <div className="col-span-5 p-8 bg-secondary dark:bg-dark-secondary  rounded-2xl">
+            <div className="col-span-4 p-8 bg-secondary dark:bg-dark-secondary  rounded-2xl">
               <h2 className="mb-10 text-3xl font-bold text-black dark:text-white">{t("steps_to_start")}<br />{t("your_trading")}</h2>
               <ul className="border-b ">
                 {stepsTraining.map((step, index) => (
@@ -178,6 +178,16 @@ export default function AccountInformation() {
           </div>
         </div>
       </div >
+      <button onClick={() => setChangeLeverage(true)}>ChangeLeverageModal</button>{" "}
+      <button onClick={() => setDone(true)}>DoneModal</button>{" "}
+      <ChangeLeverageModal open={changeLeverage} onClose={() => setChangeLeverage(false)} />
+      <DoneModal open={done} onClose={() => setDone(false)} message={
+        <>
+          <p className="mb-4 font-bold text-black dark:text-white">{t("done")}</p>
+          <bdi className="mb-4 font-bold text-black dark:text-white">{`${t("successfully_an_amount_has_been_deposited")} ${'$1998'} ${t("from_account")} ${"103568"} ${t("to_account")}`}</bdi>
+        </>} />
+     
+
     </>
   )
 }

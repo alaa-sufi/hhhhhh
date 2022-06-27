@@ -18,6 +18,7 @@ import Error from "./Error"
 import Loading from "./Loading"
 import CreateAccount from "./CreateAccount"
 import RealTypesAccounts from "./RealTypesAccounts"
+import NoData from "./NoData"
 export {
     Aside,
     ButtonTheme,
@@ -38,6 +39,7 @@ export {
     Error,
     Loading,
     CreateAccount,
-    RealTypesAccounts
+    RealTypesAccounts,
+    NoData,
 
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Wallet3, MoneyRecive, MoneySend, CardPos } from 'iconsax-react';
+import { Wallet3, MoneyRecive, MoneySend } from 'iconsax-react';
 import useTranslation from 'next-translate/useTranslation'
-import { CardAccount, FiveSteps, ButtonTheme, LastActivity, CreateAccount, Error, Loading } from "@/ui"
+import { CardAccount, FiveSteps, ButtonTheme, LastActivity, CreateAccount, Error, Loading , NoData} from "@/ui"
 import useSWR, { useSWRConfig } from 'swr'
 import { userDemoAccount, userRealAccount } from "apiHandle"
 import { WarningModal } from "@/modals"
@@ -39,6 +39,13 @@ export default function Dashboard() {
     setPaginationRealPage(page);
     mutate(userRealAccount({ perPage: perPage, page: paginationRealPage }))
   }
+  const handleRealFixed = () => {
+    mutate(userRealAccount({ perPage: perPage, page: paginationRealPage }))
+  }
+  const handleDemoFixed = () => {
+    mutate(userDemoAccount({ perPage: perPage, page: paginationDemoPage }))
+  }
+
 
   return (
     <>
@@ -61,7 +68,7 @@ export default function Dashboard() {
                 {errorDemo ? <Error /> :
                   !demo ? <Loading /> :
                     demo.demo_accounts_Informations.data.length ? demo.demo_accounts_Informations.data.map((data, index) => (
-                      <CardAccount type="demo" data={data} key={index} handleDeleteDone={handleDeleteDone} />
+                      <CardAccount type="demo" data={data} key={index} handleDeleteDone={handleDeleteDone} handelFixed={handleDemoFixed}/>
                     ))
                       :
                       <NoData text={t("there_are_no_demo_accounts_yet")} />
@@ -87,7 +94,7 @@ export default function Dashboard() {
                   {errorReal ? <Error /> :
                     !real ? <Loading /> :
                       real.real_accounts_Informations.data.length ? real.real_accounts_Informations.data.map((data, index) => (
-                        <CardAccount type="real" data={data} key={index} handleDeleteDone={handleDeleteDone} />
+                        <CardAccount type="real" data={data} key={index} handleDeleteDone={handleDeleteDone}  handelFixed={handleRealFixed}/>
                       ))
                         :
                         <NoData text={t("there_are_no_trading_accounts_yet")} />
@@ -141,9 +148,3 @@ export default function Dashboard() {
 }
 
 
-const NoData = ({ text }) => (
-  <div className="text-center py-20 col-span-2">
-    <CardPos size="120" className="text-gray-400 mb-4 mx-auto" />
-    <p className="font-bold text-3xl text-gray-400">{text}</p>
-  </div>
-)

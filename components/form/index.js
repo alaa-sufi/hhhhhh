@@ -217,9 +217,9 @@ function SelectWIthHead({ name, head, options, defaultValue, optionsOutside, ...
 
     )
 }
-function CustomnCheckColors({ name }) {
+function CustomnCheckColors({ name , more}) {
     const { t } = useTranslation("dashboard");
-    const [openMore, setOpenMore] = useState(false);
+    const [openMore, setOpenMore] = useState(more || false );
     const colors1 = [
         "#3498DB",
         "#8E44AD",
