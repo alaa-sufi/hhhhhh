@@ -2,16 +2,19 @@ import React, { useState } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { ProfileContainer } from "@/container"
 import { Location, ClipboardText, Lock1, Call, Add } from 'iconsax-react'
-import { CardAccountTop } from "@/ui"
 import Link from "next/link"
-
 import { VisaIcon } from "public/svg"
+import Head from 'next/head'
 
 
 export default function ConfirmTheAddress() {
     const { t, lang } = useTranslation("profile")
 
     return (
+        <>
+          <Head>
+        <title>{t("payment_cards")} | {t("common:website_name")}</title>
+      </Head>
         <ProfileContainer tab={"bankAccount"}>
             <div className=" mx-auto">
                 <h1 className="text-gray-600 text-xl mb-4 mt-8">{t("your_payment_card")}</h1>
@@ -23,6 +26,7 @@ export default function ConfirmTheAddress() {
                 </div>
             </div>
         </ProfileContainer>
+        </>
     )
 }
 const CreateBankAccount = ({ text, href }) => {

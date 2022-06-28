@@ -7,14 +7,19 @@ import { Profile, Courthouse , Sms, Lock,Eye, EyeSlash , Flag , Call } from 'ico
 import ButtonTheme from "@/ui/ButtonTheme"
 import { Formik } from "formik";
 import * as Yup from "yup";
+import Head from 'next/head'
+
 export default function LoginBroker() {
   const [passwordType ,setPasswordType] = useState(true)
   const { t , lang} = useTranslation("auth")
-
   const onSubmit = (values) => {
     console.log(values)
   }
   return (
+    <>
+       <Head>
+        <title>{t("sign_in")} | {t("common:website_name")}</title>
+      </Head>
     <Login slider noRiskWarning>
       <span className="block mt-20 mb-2 text-gray-400 text-md">{t('welcome_with_us')}</span>
       <h1 className="mb-8 font-bold leading-none text-h2">{t('welcome')}</h1>
@@ -46,6 +51,7 @@ export default function LoginBroker() {
                 {t('back_to_the_home_page')}
             </ButtonTheme>
     </Login>
+    </>
   )
 }
 LoginBroker.getLayout = function PageLayout(page) {

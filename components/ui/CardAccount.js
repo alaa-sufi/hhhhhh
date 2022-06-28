@@ -4,10 +4,9 @@ import { MoneyRecive, Add, ArrowSwapVertical, Trash, Setting4, Refresh2, MoneySe
 import useTranslation from 'next-translate/useTranslation'
 import Link from "next/link"
 import { Loader } from 'rsuite';
-import { deleteDemoAccount } from "apiHandle"
 import { ButtonTheme } from "@/ui"
 import { WarningModal } from "@/modals";
-import { convertAccountToFixed } from "apiHandle"
+import { convertAccountToFixed ,deleteDemoAccount} from "apiHandle"
 
 export default function CardAccount({ type, data, handelFixed, handleDeleteDone }) {
     const { balance, currency, color, leverage, login, freeMargin, equity, id, fixed } = data
@@ -27,11 +26,11 @@ export default function CardAccount({ type, data, handelFixed, handleDeleteDone 
 
     }
     const handleDelete = () => {
-        // setLoadingDeleteButton(true);
+        setLoadingDeleteButton(true);
         deleteDemoAccount({
             login: login,
-            success: () => { setOpenMenu(false); setDeleteAccount(false); handleDeleteDone(type) },
-            error: () => {setOpenMenu(false);}
+            success: () => { handleDeleteDone(type);setLoadingDeleteButton(false) ; setOpenMenu(false); setDeleteAccount(false); },
+            error: () => {setLoadingDeleteButton(false) ;setOpenMenu(false);setDeleteAccount(false);}
         })
     }
     return (
@@ -116,11 +115,11 @@ export default function CardAccount({ type, data, handelFixed, handleDeleteDone 
                     </div>
                 </div>
             </div>
-            <WarningModal open={deleteAccount} size="sm" onClose={() => setDeleteAccount(false)} message={
+            <WarningModal open={deleteAccount}  onClose={() => setDeleteAccount(false)} message={
                 <>
                     <p className="mb-4 font-bold text-black dark:text-white text-xl">{t("do_you_want_to_delete_the_account")}</p>
                     <div className="flex my-8 justify-between p-1 gap-4">
-                        <ButtonTheme  color="primary" onClick={() => handleDelete()} className="w-1/2 px-4 py-2">{t("yes_delete_now")}</ButtonTheme>
+                        <ButtonTheme loading={loadingDeleteButton}  color="primary" onClick={handleDelete} className="w-1/2 px-4 py-2">{t("yes_delete_now")}</ButtonTheme>
                         <ButtonTheme color="primary" outline onClick={() => setDeleteAccount(false)} className="w-1/2 px-4 py-2">{t("no_cancel_the_deletion")}</ButtonTheme>
                     </div>
                 </>

@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import { useRouter } from 'next/router'
 import { register ,getPhoneCode } from "apiHandle"
 import toast from "react-hot-toast";
+import Head from 'next/head'
 
 export default function RegisterUser() {
   const { t , lang } = useTranslation("auth")
@@ -33,6 +34,10 @@ export default function RegisterUser() {
   }
 
   return (
+    <>
+       <Head>
+        <title>{t("dashboard")} | {t("common:website_name")}</title>
+      </Head>
     <Login slider>
       <span className="block mt-8 mb-2 text-gray-400 text-md">{t('start_now_for_free')}</span>
       <h1 className="mb-8 font-bold leading-none text-h2">{t('create_your_account_now')}</h1>
@@ -81,6 +86,7 @@ export default function RegisterUser() {
         {t('i_have_an_account_log_in')}
       </ButtonTheme>
     </Login>
+    </>
 
   )
 }

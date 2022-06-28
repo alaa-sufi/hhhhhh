@@ -5,18 +5,19 @@ import { CustumnCheckbox, InputIcon, InputCity, SelectWIthHead, Input } from "@/
 import { ArrowLeft, ArrowRight, Sms, Lock, Eye, EyeSlash, Flag, Call, Verify } from 'iconsax-react';
 import { Formik, Form, Field, useField } from "formik";
 import { ButtonTheme, Error, Loading } from "@/ui"
-import { profilePersonalFinancialInformation ,profileFinancialInformation } from "apiHandle"
+import { profilePersonalFinancialInformation, profileFinancialInformation } from "apiHandle"
 import { Checkbox } from 'rsuite';
 import { useRouter } from 'next/router'
 import toast from "react-hot-toast";
 import useSWR from 'swr'
+import Head from 'next/head'
 
 export default function FinancialInformation() {
   const { t, lang } = useTranslation("profile")
   const router = useRouter();
   const [loadingButton, setLoadingButton] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const { data, error } = useSWR( profileFinancialInformation())
+  const { data, error } = useSWR(profileFinancialInformation())
   const [done, setDone] = useState(false);
 
   useEffect(() => {
@@ -506,7 +507,7 @@ export default function FinancialInformation() {
     setData((prev) => ({ ...prev, ...newData }));
     setCurrentStep((prev) => prev - step);
   };
-  
+
   // useEffect(() => {
   //   toast.error("في حال قمت بالخروج او تغيير الصفحة ستخصر معلوماتك الحالية")
   // }, [router.asPath]);
@@ -519,6 +520,10 @@ export default function FinancialInformation() {
   if (error) return <Error />
   if (!data) return <Loading />
   return (
+    <>
+     <Head>
+        <title>{t("financial_information")} | {t("common:website_name")}</title>
+      </Head>
     <ProfileContainer >
       {!done ?
         <div className="pt-4">
@@ -530,6 +535,7 @@ export default function FinancialInformation() {
         </div>
       }
     </ProfileContainer>
+    </>
   )
 }
 const Step = (props) => {
@@ -580,7 +586,7 @@ const Step = (props) => {
 
               {type === "select-city" &&
                 <InputIcon icon={<Flag className="text-primary" />} className={` ${longAnswer && "col-span-2"}`}>
-                  <InputCity name={name} type="text" placeholder={t("choose_the_city")}/>
+                  <InputCity name={name} type="text" placeholder={t("choose_the_city")} />
                 </InputIcon>
               }
               {(type === "select-study" || type === "select-study-level" || type === "representative_position") &&

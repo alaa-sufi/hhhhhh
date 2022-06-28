@@ -1,39 +1,69 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { Setting4, ArrowLeft, Apple, GooglePlay, EyeSlash, Eye, ArrowLeft2, ArrowRight2, Flag, Cup, Crown1 } from 'iconsax-react';
 import { WarningModal, DoneModal, ChangeLeverageModal } from "@/modals"
 import Link from "next/link"
-import { ButtonTheme, CopyToClip, Slider, CardAccountTop } from "@/ui"
+import { ButtonTheme, CopyToClip, Slider,Error, Loading , NoData  } from "@/ui"
 import { Input, InputIcon, CustumnCheckbox, SelectWIthHead, CustomnCheckColors } from "@/form"
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Trider4, Correct } from "public/svg"
+import { changeRealAccountSetting ,userRealAccountWithoutPagination } from "apiHandle"
+import useSWR from 'swr'
+import Image from "next/image"
+import Head from 'next/head'
+import { useRouter } from "next/router"
 
 export default function AccountInformation() {
   const { t } = useTranslation("dashboard", "auth")
   const [passwordType, setPasswordType] = useState(true)
-  const stepsTraining = [
-    { title: t("keep_the_trading_account_safety"), slogan: t("please_keep_the_trading_account_and_password_to_prevent_any_manipulation"), icon: <></> },
-    { title: `${t("download")} MT5 / MT4`, slogan: t("start_downloading_the_appropriate_meta_trader_platform_for_you_from_the_bottom_section"), icon: <></> },
-    { title: t("mister_training"), slogan: t("after_installing_the_meta_trader_and_creating_an_account_the_training_began_immediately"), icon: <></> }
-  ]
-
+  const router = useRouter();
   const [changeLeverage, setChangeLeverage] = useState(false)
-  const [done, setDone] = useState(false)
-  const [deleteAccount, setDeleteAccount] = useState(false)
-  const onDelete = () => {
-    setDeleteAccount(false)
+  const [loadingButton, setLoadingButton] = useState(false)
+  const [change, setChange] = useState(false)
+  const [currentAccount , setCurrentAccount] = useState()
+  const [currentId , setCurrentId] = useState(router.query.account ?  router.query.account : router.query.id)
+  const [allAccounts , setAllAccounts] = useState()
+  const { data, error } = useSWR(userRealAccountWithoutPagination())
+  useEffect(()=>{
+    if(data){
+      setCurrentAccount(data.demo_accounts_Informations.filter((account)=>+account.id === +currentId)[0] || {error:"there is no account"})
+      setAllAccounts(data.demo_accounts_Informations)
+    }
+  },[data])
+
+  if (error) return <Error />
+  if (!data ||!currentAccount ) return <Loading />
+  if (currentAccount.error === "there is no account" ) return <NoData text={t("sorry_the_account_is_not_present")} />
+
+  const onSubmit = (values) => {
+    setLoadingButton(true);
+    changeRealAccountSetting({
+      values: values,
+      success: (response) => { 
+        setLoadingButton(false);
+        setAllAccounts(allAccounts.map((account)=>account.id === currentId ? response.data.accountInfo : account));
+        if(values.leverage != currentAccount.leverage){
+          setChangeLeverage(true)
+        }
+       },
+      error: () => setLoadingButton(false)
+    })
   }
-  const handleSubmit = (values) => {
-    console.log(values);
-  };
-  const plans = [
-    // { icon: <Flag className="text-white" size="30" />, title: t("essential"), pips: "1.5", lowest: "$100", ea: t("no"), volume: "0.01", islamic: t("yes"), value: "1" },
-    // { icon: <Cup className="text-white" size="30" />, title: t("classic"), pips: "1.2", lowest: "$100", ea: t("no"), volume: "0.01", islamic: t("yes"), value: "2" },
-    { icon: <Crown1 className="text-white" size="30" />, title: t("professionalism"), pips: "0.1", lowest: "$200", ea: t("no"), volume: "0.01", islamic: t("yes"), value: "3" }
-  ]
+  const handleChooseIndexSlide=(i)=>{
+    router.push({
+      pathname: router.asPath.split("?")[0],
+      query: { account: data.demo_accounts_Informations[i].id },
+     
+    }, undefined, { scroll: false })
+    setCurrentAccount(data.demo_accounts_Informations[i])
+    setCurrentId(data.demo_accounts_Informations[i].id)
+  }
+
   return (
     <>
+     <Head>
+        <title>{t("account_settings_information")} | {t("common:website_name")}</title>
+      </Head>
       <div className="p-8 bg-white dark:bg-dark-white rounded-lg md:rounded-xl">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 mb-8">
@@ -51,7 +81,7 @@ export default function AccountInformation() {
         <div className="max-w-full py-4 mx-auto">
           <div className="grid grid-cols-7 gap-16">
             <div className="col-span-4">
-              <Slider item={<CardAccountTop />} />
+            <Slider   data={allAccounts}  currentAccount={currentAccount} type="demo" chooseSlide={allAccounts.indexOf(currentAccount)} handleChooseIndexSlide={handleChooseIndexSlide}/>
               <Formik
                 validationSchema={() => Yup.object().shape({
                   leverage: Yup.string().required(t('please_choose_the_leverage')),
@@ -59,18 +89,29 @@ export default function AccountInformation() {
                     .max(12, t("the_password_should_not_exceed_twelve_letters")).matches(/[a-z]/, t("the_password_must_contain_letters")).matches(/[1-9]/, t("the_password_must_contain_numbers"))
 
                 })}
-                initialValues={{ leverage: "100", password: "" }}
-                onSubmit={handleSubmit}
+                enableReinitialize
+                initialValues={
+                  {
+                    user_id: process.env.userId,
+                    leverage: currentAccount.leverage,
+                    color: currentAccount.color,
+                    account_id: currentId,
+                    password: currentAccount.password
+                  }
+                }
+                onSubmit={onSubmit}
               >
-                {(props) => (
-                  <Form>
-                    <SelectWIthHead name="leverage" head={t("leverage")} options="leverage" value={props.values.leverage} />
+                {(props) => {
+                  props.dirty && setChange(true)
+                  return (
+                    <form onSubmit={props.handleSubmit}>
+                    <SelectWIthHead name="leverage" head={t("leverage")} options="leverage" defaultValue={props.values.leverage} />
 
                     <div className="flex justify-between p-4 mb-4 bg-secondary dark:bg-dark-secondary  rounded-xl font-bold text-black dark:text-white">
                       {t("account_number")}
                       <span className="flex items-center gap-2 text-base font-bold text-gray-400 tracking-widest2">
-                        <span>1035468</span>
-                        <CopyToClip text="1035468" />
+                        <span>{currentAccount.login}</span>
+                        <CopyToClip text={currentAccount.login} />
                       </span>
                     </div>
                     <div className="flex justify-between p-2  mb-4 bg-secondary dark:bg-dark-secondary  rounded-xl font-bold items-center gap-4 rtl:pr-4 ltr:pl-4 text-black dark:text-white">
@@ -91,71 +132,56 @@ export default function AccountInformation() {
                     </div>
                     <CustomnCheckColors name="color" />
 
-                    <ButtonTheme color="primary" type="submit" size="md" block disabled={!(props.values.password || props.values.leverage)} className="p-4">{t("saving_changes")}</ButtonTheme>
-                  </Form>
-                )}
+                    <ButtonTheme color="primary" type="submit" block loading={loadingButton} disabled={!change} className="p-4">{t("saving_changes")}</ButtonTheme>
+                  </form>
+                )}}
               </Formik>
             </div>
             <div className="col-span-3">
               <h2 className="mb-2 text-lg text-gray-500">{t("the_joint_package_in_it")}</h2>
-              {plans.map((plan, index) => (
-                <div key={index} className="px-8 py-6 my-4 bg-secondary dark:bg-dark-secondary  rounded-xl">
-                  <div className="flex gap-4 mb-10 justify-center">
-                    <div className="flex items-center justify-center w-12 h-12 p-1 rounded-full bg-primary ">
-                      {plan.icon}
+                <div className="px-8 py-6 my-4 bg-secondary dark:bg-dark-secondary  rounded-xl">
+                <div className="py-8 flex justify-center gap-2">
+                    <div className="flex items-center justify-center w-12 h-12 p-1 rounded-full bg-primary aspect-square">
+                        <Image alt={currentAccount.account_name} src={`${process.env.hostImage}/${currentAccount.account_type_image}`} width="30" height="30"  />
                     </div>
-                    <h3 className="mt-1 text-3xl text-black dark:text-white">{plan.title}<br /><span className="block text-xs text-center text-gray-400 ">{t("there_is_no_commission")}</span></h3>
-                  </div>
+                    <h3 className="mt-1 text-3xl text-black dark:text-white capitalize text-center">{currentAccount.account_type_name}<br /><span className="block text-xs text-center text-gray-400 ">{currentAccount.account_type_commission  ==="yes"? t("there_is_a_commission") : t("there_is_no_commission")}</span></h3>
+                </div>
                
-                  <ul className="mb-8 rtl:mr-4 ltr:ml-4 text-gray-500">
+                  <ul className="mb-12 rtl:mr-4 ltr:ml-4 text-gray-500">
                     <li className="relative flex justify-between pr-2 mb-4 before:w-3 before:h-3 before:bg-primary before:absolute rtl:before:-right-4 ltr:before:-left-3 before:top-1 before:rounded-full">
                       <span>{t("starting_from")}</span>
-                      <span className="font-bold text-black dark:text-white"><bdi><span>{plan.pips}</span>&nbsp;pips</bdi></span>
+                      <span className="font-bold text-black dark:text-white"><bdi><span>{currentAccount.account_type_pips}</span>&nbsp;pips</bdi></span>
                     </li>
                     <li className="relative flex justify-between pr-2 mb-4 before:w-3 before:h-3 before:bg-primary before:absolute rtl:before:-right-4 ltr:before:-left-3 before:top-1 before:rounded-full">
                       <span>{t("the_lowest_deposit_amount")}</span>
-                      <span className="font-bold text-black dark:text-white">{plan.lowest}</span>
+                      <span className="font-bold text-black dark:text-white">{currentAccount.account_type_min_deposit}</span>
                     </li>
                     <li className="relative flex justify-between pr-2 mb-4 before:w-3 before:h-3 before:bg-primary before:absolute rtl:before:-right-4 ltr:before:-left-3 before:top-1 before:rounded-full">
                       <span>EA</span>
-                      <span className="font-bold text-black dark:text-white">{plan.ea}</span>
+                      <span className="font-bold text-black dark:text-white">{currentAccount.account_type_EA === "yes" ? t("yes") : t("no")}</span>
                     </li>
                     <li className="relative flex justify-between pr-2 mb-4 before:w-3 before:h-3 before:bg-primary before:absolute rtl:before:-right-4 ltr:before:-left-3 before:top-1 before:rounded-full">
                       <span>{t("less_trading_volume")}</span>
-                      <span className="font-bold text-black dark:text-white">{plan.volume}</span>
+                      <span className="font-bold text-black dark:text-white">{currentAccount.account_type_Min_trading_volume}</span>
                     </li>
                     <li className="relative flex justify-between pr-2 mb-4 before:w-3 before:h-3 before:bg-primary before:absolute rtl:before:-right-4 ltr:before:-left-3 before:top-1 before:rounded-full">
                       <span>{t("islamic_account")}</span>
-                      <span className="font-bold text-black dark:text-white">{plan.islamic}</span>
+                      <span className="font-bold text-black dark:text-white">{currentAccount.account_type_Islamic_account === "yes" ? t("yes") : t("no")}</span>
                     </li>
 
                   </ul>
                   <div className={`relative`}>
-                    <ButtonTheme color="primary" block size="md" as="link" href="/dashboard/trading/change-type-account">
+                    <ButtonTheme color="primary" block size="md" as="link" href={`/dashboard/real/${currentAccount.id}/change-type-account`}>
                       {t("change_the_account_type")}
                     </ButtonTheme>
                   </div >
 
                 </div>
-              ))}
             </div>
           </div>
         </div>
       </div >
-      <button onClick={() => setChangeLeverage(true)}>ChangeLeverageModal</button>{" "}
-      <button onClick={() => setDone(true)}>DoneModal</button>{" "}
-      <button onClick={() => setDeleteAccount(true)}>WarningModal</button>{" "}
       <ChangeLeverageModal open={changeLeverage} onClose={() => setChangeLeverage(false)} />
-      <DoneModal open={done} onClose={() => setDone(false)} shiny="$1998" account="103568" />
-      <WarningModal open={deleteAccount} size="sm" onClose={() => setDeleteAccount(false)} message={
-        <>
-         <p className="mb-4 font-bold text-black dark:text-white text-xl">{t("do_you_want_to_delete_the_account")}</p>
-        <div className="flex my-8 justify-between p-1 gap-4">
-          <ButtonTheme color="primary" onClick={onDelete} className="w-1/2 px-4 py-2">{t("yes_delete_now")}</ButtonTheme>   
-          <ButtonTheme color="primary" outline onClick={() => setDeleteAccount(false)}  className="w-1/2 px-4 py-2">{t("no_cancel_the_deletion")}</ButtonTheme>   
-        </div>
-        </>
-      } />
 
     </>
   )

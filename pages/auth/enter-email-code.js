@@ -4,11 +4,10 @@ import { Input, InputIcon, InputCity, InputPhone } from "@/form"
 import useTranslation from 'next-translate/useTranslation'
 import { Profile, Courthouse, Sms, Lock, Eye, EyeSlash, Flag, Call, ArrowLeft, ArrowRight } from 'iconsax-react';
 import ButtonTheme from "@/ui/ButtonTheme"
-
 import { forgetPasswordByEmail } from "apiHandle"
-
 import { useRouter } from 'next/router'
 import toast from "react-hot-toast";
+import Head from 'next/head'
 
 export default function EnterEmailCode() {
   const router = useRouter()
@@ -47,6 +46,10 @@ export default function EnterEmailCode() {
 
 
   return (
+    <>
+      <Head>
+        <title>{t("email_confirmation")} | {t("common:website_name")}</title>
+      </Head>
     <Login noLinksButton contactUs>
       <h1 className="mb-8  text-4xl md:text-[1.7rem]  text-center block mt-14 text-success">{t('your_password_recovery_details_have_been_sent_to_your_email')}</h1>
         <span className="flex justify-between mx-auto text-center ">
@@ -56,9 +59,8 @@ export default function EnterEmailCode() {
       <ButtonTheme color="primary" onClick={() => router.back()} size="xs" outline className="flex items-center gap-2 mx-auto mt-20 mb-4 text-center xs:my-2 w-max">
         {t('back')}{lang == "ar" ? <ArrowLeft size="15" className="text-inherit" /> : <ArrowRight size="15" className="text-inherit" />}
       </ButtonTheme>
-
-
     </Login>
+    </>
   )
 }
 EnterEmailCode.getLayout = function PageLayout(page) {

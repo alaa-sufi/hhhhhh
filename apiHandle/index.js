@@ -243,7 +243,7 @@ function profileBankAccount({ values, success, error }) {
 }
 function changeRealAccountSetting({ values, success, error }) {
     sendRequest(`${host}/Edit-Real-account`, values,
-        () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
+        (res) => { success(res); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
         (err) => {
 
             error();
@@ -299,6 +299,7 @@ const recordClosedDeals = (login) => `${process.env.host}/get-record-for-all-Dea
 const userDemoAccount = ({perPage,page}) => `${process.env.host}/getUserDemoAccounts-WithPagination?user_id=${process.env.userId}&perPage=${perPage}&page=${page}`
 const userDemoAccountWithoutPagination = () => `${process.env.host}/getUserDemoAccounts-WithOutPagination?user_id=${process.env.userId}`
 const userRealAccount = ({perPage,page}) => `${process.env.host}/getUserRealAccounts?user_id=${process.env.userId}&perPage=${perPage}&page=${page}`
+const userRealAccountWithoutPagination = () => `${process.env.host}/getUserRealAccounts-WithOutPagination?user_id=${process.env.userId}`
 const allAccountsTypes = () => `${process.env.host}/getAllAccountsTypes`
 // / /////////////////////////////
 
@@ -314,5 +315,5 @@ export {
     profilePersonalCompanyContactInformation, profilePersonalUserContactInformation,
     profilePersonalProfileUserHeadLines, profileBankAccount, profilePersonalProfileCompanyHeadLines, profilePersonalProfileChangePass,
     profilePersonalIdentificationConfirmation, profileIdentCheck, profileAddressCheck, profileFinancialInformation, profilePersonalFinancialInformation, recordClosedDeals, userDemoAccount,userDemoAccountWithoutPagination, userRealAccount, allAccountsTypes, deleteDemoAccount,
-    changeRealAccountSetting,changeDemoAccountSetting ,createRealAccount,convertAccountToFixed
+    changeRealAccountSetting,changeDemoAccountSetting ,createRealAccount,convertAccountToFixed,userRealAccountWithoutPagination
 }

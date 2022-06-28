@@ -9,6 +9,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import {returnPassword} from "apiHandle"
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 export default function ReturnPassword() {
   const { t , lang} = useTranslation("auth")
@@ -30,6 +31,10 @@ export default function ReturnPassword() {
   }
  
   return (
+    <>
+       <Head>
+        <title>{t("reset_a_new_password")} | {t("common:website_name")}</title>
+      </Head>
     <Login noLinksButton className="mb-16"> 
       <h1 className="block mt-10 mb-0 font-bold text-h2">{t('reset_a_new_password')}</h1>
       <span className="block mb-8 text-gray-400 text-md ">{t('make_the_password_consist_of_letters_and_numbers_and_be_easy_to_remember')}</span>
@@ -61,6 +66,7 @@ export default function ReturnPassword() {
         )}
       </Formik>
     </Login>
+    </>
   )
 }
 ReturnPassword.getLayout = function PageLayout(page) {

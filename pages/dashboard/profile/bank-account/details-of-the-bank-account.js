@@ -7,6 +7,7 @@ import { UploadImage, InputIcon, Input, InputCity, InputDate, SelectWIthHead } f
 import { ButtonTheme, Error, Loading } from "@/ui"
 import * as Yup from "yup";
 import { profileBankAccount} from "apiHandle"
+import Head from 'next/head'
 
 export default function DetailsOfTheBankAccount() {
   const { t, lang } = useTranslation("profile")
@@ -21,6 +22,10 @@ export default function DetailsOfTheBankAccount() {
     })
   }
   return (
+    <>
+      <Head>
+        <title>{t("details_of_the_bank_account")} | {t("common:website_name")}</title>
+      </Head>
     <ProfileContainer tab={"bankAccount"}>
       <div className="w-[700px] mx-auto ">
         <h1 className="mt-8 mb-2 text-2xl font-bold text-center text-black dark:text-white">{t("we_need_you_to_fill_the_details_of_your_bank_account")}</h1>
@@ -60,7 +65,7 @@ export default function DetailsOfTheBankAccount() {
           }}
         </Formik>
       </div>
-
     </ProfileContainer>
+    </>
   )
 }

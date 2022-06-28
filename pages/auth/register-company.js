@@ -9,6 +9,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import {register} from "apiHandle"
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 export default function RegisterCompany() {
   const { t , lang } = useTranslation("auth")
@@ -26,6 +27,10 @@ export default function RegisterCompany() {
     }
  
   return (
+    <>
+       <Head>
+        <title>{t("create_a_account")} | {t("common:website_name")}</title>
+      </Head>
     <Login slider>
       <span className="block mt-10 mb-2 text-gray-400 text-md">{t('welcom_to_us')}</span>
       <h1 className="mb-8 font-bold leading-none text-h2">{t('register_company_title')}</h1>
@@ -68,6 +73,7 @@ export default function RegisterCompany() {
         {t('i_have_an_account_log_in')}
       </ButtonTheme>
     </Login>
+    </>
   )
 }
 RegisterCompany.getLayout = function PageLayout(page) {

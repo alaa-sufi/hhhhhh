@@ -9,9 +9,9 @@ import { Formik, Field, ErrorMessage } from "formik";
 import { Windows } from "public/svg"
 import { changeDemoAccountSetting ,userDemoAccountWithoutPagination } from "apiHandle"
 import useSWR from 'swr'
-
-
+import Head from 'next/head'
 import { useRouter } from "next/router"
+
 export default function AccountInformation() {
   const { t } = useTranslation("dashboard", "auth")
   const [passwordType, setPasswordType] = useState(true)
@@ -22,9 +22,6 @@ export default function AccountInformation() {
   ]
 
   const router = useRouter();
-  console.log(router)
-  const [changeLeverage, setChangeLeverage] = useState(false)
-  const [done, setDone] = useState(false)
   const [loadingButton, setLoadingButton] = useState(false)
   const [change, setChange] = useState(false)
   const [currentAccount , setCurrentAccount] = useState()
@@ -48,7 +45,7 @@ export default function AccountInformation() {
       values: values,
       success: () => { 
         setLoadingButton(false);
-        // setAllAccounts(allAccounts.map((account)=>account.id === currentId ? {} : ))
+        setAllAccounts(allAccounts.map((account)=>account.id === currentId ? response.data.accountInfo : account))
        },
       error: () => setLoadingButton(false)
     })
@@ -64,6 +61,9 @@ export default function AccountInformation() {
   }
   return (
     <>
+     <Head>
+        <title>{t("account_settings_information")} | {t("common:website_name")}</title>
+      </Head>
       <div className="p-8 bg-white dark:bg-dark-white rounded-lg md:rounded-xl">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 mb-8">

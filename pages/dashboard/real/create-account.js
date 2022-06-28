@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { DepositModal, WarningModal } from "@/modals"
 import { allAccountsTypes ,createRealAccount } from "apiHandle"
 import useSWR from 'swr'
+import Head from 'next/head'
 
 export default function CreateTrading() {
   const router = useRouter;
@@ -57,6 +58,9 @@ export default function CreateTrading() {
   ];
   return (
     <>
+    <Head>
+        <title>{t("create_a_real_trading_account")} | {t("common:website_name")} </title>
+      </Head>
       <div className="p-8 bg-white dark:bg-dark-white rounded-lg md:rounded-xl">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 mb-8 ">

@@ -9,6 +9,7 @@ import { Sms, Lock1, Eye, EyeSlash, Profile, Star1, Location, Courthouse, MedalS
 import { profilePersonalProfileChangePass } from "apiHandle"
 import * as Yup from "yup";
 import Link from "next/link"
+import Head from 'next/head'
 
 
 export default function SafetyAndPassword() {
@@ -29,6 +30,9 @@ export default function SafetyAndPassword() {
 
   return (
     <>
+      <Head>
+        <title>{t("safety_and_password")} | {t("common:website_name")}</title>
+      </Head>
     <ProfileContainer tab={"personal"} >
       <div className="w-[500px] mx-auto">
         <Formik initialValues=

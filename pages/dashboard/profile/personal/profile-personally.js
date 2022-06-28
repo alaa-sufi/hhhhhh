@@ -7,6 +7,8 @@ import { Formik } from "formik";
 import { Sms, Lock, Eye, EyeSlash, Profile, Star1, Location, Courthouse, MedalStar } from 'iconsax-react';
 import { profilePersonalProfileUserPersonly, profilePersonalProfileCompanyPersonly } from "apiHandle"
 import {useProfilePersonal} from "hooks/use-with-swr"
+import Head from 'next/head'
+
 export default function ProfilePersonly() {
   const { t, lang } = useTranslation("profile");
   const role = "user"
@@ -33,6 +35,10 @@ export default function ProfilePersonly() {
   if (error) return <Error/>
   if (!data) return <Loading/>
   return (
+    <>
+      <Head>
+        <title>{t("profile_personly")} | {t("common:website_name")}</title>
+      </Head>
     <ProfileContainer tab={"personal"} >
       <div className="w-[500px] mx-auto">
         {role === "user" ?
@@ -87,5 +93,6 @@ export default function ProfilePersonly() {
         }
       </div>
     </ProfileContainer>
+    </>
   )
 }

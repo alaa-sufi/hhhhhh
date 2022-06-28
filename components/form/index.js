@@ -102,8 +102,7 @@ function SelectWIthHead({ name, head, options, defaultValue, optionsOutside, ...
     const [defaultValueAfter, setDefaultValueAfter] = useState(defaultValue)
     useEffect(() => {
         setDefaultValueAfter(defaultValue);
-        console.log("defaultValue", defaultValue)
-    }, [name])
+    }, [name ,defaultValue])
     const { t } = useTranslation("dashboard");
     const detectData = (role) => {
         if (role === "currency") {
@@ -210,7 +209,7 @@ function SelectWIthHead({ name, head, options, defaultValue, optionsOutside, ...
         <>
             <div className={`relative flex justify-between py-3 mb-4 bg-secondary dark:bg-dark-secondary  rounded-xl ${props.className}`}>
                 {head && <span className="absolute font-bold transform -translate-y-1/2 pointer-events-none select-none z-6 top-1/2 right-4 text-black dark:text-white">{head}</span>}
-                <SelectPicker name={name} data={detectData(options)} appearance="subtle" searchable={props.searchable ? true : false} cleanable={false} className="w-full" onSelect={(value) => helpers.setValue(value)} defaultValue={defaultValueAfter} />
+                <SelectPicker name={name} data={detectData(options)} appearance="subtle" searchable={props.searchable ? true : false} cleanable={false} className="w-full" onSelect={(value) => helpers.setValue(value)} value={defaultValueAfter} />
             </div>
             <ErrorMessage name={name} component="span" className="block mb-4 text-danger " />
         </>

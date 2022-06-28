@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Wallet3, MoneyRecive, MoneySend } from 'iconsax-react';
 import useTranslation from 'next-translate/useTranslation'
-import { CardAccount, FiveSteps, ButtonTheme, LastActivity, CreateAccount, Error, Loading , NoData} from "@/ui"
+import { CardAccount, FiveSteps, ButtonTheme, LastActivity, CreateAccount, Error, Loading, NoData } from "@/ui"
 import useSWR, { useSWRConfig } from 'swr'
 import { userDemoAccount, userRealAccount } from "apiHandle"
 import { WarningModal } from "@/modals"
 import { Pagination } from 'rsuite';
 import { useRouter } from 'next/router';
+import Head from 'next/head'
+
 export default function Dashboard() {
   const { t, lang } = useTranslation("dashboard")
   const router = useRouter()
@@ -18,10 +20,10 @@ export default function Dashboard() {
   const [tab, setTab] = useState()
   const [notCompleteModal, setNotCompleteModal] = useState(false)
   useEffect(() => {
-    if(router){
+    if (router) {
       setPaginationDemoPage(+router.query.demoPage || 1)
       setPaginationRealPage(+router.query.realPage || 1)
-      setTab(+router.query.tab===2 ? 2 : 1)
+      setTab(+router.query.tab === 2 ? 2 : 1)
     }
   }, [router])
   const handleDeleteDone = (type) => {
@@ -49,6 +51,9 @@ export default function Dashboard() {
 
   return (
     <>
+      <Head>
+        <title>{t("dashboard")} | {t("common:website_name")}</title>
+      </Head>
       <div className="grid grid-cols-3 gap-4 ">
         <div className="col-span-2 ">
           <h1 className="hidden">{t("dashboard")}</h1>
@@ -68,7 +73,7 @@ export default function Dashboard() {
                 {errorDemo ? <Error /> :
                   !demo ? <Loading /> :
                     demo.demo_accounts_Informations.data.length ? demo.demo_accounts_Informations.data.map((data, index) => (
-                      <CardAccount type="demo" data={data} key={index} handleDeleteDone={handleDeleteDone} handelFixed={handleDemoFixed}/>
+                      <CardAccount type="demo" data={data} key={index} handleDeleteDone={handleDeleteDone} handelFixed={handleDemoFixed} />
                     ))
                       :
                       <NoData text={t("there_are_no_demo_accounts_yet")} />
@@ -94,23 +99,23 @@ export default function Dashboard() {
                   {errorReal ? <Error /> :
                     !real ? <Loading /> :
                       real.real_accounts_Informations.data.length ? real.real_accounts_Informations.data.map((data, index) => (
-                        <CardAccount type="real" data={data} key={index} handleDeleteDone={handleDeleteDone}  handelFixed={handleRealFixed}/>
+                        <CardAccount type="real" data={data} key={index} handleDeleteDone={handleDeleteDone} handelFixed={handleRealFixed} />
                       ))
                         :
                         <NoData text={t("there_are_no_trading_accounts_yet")} />
                   }
                 </div>
-                 {(real && !errorReal && (real.real_accounts_Informations.total > perPage)) && <Pagination
-                prev
-                next
-                maxButtons={4}
-                size="lg"
-                total={+real.real_accounts_Informations.total }
-                ellipsis={true}
-                activePage={paginationRealPage}
-                limit={perPage}
-                onChangePage={handleRealPagination}
-              />}
+                {(real && !errorReal && (real.real_accounts_Informations.total > perPage)) && <Pagination
+                  prev
+                  next
+                  maxButtons={4}
+                  size="lg"
+                  total={+real.real_accounts_Informations.total}
+                  ellipsis={true}
+                  activePage={paginationRealPage}
+                  limit={perPage}
+                  onChangePage={handleRealPagination}
+                />}
 
               </>
             }

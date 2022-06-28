@@ -10,6 +10,7 @@ import Link from "next/link"
 import { login } from "apiHandle"
 import * as Yup from "yup";
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 export default function LoginCompany() {
   const [passwordType, setPasswordType] = useState(true)
@@ -26,6 +27,10 @@ export default function LoginCompany() {
     })
   }
   return (
+    <>
+       <Head>
+        <title>{t("sign_in")} | {t("common:website_name")}</title>
+      </Head>
     <Login slider>
       <span className="block mt-16 mb-2 text-gray-400 text-md">{t('welcom_to_us')}</span>
       <h1 className="mb-8 font-bold leading-none text-h2">{t('welcome_back_again')}</h1>
@@ -62,6 +67,7 @@ export default function LoginCompany() {
         {t('you_do_not_have_an_account_create_an_account')}
       </ButtonTheme>
     </Login>
+    </>
   )
 }
 LoginCompany.getLayout = function PageLayout(page) {

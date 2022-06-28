@@ -6,6 +6,7 @@ import {CardAccountTop , Slider ,ButtonTheme ,FiveSteps ,LastActivity } from "@/
 import { Input } from "@/form"
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import Head from 'next/head'
 
 const handleSubmit = (values) => {
   console.log(values);
@@ -15,6 +16,10 @@ export default function Deposit() {
 
 
   return (
+    <>
+     <Head>
+        <title>{t("deposit_from_the_portfolio")} | {t("common:website_name")}</title>
+      </Head>
     <div className="grid grid-cols-7 gap-10 ">
       <div className="p-8 bg-white dark:bg-dark-white rounded-lg md:rounded-xl col-span-5">
         <div className="flex items-center justify-between">
@@ -75,5 +80,6 @@ export default function Deposit() {
 
       </div>
     </div>
+    </>
   )
 }

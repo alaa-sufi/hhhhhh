@@ -6,8 +6,8 @@ import { Profile, Courthouse, Sms, Lock, Eye, EyeSlash, Flag, Call, ArrowLeft, A
 import ButtonTheme from "@/ui/ButtonTheme"
 import { enterCodeNumber, getPhoneCode } from "apiHandle"
 import toast from "react-hot-toast";
-
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 export default function EnterPhoneCode() {
   const router = useRouter()
@@ -100,6 +100,10 @@ export default function EnterPhoneCode() {
   }
 
   return (
+    <>
+       <Head>
+        <title>{t("enter_the_code")} | {t("common:website_name")}</title>
+      </Head>
     <Login noLinksButton contactUs>
       <h1 className="block mb-0 font-bold text-h2 mt-14">{t('enter_the_code')}</h1>
       <span className="block mb-0 text-gray-400 text-md">{t('you_will_receive_an_sms_containing_5_numbers_enter_them_in_the_field_to_confirm_the_operation')}</span>
@@ -132,6 +136,7 @@ export default function EnterPhoneCode() {
 
 
     </Login>
+    </>
   )
 }
 EnterPhoneCode.getLayout = function PageLayout(page) {

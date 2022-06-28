@@ -7,6 +7,7 @@ import { allAccountsTypes } from "apiHandle"
 import useSWR from 'swr'
 import { useRouter } from 'next/router';
 import { changeRealAccountSetting } from "apiHandle"
+import Head from 'next/head'
 
 export default function ChangeTypeAccount() {
     const router = useRouter();
@@ -36,6 +37,9 @@ export default function ChangeTypeAccount() {
     const { data, error } = useSWR(allAccountsTypes())
     return (
         <>
+         <Head>
+        <title>{t("modify_the_type_of_account")} | {t("common:website_name")}</title>
+      </Head>
             <div className="p-8 bg-white dark:bg-dark-white rounded-lg md:rounded-xl">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 mb-8 ">

@@ -8,6 +8,7 @@ import { Formik } from "formik";
 import { ButtonTheme, Error, Loading } from "@/ui"
 import { profilePersonalIdentificationConfirmation ,profileIdentCheck } from "apiHandle"
 import useSWR from 'swr'
+import Head from 'next/head'
 
 
 
@@ -48,6 +49,10 @@ export default function IdentificationConfirmation() {
   if (error) return <Error />
   if (!data) return <Loading />
   return (
+    <>
+     <Head>
+        <title>{t("identification_confirmation")} | {t("common:website_name")}</title>
+      </Head>
     <ProfileContainer tab={"uploadDocuments"}>
       <Formik initialValues={{ user_id: role === "user" ? process.env.userId : process.env.company_id, first_document: "", second_document: "", document_type: chooseValue, type: "identity confirmation" }}
         onSubmit={onSubmit} >
@@ -121,5 +126,6 @@ export default function IdentificationConfirmation() {
         }}
       </Formik>
     </ProfileContainer >
+    </>
   )
 }

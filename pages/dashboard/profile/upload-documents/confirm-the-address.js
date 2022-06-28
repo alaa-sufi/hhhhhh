@@ -8,8 +8,7 @@ import { Formik } from "formik";
 import { ButtonTheme, Error, Loading } from "@/ui"
 import { profilePersonalIdentificationConfirmation ,profileAddressCheck} from "apiHandle"
 import useSWR from 'swr'
-
-
+import Head from 'next/head'
 
 export default function ConfirmTheAddress() {
   const { t, lang } = useTranslation("profile")
@@ -47,6 +46,10 @@ export default function ConfirmTheAddress() {
    if (error) return <Error />
    if (!data) return <Loading />
   return (
+    <>
+      <Head>
+        <title>{t("confirm_the_address")} | {t("common:website_name")}</title>
+      </Head>
     <ProfileContainer tab={"uploadDocuments"}>
       <Formik initialValues={{ user_id: role === "user" ? process.env.userId : process.env.company_id, first_document: "", second_document: "", document_type: chooseValue, type: "Address confirmation" }}
         onSubmit={onSubmit} >
@@ -115,5 +118,6 @@ export default function ConfirmTheAddress() {
         }}
       </Formik>
     </ProfileContainer >
+    </>
   )
 }

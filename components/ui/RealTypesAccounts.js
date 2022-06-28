@@ -13,11 +13,11 @@ export default function RealTypesAccounts({ data, error, accountType, setAccount
     return (
         data.accountsTypes.length && data.accountsTypes.map((plan, index) => (
             <div key={index} className="px-8 py-6 my-4 bg-secondary dark:bg-dark-secondary  rounded-xl">
-                <div className="flex gap-4 mb-4">
-                    <div className="flex items-center justify-center w-12 h-12 p-1 rounded-full bg-primary aspect-square">
+                <div className="">
+                    <div className="flex items-center justify-center w-12 h-12 p-1 rounded-full bg-primary aspect-square absolute">
                         <Image alt={plan.account_name} src={`${process.env.hostImage}/${plan.image}`} width="30" height="30"  />
                     </div>
-                    <h3 className="mt-1 text-3xl text-black dark:text-white capitalize">{plan.account_name}<br /><span className="block text-xs text-center text-gray-400 ">{t("starting_from")}</span></h3>
+                    <h3 className="mt-1 text-3xl text-black dark:text-white capitalize text-center">{plan.account_name}<br /><span className="block text-xs text-center text-gray-400 ">{t("starting_from")}</span></h3>
                 </div>
                 <div className="mb-10 text-center">
                     <bdi><span className="text-3xl font-black text-black dark:text-white">{plan.pips}</span>&nbsp;pips</bdi><br />

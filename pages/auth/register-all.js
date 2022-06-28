@@ -5,6 +5,7 @@ import useTranslation from 'next-translate/useTranslation'
 import { Profile, Courthouse, UserOctagon } from 'iconsax-react';
 import ButtonTheme from "@/ui/ButtonTheme"
 import DropdownButton from "@/ui/DropdownButton"
+import Head from 'next/head'
 
 export default function RegisterAll() {
     const { t } = useTranslation("auth")
@@ -12,6 +13,10 @@ export default function RegisterAll() {
     const [openCompany, setopenCompany] = useState(false)
 
     return (
+        <>
+           <Head>
+        <title>{t("common:website_name")}</title>
+      </Head>
         <Login slider noRiskWarning>
             <h1 className="mb-8 font-bold text-h2 mt-16">{t('welcome_with_us')}</h1>
             {/* start individual button */}
@@ -51,6 +56,7 @@ export default function RegisterAll() {
                 {t('back_to_the_home_page')}
             </ButtonTheme>
         </Login>
+        </>
     )
 }
 RegisterAll.getLayout = function PageLayout(page) {

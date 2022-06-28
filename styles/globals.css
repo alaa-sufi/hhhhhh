@@ -443,7 +443,7 @@ html.dark .react-tel-input .country-list .search-box{
   background: transparent;
 }
 .bg-color{
-  background:var(--color)
+  background:var(--color , rgb(71, 71, 71))
 }
 /* for nploader\ */
 /* Make clicks pass-through */

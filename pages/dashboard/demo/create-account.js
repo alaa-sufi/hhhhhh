@@ -11,6 +11,7 @@ import { Input, InputIcon, CustumnCheckbox, SelectWIthHead, CustomnCheckColors ,
 import { Trider4 } from "public/svg"
 import { useRouter } from 'next/router';
 import {createDemoAccount} from "apiHandle"
+import Head from 'next/head'
 
 export default function CreateDemo() {
   const router = useRouter();
@@ -56,6 +57,10 @@ export default function CreateDemo() {
     <StepTwo next={handleNextStep} prev={handlePrevStep} data={data} key="2" loadingButton={loadingButton}/>
   ];
   return (
+    <>
+     <Head>
+        <title>{t("create_an_demo_account")} | {t("common:website_name")}</title>
+      </Head>
     <div className="p-8 bg-white dark:bg-dark-white rounded-lg md:rounded-xl">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 mb-8">
@@ -94,6 +99,7 @@ export default function CreateDemo() {
         {steps[currentStep]}
       </div>
     </div>
+    </>
   )
 }
 

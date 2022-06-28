@@ -7,6 +7,8 @@ import { Formik } from "formik";
 import { Sms, Lock, Eye, EyeSlash, Profile, Star1, Location, Courthouse, MedalStar } from 'iconsax-react';
 import { profilePersonalProfileUserHeadLines, profilePersonalProfileCompanyHeadLines  } from "apiHandle"
 import {useProfilePersonal} from "hooks/use-with-swr"
+import Head from 'next/head'
+
 export default function Headlines() {
   const { t, lang } = useTranslation("profile");
   const role = "user"
@@ -33,6 +35,10 @@ export default function Headlines() {
   if (error) return <Error />
   if (!data) return <Loading />
   return (
+    <>
+      <Head>
+        <title>{t("headlines")} | {t("common:website_name")}</title>
+      </Head>
     <ProfileContainer tab={"personal"} >
       <div className="w-[500px] mx-auto">
         <Formik initialValues={
@@ -69,5 +75,6 @@ export default function Headlines() {
 
       </div>
     </ProfileContainer>
+    </>
   )
 }

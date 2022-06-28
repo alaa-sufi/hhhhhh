@@ -10,6 +10,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { CustumnCheckbox } from "@/form"
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import Head from 'next/head'
+
 const handleSubmit = (values) => {
   console.log(values);
 };
@@ -18,6 +20,10 @@ export default function Deposit() {
 
 
   return (
+    <>
+     <Head>
+        <title>{t("deposit")} | {t("common:website_name")}</title>
+      </Head>
     <div className="p-8 bg-white dark:bg-dark-white rounded-lg md:rounded-xl">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 mb-8 ">
@@ -77,5 +83,6 @@ export default function Deposit() {
       </div>
     </div>
     </div >
+    </>
   )
 }
