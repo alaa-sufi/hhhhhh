@@ -11,9 +11,14 @@ import Head from 'next/head'
 
 export default function ContactInformation() {
   const { t, lang } = useTranslation("profile");
-  const role = "user"
   const [loadingButton, setLoadingButton] = useState(false)
   const [change, setChange] = useState(false)
+  const [role , setRole] = useState()
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setRole(localStorage.userType);
+    }
+  }, [role]);
   const onSubmitUser = (values) => {
     setLoadingButton(true);
     profilePersonalUserContactInformation({
@@ -43,8 +48,8 @@ export default function ContactInformation() {
           <Formik initialValues=
             {role === "user" ?
               data.user_info ?
-                { user_id: process.env.userId, email: data.user_info.email, phone: data.user_info.phone, whatsapp_number: data.user_info.whatsapp_number, second_phone: data.user_info.second_phone } :
-                { user_id: process.env.userId, email: "", phone: "", whatsapp_number: "", second_phone: "" }
+                {  email: data.user_info.email, phone: data.user_info.phone, whatsapp_number: data.user_info.whatsapp_number, second_phone: data.user_info.second_phone } :
+                {  email: "", phone: "", whatsapp_number: "", second_phone: "" }
               :
               data.company_info ?
                 { company_id: process.env.company_id, email: data.company_info.email, phone: data.company_info.phone, whatsapp_number: data.company_info.whatsapp_number, second_phone: data.company_info.second_phone } :

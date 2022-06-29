@@ -11,7 +11,12 @@ import Head from 'next/head'
 
 export default function Headlines() {
   const { t, lang } = useTranslation("profile");
-  const role = "user"
+  const [role , setRole] = useState()
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setRole(localStorage.userType);
+    }
+  }, [role]);
   const [loadingButton, setLoadingButton] = useState(false)
   const [change, setChange] = useState(false)
   const onSubmitUser = (values) => {
@@ -44,8 +49,8 @@ export default function Headlines() {
         <Formik initialValues={
           role === "user" ?
             data.user_info ?
-              { user_id: process.env.userId, citizenship: data.user_info.citizenship, city: data.user_info.city, state: data.user_info.state, adders: data.user_info.adders , zip_code: data.user_info.zip_code } :
-              { user_id: process.env.userId, citizenship: "", city: "", state: "", adders: "" ,zip_code:"" }
+              {  citizenship: data.user_info.citizenship, city: data.user_info.city, state: data.user_info.state, adders: data.user_info.adders , zip_code: data.user_info.zip_code } :
+              {  citizenship: "", city: "", state: "", adders: "" ,zip_code:"" }
             :
             data.company_info ?
               { company_id: process.env.company_id, citizenship: data.company_info.citizenship, city: data.company_info.city, state: data.company_info.state, adders: data.company_info.adders ,zip_code: data.company_info.zip_code } :

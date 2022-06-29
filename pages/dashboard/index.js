@@ -17,13 +17,13 @@ export default function Dashboard() {
   const perPage = 8;
   const [paginationDemoPage, setPaginationDemoPage] = useState()
   const [paginationRealPage, setPaginationRealPage] = useState()
-  const [tab, setTab] = useState()
+  const [tab, setTab] = useState(+router.query.tab)
   const [notCompleteModal, setNotCompleteModal] = useState(false)
   useEffect(() => {
     if (router) {
-      setPaginationDemoPage(+router.query.demoPage || 1)
-      setPaginationRealPage(+router.query.realPage || 1)
       setTab(+router.query.tab === 2 ? 2 : 1)
+      setPaginationDemoPage(+router.query.tab === 1 ? +router.query.page : 1)
+      setPaginationRealPage(+router.query.tab === 2 ? +router.query.page : 1)
     }
   }, [router])
   const handleDeleteDone = (type) => {
@@ -32,12 +32,12 @@ export default function Dashboard() {
   const { data: demo, error: errorDemo } = useSWR(userDemoAccount({ perPage: perPage, page: paginationDemoPage }))
   const { data: real, error: errorReal } = useSWR(userRealAccount({ perPage: perPage, page: paginationRealPage }))
   const handleDemoPagination = (page) => {
-    router.push(`?demoPage=${page}`)
+    router.push({query: { page: page , tab: 1 }})
     setPaginationDemoPage(page);
     mutate(userDemoAccount({ perPage: perPage, page: page }))
   }
   const handleRealPagination = (page) => {
-    router.push(`?realPage=${page}`)
+    router.push({query: { page: page , tab: 2 }})
     setPaginationRealPage(page);
     mutate(userRealAccount({ perPage: perPage, page: paginationRealPage }))
   }
@@ -61,8 +61,8 @@ export default function Dashboard() {
           <section className="p-2 bg-white dark:bg-dark-white rounded-lg md:rounded-xl ">
             <div className="relative flex justify-between mb-10 ">
               <span className={`absolute bg-primary text-white h-full  w-2/5  rounded-xl transition-all duration-150  ease-linear	 ${tab === 1 ? "rtl:right-0 ltr:left-0" : "ltr:right-0 rtl:left-0"}`}></span>
-              <button className={` rounded-xl p-6 z-1 text-center w-2/5 ${tab === 1 ? "text-white dark:text-white/100" : "text-balck dark:text-white/70"}`} onClick={() => { setTab(1); router.push(`?tab=1`) }}>{t("my_demo_accounts")}</button>
-              <button className={` rounded-xl p-6 z-1 text-center w-2/5 ${tab === 2 ? "text-white dark:text-white/100" : "text-balck dark:text-white/70"}`} onClick={() => { setTab(2); router.push(`?tab=2`) }}>{t("my_trading_accounts")}</button>
+              <button className={` rounded-xl p-6 z-1 text-center w-2/5 ${tab === 1 ? "text-white dark:text-white/100" : "text-balck dark:text-white/70"}`} onClick={() => { setTab(1); router.push({query: { page: paginationDemoPage , tab: 1 }}) }}>{t("my_demo_accounts")}</button>
+              <button className={` rounded-xl p-6 z-1 text-center w-2/5 ${tab === 2 ? "text-white dark:text-white/100" : "text-balck dark:text-white/70"}`} onClick={() => { setTab(2); router.push({query: { page: paginationRealPage , tab: 2 }}) }}>{t("my_trading_accounts")}</button>
             </div>
 
             {/* start cards */}

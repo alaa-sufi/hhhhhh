@@ -25,7 +25,6 @@ export default function IdentificationConfirmation() {
     { title: t("id"), icon: <ID />, value: "id" },
     { title: t("driving_card"), icon: <DrivingCard />, value: "driving_card" },
   ]
-  const role = "user"
   const roles = [
     , t("your_personal_picture")
     , t("your_full_name")
@@ -54,7 +53,7 @@ export default function IdentificationConfirmation() {
         <title>{t("identification_confirmation")} | {t("common:website_name")}</title>
       </Head>
     <ProfileContainer tab={"uploadDocuments"}>
-      <Formik initialValues={{ user_id: role === "user" ? process.env.userId : process.env.company_id, first_document: "", second_document: "", document_type: chooseValue, type: "identity confirmation" }}
+      <Formik initialValues={{ first_document: "", second_document: "", document_type: chooseValue, type: "identity confirmation" }}
         onSubmit={onSubmit} >
         {(props) => {
           props.dirty && setChange(true)

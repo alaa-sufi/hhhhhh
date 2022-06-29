@@ -18,7 +18,12 @@ export default function SafetyAndPassword() {
   const [change, setChange] = useState(false)
   const [openSuccessChange, setOpenSuccessChange] = useState(false)
   const [passwordType, setPasswordType] = useState(true)
-  const role = "user"
+  const [role , setRole] = useState()
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setRole(localStorage.userType);
+    }
+  }, [role]);
   const onSubmit = (values) => {
     setLoadingButton(true);
     profilePersonalProfileChangePass({
@@ -38,7 +43,7 @@ export default function SafetyAndPassword() {
         <Formik initialValues=
           {
             role === "user" ?
-              { user_id: process.env.userId, current_password: "", new_password: "", new_password_confirmation: "" } :
+              {  current_password: "", new_password: "", new_password_confirmation: "" } :
               { user_id: process.env.company_id, current_password: "", new_password: "", new_password_confirmation: ""}
           }
           validationSchema={() => Yup.object().shape({

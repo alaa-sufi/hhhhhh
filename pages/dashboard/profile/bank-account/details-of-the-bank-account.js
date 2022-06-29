@@ -31,7 +31,7 @@ export default function DetailsOfTheBankAccount() {
         <h1 className="mt-8 mb-2 text-2xl font-bold text-center text-black dark:text-white">{t("we_need_you_to_fill_the_details_of_your_bank_account")}</h1>
         <span className="block text-center text-gray-400">{t("do_not_worry_information_that_will_be_safe_with_us_no_one_but_you_will_see_it")}</span>
         <Formik initialValues={{
-          user_id: process.env.userId, Beneficiary_Name: "", Bank_name: "", Bank_account_number: "", SWIFTnumber: "", bank_country: "", street: "", Neighborhood: "",
+           Beneficiary_Name: "", Bank_name: "", Bank_account_number: "", SWIFTnumber: "", bank_country: "", street: "", Neighborhood: "",
         }} validationSchema={() => Yup.object().shape({
           Beneficiary_Name: Yup.string().required(t('please_enter_the_name_of_the_beneficiary')),
           Bank_name: Yup.string().required(t('please_enter_the_bank_name')),

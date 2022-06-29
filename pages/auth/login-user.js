@@ -24,7 +24,7 @@ export default function LoginUser() {
     setLoadingButton(true);
     login({
       values: values,
-      success: () => { setLoadingButton(false); router.push("/dashboard"); },
+      success: (response) => { setLoadingButton(false); router.push("/dashboard"); localStorage.setItem("userId", response.data.user_ifo.id);localStorage.setItem("userType", response.data.user_ifo.type)},
       error: () => setLoadingButton(false)
      
     })

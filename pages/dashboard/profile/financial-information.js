@@ -463,7 +463,6 @@ export default function FinancialInformation() {
 
   ]
   const [dataForm, setData] = useState({
-    user_id: process.env.userId,
     Q1_residentAmerican: "",
     Q2_PEP: "",
     Q3_purpose_of_open: "",

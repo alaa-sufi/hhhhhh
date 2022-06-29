@@ -14,7 +14,7 @@ export default function ChangeTypeAccount() {
     const { t } = useTranslation("dashboard")
     const [accountType, setAccountType] = useState(router.query.account_type)
     const [loadingButton, setLoadingButton] = useState(false)
-
+console.log("router.query.account_type",router.query.account_type)
     const [change, setChange] = useState(1)
     const plans = [
         { icon: <Flag className="text-white" size="30" />, title: t("essential"), pips: "1.5", lowest: "$100", ea: t("no"), volume: "0.01", islamic: t("yes"), value: "1" },
@@ -26,7 +26,7 @@ export default function ChangeTypeAccount() {
         setLoadingButton(true);
         changeRealAccountSetting({
             values: {
-                user_id: process.env.userId,
+                
                 account_id: router.query.id,
                 account_type: accountType
             },

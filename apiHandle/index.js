@@ -1,7 +1,14 @@
 import axios from "axios";
-const host = process.env.host;
 import toast from "react-hot-toast";
 import Trans from 'next-translate/Trans'
+var userId;
+if (typeof window !== "undefined") {
+    userId = localStorage.userId
+}
+function newValues(values){
+    values.user_id = userId;
+    return values
+}
 
 const sendRequest = (url, values, success, error) => {
     axios.post(url, values)
@@ -67,8 +74,10 @@ const deleteRequest = (url, success, error) => {
             }
         })
 }
+// /////////////////////////////////////////////
+// post 
 const register = ({ values, success, error }) => {
-    sendRequest(`${host}/register`, values, success, (err) => {
+    sendRequest(`/register`, values, success, (err) => {
         if (err.response.status === 401) {
             toast.error(
                 <Trans i18nKey="errToast:sorry_email_previously_used" />
@@ -78,7 +87,7 @@ const register = ({ values, success, error }) => {
     })
 }
 function login({ values, success, error }) {
-    sendRequest(`${host}/login`, values, success, (err) => {
+    sendRequest(`/login`, values,(response)=> success(response), (err) => {
         if (err.response.status === 401) {
             toast.error(
                 <Trans i18nKey="errToast:sorry_the_email_is_not_true" />
@@ -93,7 +102,7 @@ function login({ values, success, error }) {
     })
 }
 function forgetPasswordByEmail({ values, success, error }) {
-    sendRequest(`${host}/password/forgot-password`, values,
+    sendRequest(`/password/forgot-password`, values,
         () => {
             success();
             toast.success(
@@ -109,7 +118,7 @@ function forgetPasswordByEmail({ values, success, error }) {
         })
 }
 function forgetPasswordByPhone({ success, error, phone }) {
-    getRequest(`${host}/send-phone-code?phone_number=${phone}`,
+    getRequest(`/send-phone-code?phone_number=${phone}`,
         () => {
             success();
         }, (err) => {
@@ -122,7 +131,7 @@ function forgetPasswordByPhone({ success, error, phone }) {
         })
 }
 function returnPassword({ values, success, error }) {
-    sendRequest(`${host}/password/reset`, values,
+    sendRequest(`/password/reset`, values,
         () => { success(); toast.success(<Trans i18nKey="errToast:the_word_has_been_successfully_changed" />) },
         (err) => {
             if (err.response.status === 401) { toast.error(<Trans i18nKey="errToast:sorry_the_e_mail_is_not_used" />); }
@@ -131,7 +140,7 @@ function returnPassword({ values, success, error }) {
         })
 }
 function enterCodeNumber({ values, success, error }) {
-    sendRequest(`${host}/phoneVerifyCode`, values,
+    sendRequest(`/phoneVerifyCode`, values,
         (response) => { success(response); toast.success(<Trans i18nKey="errToast:the_word_has_been_successfully_changed" />) },
         (err) => {
             if (err.response.status === 401) { toast.error(<Trans i18nKey="errToast:sorry_the_code_is_wrong" />) }
@@ -139,28 +148,28 @@ function enterCodeNumber({ values, success, error }) {
         })
 }
 function createDemoAccount({ values, success, error }) {
-    sendRequest(`${host}/create-demo`, values,
+    sendRequest(`/create-demo`, newValues(values),
         (response) => { success(response); toast.success(<Trans i18nKey="errToast:account_successfully_created" />) },
         (err) => {
             error();
         })
 }
 function profilePersonalProfileUserPersonly({ values, success, error }) {
-    sendRequest(`${host}/store-user-Personal-Profile-Info`, values,
+    sendRequest(`/store-user-Personal-Profile-Info`, newValues(values),
         () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
         (err) => {
             error();
         })
 }
 function profilePersonalProfileCompanyPersonly({ values, success, error }) {
-    sendRequest(`${host}/store-company-Personal-Profile-Info`, values,
+    sendRequest(`/store-company-Personal-Profile-Info`, newValues(values),
         () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
         (err) => {
             error();
         })
 }
 function profilePersonalUserContactInformation({ values, success, error }) {
-    sendRequest(`${host}/store-user-store-Contact-Information`, values,
+    sendRequest(`/store-user-store-Contact-Information`, newValues(values),
         () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
         (err) => {
             if (err.response.status === 401) {
@@ -173,7 +182,7 @@ function profilePersonalUserContactInformation({ values, success, error }) {
         })
 }
 function profilePersonalCompanyContactInformation({ values, success, error }) {
-    sendRequest(`${host}/store-company-store-Contact-Information`, values,
+    sendRequest(`/store-company-store-Contact-Information`, newValues(values),
         () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
         (err) => {
             if (err.response.status === 401) {
@@ -185,21 +194,21 @@ function profilePersonalCompanyContactInformation({ values, success, error }) {
         })
 }
 function profilePersonalProfileUserHeadLines({ values, success, error }) {
-    sendRequest(`${host}/store-user-store-Addresses-Information`, values,
+    sendRequest(`/store-user-store-Addresses-Information`, newValues(values),
         () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
         (err) => {
             error();
         })
 }
 function profilePersonalProfileCompanyHeadLines({ values, success, error }) {
-    sendRequest(`${host}/store-company-store-Addresses-Information`, values,
+    sendRequest(`/store-company-store-Addresses-Information`, newValues(values),
         () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
         (err) => {
             error();
         })
 }
 function profilePersonalProfileChangePass({ values, success, error }) {
-    sendRequest(`${host}/change-user-password`, values,
+    sendRequest(`/change-user-password`, newValues(values),
         () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
         (err) => {
             console.log(err.response.data.error)
@@ -217,12 +226,12 @@ function profilePersonalProfileChangePass({ values, success, error }) {
         })
 }
 function profilePersonalIdentificationConfirmation({ values, success, error }) {
-    sendRequest(`${host}/store-Documents`, values,
+    sendRequest(`/store-Documents`, newValues(values),
         () => { success(); },
         (err) => { error(); })
 }
 function profilePersonalFinancialInformation({ values, success, error }) {
-    sendRequest(`${host}/store-user-financial-profile-info`, values,
+    sendRequest(`/store-user-financial-profile-info`, newValues(values),
         () => { success(); },
         (err) => {
             if (err.response.status === 401) {
@@ -234,7 +243,7 @@ function profilePersonalFinancialInformation({ values, success, error }) {
         })
 }
 function profileBankAccount({ values, success, error }) {
-    sendRequest(`${host}/store-Bank-account-details`, values,
+    sendRequest(`/store-Bank-account-details`, newValues(values),
         () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
         (err) => {
 
@@ -242,7 +251,7 @@ function profileBankAccount({ values, success, error }) {
         })
 }
 function changeRealAccountSetting({ values, success, error }) {
-    sendRequest(`${host}/Edit-Real-account`, values,
+    sendRequest(`/Edit-Real-account`, newValues(values),
         (res) => { success(res); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
         (err) => {
 
@@ -250,7 +259,7 @@ function changeRealAccountSetting({ values, success, error }) {
         })
 }
 function changeDemoAccountSetting({ values, success, error }) {
-    sendRequest(`${host}/Edit-account`, values,
+    sendRequest(`/Edit-account`, newValues(values),
         () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
         (err) => {
             if (err.response.status === 401) {
@@ -262,17 +271,17 @@ function changeDemoAccountSetting({ values, success, error }) {
         })
 }
 function createRealAccount({ values, success, error }) {
-    sendRequest(`${host}/Api-store-real-account`, values,
+    sendRequest(`/Api-store-real-account`, newValues(values),
         () => { success(); toast.success(<Trans i18nKey="errToast:the_data_has_been_successfully_saved" />) },
         (err) => {
-           
+
             error();
         })
 }
-function convertAccountToFixed({id,  success, error }) {
-    getRequest(`${host}/ChangeFixedStatus?account_id=${id}`, 
+function convertAccountToFixed({ id, success, error }) {
+    getRequest(`/ChangeFixedStatus?account_id=${id}`,
         () => { success() },
-        (err) => {error();})
+        (err) => { error(); })
 }
 
 
@@ -281,32 +290,32 @@ function convertAccountToFixed({id,  success, error }) {
 // get
 ////////////////////////////////
 function getCurrentCountry({ success, error }) {
-    putRequest(`${host}/Get-current-country`, success, error)
+    putRequest(`/Get-current-country`, success, error)
 }
 function getPhoneCode({ success, error, phone }) {
-    putRequest(`${host}/verifyPhone?phone_number=${phone}`, success, error)
+    putRequest(`/verifyPhone?phone_number=${phone}`, success, error)
 }
 
 
 // ///////////////////////////////////
 //  swr
-const userPersonalProfile = () => `${process.env.host}/get-user-basic-information?user_id=${process.env.userId}`
-const companyPersonalProfile = () => `${process.env.host}/get-company-basic-information?company_id=${process.env.userId}`
-const profileIdentCheck = () => `${process.env.host}/check-identityConfirmation-documents?user_id=${process.env.userId}`
-const profileAddressCheck = () => `${process.env.host}/check-AddressConfirmation-documents?user_id=${process.env.userId}`
-const profileFinancialInformation = () => `${process.env.host}/check-user-financial-profile-info?user_id=${process.env.userId}`
-const recordClosedDeals = (login) => `${process.env.host}/get-record-for-all-Deals?login=${login}&user_id=${process.env.userId}`
-const userDemoAccount = ({perPage,page}) => `${process.env.host}/getUserDemoAccounts-WithPagination?user_id=${process.env.userId}&perPage=${perPage}&page=${page}`
-const userDemoAccountWithoutPagination = () => `${process.env.host}/getUserDemoAccounts-WithOutPagination?user_id=${process.env.userId}`
-const userRealAccount = ({perPage,page}) => `${process.env.host}/getUserRealAccounts?user_id=${process.env.userId}&perPage=${perPage}&page=${page}`
-const userRealAccountWithoutPagination = () => `${process.env.host}/getUserRealAccounts-WithOutPagination?user_id=${process.env.userId}`
-const allAccountsTypes = () => `${process.env.host}/getAllAccountsTypes`
+const userPersonalProfile = () => `/get-user-basic-information?user_id=${userId}`
+const companyPersonalProfile = () => `/get-company-basic-information?company_id=${userId}`
+const profileIdentCheck = () => `/check-identityConfirmation-documents?user_id=${userId}`
+const profileAddressCheck = () => `/check-AddressConfirmation-documents?user_id=${userId}`
+const profileFinancialInformation = () => `/check-user-financial-profile-info?user_id=${userId}`
+const recordClosedDeals = (login) => `/get-record-for-all-Deals?login=${login}&user_id=${userId}`
+const userDemoAccount = ({ perPage, page }) => `/getUserDemoAccounts-WithPagination?user_id=${userId}&perPage=${perPage}&page=${page}`
+const userDemoAccountWithoutPagination = () => `/getUserDemoAccounts-WithOutPagination?user_id=${userId}`
+const userRealAccount = ({ perPage, page }) => `/getUserRealAccounts?user_id=${userId}&perPage=${perPage}&page=${page}`
+const userRealAccountWithoutPagination = () => `/getUserRealAccounts-WithOutPagination?user_id=${userId}`
+const allAccountsTypes = () => `/getAllAccountsTypes`
 // / /////////////////////////////
 
 // delete 
 function deleteDemoAccount({ login, success, error }) {
-    deleteRequest(`${host}/delete-account/${login}`,
-        () => { success();  },
+    deleteRequest(`/delete-account/${login}`,
+        () => { success(); },
         (err) => { error(); })
 }
 
@@ -314,6 +323,6 @@ export {
     register, login, forgetPasswordByEmail, forgetPasswordByPhone, returnPassword, getCurrentCountry, enterCodeNumber, getPhoneCode, createDemoAccount, profilePersonalProfileUserPersonly, profilePersonalProfileCompanyPersonly, userPersonalProfile, companyPersonalProfile,
     profilePersonalCompanyContactInformation, profilePersonalUserContactInformation,
     profilePersonalProfileUserHeadLines, profileBankAccount, profilePersonalProfileCompanyHeadLines, profilePersonalProfileChangePass,
-    profilePersonalIdentificationConfirmation, profileIdentCheck, profileAddressCheck, profileFinancialInformation, profilePersonalFinancialInformation, recordClosedDeals, userDemoAccount,userDemoAccountWithoutPagination, userRealAccount, allAccountsTypes, deleteDemoAccount,
-    changeRealAccountSetting,changeDemoAccountSetting ,createRealAccount,convertAccountToFixed,userRealAccountWithoutPagination
+    profilePersonalIdentificationConfirmation, profileIdentCheck, profileAddressCheck, profileFinancialInformation, profilePersonalFinancialInformation, recordClosedDeals, userDemoAccount, userDemoAccountWithoutPagination, userRealAccount, allAccountsTypes, deleteDemoAccount,
+    changeRealAccountSetting, changeDemoAccountSetting, createRealAccount, convertAccountToFixed, userRealAccountWithoutPagination
 }

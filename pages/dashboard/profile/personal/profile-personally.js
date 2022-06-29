@@ -11,7 +11,12 @@ import Head from 'next/head'
 
 export default function ProfilePersonly() {
   const { t, lang } = useTranslation("profile");
-  const role = "user"
+  const [role , setRole] = useState()
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setRole(localStorage.userType);
+    }
+  }, [role]);
   const [loadingButton, setLoadingButton] = useState(false)
   const [change, setChange] = useState(false)
   const onSubmitUser = (values) => {
@@ -42,8 +47,8 @@ export default function ProfilePersonly() {
     <ProfileContainer tab={"personal"} >
       <div className="w-[500px] mx-auto">
         {role === "user" ?
-          <Formik initialValues={data.user_info ? { user_id: process.env.userId, user_img: "", full_name: data.user_info.full_name, Birth_date: data.user_info.Birth_date, Birth_location: data.user_info.Birth_location } :
-            { user_id: process.env.userId, user_img: "", full_name: "", Birth_date: "", Birth_location: "" }} onSubmit={onSubmitUser} >
+          <Formik initialValues={data.user_info ? {  user_img: "", full_name: data.user_info.full_name, Birth_date: data.user_info.Birth_date, Birth_location: data.user_info.Birth_location } :
+            {  user_img: "", full_name: "", Birth_date: "", Birth_location: "" }} onSubmit={onSubmitUser} >
             {(props) => {
               props.dirty && setChange(true)
               return (
@@ -53,7 +58,7 @@ export default function ProfilePersonly() {
                     <Input name="full_name" type="text" placeholder={t('full_name')} />
                   </InputIcon>
                   <InputIcon icon={<Star1 className="text-primary" />}>
-                    <InputDate name="Birth_date" type="text" placeholder={t('date_of_birth')} defaultValue={data.user_info && new Date(data.user_info.Birth_date)} />
+                    <InputDate name="Birth_date" type="text" placeholder={t('date_of_birth')} defaultValue={(data.user_info && data.user_info.Birth_date) && new Date(data.user_info.Birth_date)} />
                   </InputIcon>
                   <InputIcon icon={<Location className="text-primary" />}>
                     <InputCity name="Birth_location" type="text" placeholder={t('christmas_state')} defaultValue={props.values.Birth_location} />
@@ -81,7 +86,7 @@ export default function ProfilePersonly() {
                   </InputIcon>
                   <SelectWIthHead name="representative_position" head={<MedalStar className="text-primary" />} options="representative_position" defaultValue={props.values.representative_position} />
                   <InputIcon icon={<Location className="text-primary" />}>
-                    <InputDate name="Created_date" type="text" placeholder={t('the_date_of_the_establishment_of_the_company')} defaultValue={data.company_info && new Date(data.company_info.Created_date)} />
+                    <InputDate name="Created_date" type="text" placeholder={t('the_date_of_the_establishment_of_the_company')} defaultValue={(data.company_info && data.company_info.Created_date) &&  new Date(data.company_info.Created_date)} />
                   </InputIcon>
                   <ButtonTheme color="primary" as="button" type="submit" size="md" block className="my-12 text-center xs:my-4" loading={loadingButton} disabled={!change}>
                     {t('save')}

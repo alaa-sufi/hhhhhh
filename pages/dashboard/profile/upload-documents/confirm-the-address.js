@@ -29,7 +29,6 @@ export default function ConfirmTheAddress() {
     , t("home_adress")
     , t("the_name_issued_by_the_document")
   ]
-  const role = "user"
 
   const onSubmit = (values) => {
     setLoadingButton(true);
@@ -51,7 +50,7 @@ export default function ConfirmTheAddress() {
         <title>{t("confirm_the_address")} | {t("common:website_name")}</title>
       </Head>
     <ProfileContainer tab={"uploadDocuments"}>
-      <Formik initialValues={{ user_id: role === "user" ? process.env.userId : process.env.company_id, first_document: "", second_document: "", document_type: chooseValue, type: "Address confirmation" }}
+      <Formik initialValues={{  first_document: "", second_document: "", document_type: chooseValue, type: "Address confirmation" }}
         onSubmit={onSubmit} >
         {(props) => {
           props.dirty && setChange(true)

@@ -49,14 +49,14 @@ export default function CardAccount({ type, data, handelFixed, handleDeleteDone 
                             <button onClick={() => setOpenMenu(false)} className="top-2 rtl:left-2 ltr:right-2 absolute">
                                 <Add className=" flex text-[#E30000] transform rotate-45 bg-white dark:bg-dark-white  rounded-xl" size="25 " />
                             </button>
-                            <Link href={`/dashboard/${type}/${id}/deposit`}>
+                            <Link href={`/dashboard/${type}/${id}/deposit?account=${id}`}>
                                 <a className="flex items-center gap-2 px-3 py-2 mb-1 cursor-pointer hover:bg-primary-200/10"><MoneyRecive className="w-5 text-black dark:text-white" size="25" />{t("deposit")}</a>
                             </Link>
                             {type === "real" && <li className="flex items-center gap-2 px-3 py-2 mb-1 cursor-pointer hover:bg-primary-200/10"> <MoneySend className="w-5 text-black dark:text-white" size="25" />{t("drag")}</li>}
                             <Link href={`/dashboard/record/closed-deals?login=${login}`}>
                                 <a className="flex items-center gap-2 px-3 py-2 mb-1 cursor-pointer hover:bg-primary-200/10"> <Refresh2 className="w-5 text-black dark:text-white" size="25" />{t("record")}</a>
                             </Link>
-                            <Link href={`/dashboard/${type}/${id}/account-information`}>
+                            <Link href={`/dashboard/${type}/${id}/account-information?account=${id}`}>
                                 <a className="flex items-center gap-2 px-3 py-2 mb-1 cursor-pointer hover:bg-primary-200/10"><Setting4 className="w-5 text-black dark:text-white" size="25" />{type === "real" ? t("account_information") : t("account_modification")}</a>
                             </Link>
                             {/* {type === "real" && <li className="flex items-center gap-2 px-3 py-2 mb-1 cursor-pointer hover:bg-primary-200/10"> <Lock1 className="w-5 text-black dark:text-white" size="25" />{t("change_password")}</li>} */}

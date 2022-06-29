@@ -7,6 +7,8 @@ import "swiper/css/effect-cards";
 import 'styles/globals.css'
 import { Toaster } from "react-hot-toast";
 import useSWR, { SWRConfig } from 'swr'
+import axios from "axios";
+axios.defaults.baseURL = process.env.host;
 
 import Router from 'next/router'
 import NProgress from 'nprogress'
@@ -34,7 +36,7 @@ function MyApp({ Component, pageProps }) {
         revalidateIfStale={false}
         refreshInterval={0}
           value={{
-            fetcher: (...args) => fetch(...args).then(res => res.json())
+            fetcher: url => axios.get(url).then(res => res.data)
           }}
         >
           <html lang={lang} dir={dir} />
@@ -62,7 +64,7 @@ function MyApp({ Component, pageProps }) {
         revalidateIfStale={false}
         refreshInterval={0}
         value={{
-          fetcher: (...args) => fetch(...args).then(res => res.json())
+          fetcher: url => axios.get(url).then(res => res.data)
         }}
       >
         <html lang={lang} dir={dir} />

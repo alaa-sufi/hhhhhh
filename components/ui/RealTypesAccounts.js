@@ -43,7 +43,7 @@ export default function RealTypesAccounts({ data, error, accountType, setAccount
 
                 </ul>
                 <div className={`relative`}>
-                    <input name="account_type" type="radio" value={plan.id} className="absolute top-0 right-0 w-full h-full opacity-0 peer" onChange={(event) => { setAccountType(event.target.value), setChange(change + 1) }} checked={+accountType === plan.id} />
+                    <input name="account_type" type="radio" value={+plan.type_id} className="absolute top-0 right-0 w-full h-full opacity-0 peer" onChange={(event) => { setAccountType(event.target.value), setChange(change + 1) }} checked={+accountType === +plan.type_id} />
                     <Correct size="15" className="absolute top-1/2 right-1/2 peer-checked:block hidden transform translate-x-1/2 -translate-y-1/2" />
                     <div className={`bg-secondary dark:bg-dark-secondary  py-3  rounded-xl flex items-center justify-center  border peer-checked:border-2 peer-checked:border-primary text-primary peer-checked:bg-primary  border-primary  `}>
                         {t("choose_the_account")}

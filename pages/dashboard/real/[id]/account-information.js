@@ -92,7 +92,7 @@ export default function AccountInformation() {
                 enableReinitialize
                 initialValues={
                   {
-                    user_id: process.env.userId,
+                    
                     leverage: currentAccount.leverage,
                     color: currentAccount.color,
                     account_id: currentId,
@@ -171,7 +171,7 @@ export default function AccountInformation() {
 
                   </ul>
                   <div className={`relative`}>
-                    <ButtonTheme color="primary" block size="md" as="link" href={`/dashboard/real/${currentAccount.id}/change-type-account`}>
+                    <ButtonTheme color="primary" block size="md" as="link" href={`/dashboard/real/${currentAccount.id}/change-type-account?account_type=${currentAccount.account_type}`}>
                       {t("change_the_account_type")}
                     </ButtonTheme>
                   </div >

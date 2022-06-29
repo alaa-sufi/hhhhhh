@@ -93,7 +93,7 @@ export default function AccountInformation() {
                 enableReinitialize
                 initialValues={
                   {
-                    user_id: process.env.userId,
+                  
                     leverage: currentAccount.leverage,
                     color: currentAccount.color,
                     account_id: currentId,

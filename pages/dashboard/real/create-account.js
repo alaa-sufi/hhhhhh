@@ -22,7 +22,7 @@ export default function CreateTrading() {
   const { t } = useTranslation("dashboard")
   const [startDeposit, setStartDeposit] = useState(false)
   const [data, setData] = useState({
-    user_id: process.env.userId,
+    
     leverage: "",
     password: "",
     currency:"",
